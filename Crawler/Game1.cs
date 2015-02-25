@@ -19,6 +19,7 @@ namespace Crawler
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Texture2D text;
         public Game1()
             : base()
         {
@@ -47,8 +48,7 @@ namespace Crawler
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            text = this.Content.Load<Texture2D>("tile");
         }
 
         /// <summary>
@@ -57,7 +57,6 @@ namespace Crawler
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -70,7 +69,6 @@ namespace Crawler
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -82,9 +80,9 @@ namespace Crawler
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            this.spriteBatch.Begin();
+            this.spriteBatch.Draw(this.text, new Rectangle(0, 0, 32, 32), new Rectangle(0, 32, 32, 32), Color.White);
+            this.spriteBatch.End();
             base.Draw(gameTime);
         }
     }
