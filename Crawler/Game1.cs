@@ -19,6 +19,7 @@ namespace Crawler
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private DrawableFromTileSet dts;
         private Texture2D text;
         public Game1()
             : base()
@@ -48,7 +49,9 @@ namespace Crawler
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            text = this.Content.Load<Texture2D>("tile");
+            dts = new DrawableFromTileSet(this, "tile", 10, 10, 32, 32);
+            this.Components.Add(dts);
+            this.dts.SetCursorTo(2);
         }
 
         /// <summary>
@@ -80,9 +83,6 @@ namespace Crawler
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            this.spriteBatch.Begin();
-            this.spriteBatch.Draw(this.text, new Rectangle(0, 0, 32, 32), new Rectangle(0, 32, 32, 32), Color.White);
-            this.spriteBatch.End();
             base.Draw(gameTime);
         }
     }
