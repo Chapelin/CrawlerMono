@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.ContentPipeline.targets" />
   <PropertyGroup>
-    <ProjectGuid>{28ADA340-3636-42BA-B777-EFE8D5AB1C6C}</ProjectGuid>
+    <ProjectGuid>{D1FCA542-FCF0-4069-BEB2-BDC5808774C6}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Windows</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -16,7 +16,7 @@
     <OutputPath>bin\$(Configuration)</OutputPath>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>1ab3623d-6645-44b8-95e3-56fe4c4c2d03</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>4acfc68f-476b-4557-8083-8137fd80d997</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -46,10 +46,9 @@
     <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrawlerContent\CrawlerContent.contentproj">
-      <Name>CrawlerContent</Name>
+    <ProjectReference Include="..\CrawlerCContent\CrawlerCContent.contentproj">
+      <Name>CrawlerCContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
-      <Project>{E3EE4DB6-136D-417D-9136-28E1C034E905}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
