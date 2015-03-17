@@ -35,8 +35,12 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Cell.cs" />
     <Compile Include="DrawableFromTileSet.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
