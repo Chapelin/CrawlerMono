@@ -29,6 +29,7 @@
             {
                 targetOffset.Y = 0;
             }
+            this.Offset = targetOffset;
 
         }
 

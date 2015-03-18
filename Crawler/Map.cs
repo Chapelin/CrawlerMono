@@ -101,6 +101,7 @@ namespace Crawler
             {
                 if (targetCellObject.IsWalkable)
                 {
+                    this.c.MoveCamera(targetCell - this.player.positionCell);
                     this.player.positionCell = targetCell;
                     timer = 30;
                 }
