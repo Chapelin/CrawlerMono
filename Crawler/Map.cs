@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler
 {
@@ -15,11 +13,11 @@ namespace Crawler
 
         private Player player;
 
-        private SpriteBatch sb; 
+        private int timer = 0;
 
-        public Map(Game game) : base(game)
+        public Map(Game game)
+            : base(game)
         {
-            this.sb = new SpriteBatch(game.GraphicsDevice);
             this.board = new List<Cell>();
         }
 
@@ -30,8 +28,8 @@ namespace Crawler
             {
                 for (int j = 0; j < 50; j++)
                 {
-                    var po = new Point(i, j);
-                    var c = new Cell(this.Game, po, i%50 != 0);
+                    var po = new Vector2(i, j);
+                    var c = new Cell(this.Game, po, i % 50 != 0);
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
@@ -40,15 +38,71 @@ namespace Crawler
 
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game,new Vector2(3,3));
+            this.player = new Player(this.Game, new Vector2(3, 3));
             this.Game.Components.Add(this.player);
         }
 
         public override void Update(GameTime gameTime)
         {
             var k = Keyboard.GetState();
+            if (timer > 0)
+            {
+                timer--;
+            }
+            if (k.GetPressedKeys().Any())
+            {
+                if (timer == 0)
+                    this.HandleKeyboardPlayerMovement(k);
+            }
 
             base.Update(gameTime);
+        }
+
+        private void HandleKeyboardPlayerMovement(KeyboardState k)
+        {
+            var targetCell = this.player.positionCell;
+            if (k.IsKeyDown(Keys.NumPad2))
+            {
+                targetCell.Y++;
+            }
+            if (k.IsKeyDown(Keys.NumPad4))
+            {
+                targetCell.X--;
+            }
+            if (k.IsKeyDown(Keys.NumPad8))
+            {
+                targetCell.Y--;
+            }
+            if (k.IsKeyDown(Keys.NumPad6))
+            {
+                targetCell.X++;
+            }
+            if (k.IsKeyDown(Keys.NumPad9))
+            {
+                targetCell += new Vector2(1, -1);
+            }
+            if (k.IsKeyDown(Keys.NumPad7))
+            {
+                targetCell += new Vector2(-1, -1);
+            }
+            if (k.IsKeyDown(Keys.NumPad1))
+            {
+                targetCell += new Vector2(-1, 1);
+            }
+            if (k.IsKeyDown(Keys.NumPad3))
+            {
+                targetCell += new Vector2(1, 1);
+            }
+
+            var targetCellObject = this.board.FirstOrDefault(x => x.positionCell == targetCell);
+            if (null != targetCellObject)
+            {
+                if (targetCellObject.IsWalkable)
+                {
+                    this.player.positionCell = targetCell;
+                    timer = 30;
+                }
+            }
         }
     }
 }
