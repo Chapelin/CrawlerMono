@@ -16,7 +16,9 @@ namespace Crawler
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public const int SpriteSize = 32;
+
+        public GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         private Map m;
@@ -28,6 +30,8 @@ namespace Crawler
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             this.IsMouseVisible = true;
+            this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
+            this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
         }
 
         /// <summary>

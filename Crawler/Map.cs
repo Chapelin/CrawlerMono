@@ -13,12 +13,14 @@ namespace Crawler
 
         private Player player;
 
+        private Camera c;
         private int timer = 0;
 
-        public Map(Game game)
+        public Map(Game1 game)
             : base(game)
         {
             this.board = new List<Cell>();
+            this.c = new Camera(game);
         }
 
 
@@ -29,7 +31,7 @@ namespace Crawler
                 for (int j = 0; j < 50; j++)
                 {
                     var po = new Vector2(i, j);
-                    var c = new Cell(this.Game, po, i % 50 != 0);
+                    var c = new Cell(this.Game, po, i % 50 != 0,this.c);
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
@@ -38,7 +40,7 @@ namespace Crawler
 
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game, new Vector2(3, 3));
+            this.player = new Player(this.Game, new Vector2(3, 3),this.c);
             this.Game.Components.Add(this.player);
         }
 

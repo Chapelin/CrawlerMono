@@ -11,12 +11,13 @@ namespace Crawler
     {
         public Vector2 positionCell { get; set; }
 
+        private Camera camera;
         private SpriteBatch sb;
         private Texture2D sprite;
 
         public bool IsWalkable { get; set; }
 
-        public Cell(Game game, Vector2 p, bool w)
+        public Cell(Game game, Vector2 p, bool w, Camera c)
             : base(game)
         {
             string sprite = "sprite\\";
@@ -25,13 +26,18 @@ namespace Crawler
             sprite += (this.IsWalkable ? "floor" : "wall");
             this.sprite = game.Content.Load<Texture2D>(sprite);
             this.sb = new SpriteBatch(game.GraphicsDevice);
+            this.camera = c;
         }
 
         public override void Draw(GameTime gameTime)
         {
-            this.sb.Begin();
-            this.sb.Draw(this.sprite,this.positionCell * 32, Color.White);
-            this.sb.End();
+            if (camera.IsOnCamera(this.positionCell))
+            {
+                this.sb.Begin();
+                this.sb.Draw(this.sprite, camera.GetPixelPosition(this.positionCell), Color.White);
+                this.sb.End();
+            }
+
             base.Draw(gameTime);
         }
     }
