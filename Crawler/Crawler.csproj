@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
-    <Compile Include="DrawableFromTileSet.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Map.cs" />

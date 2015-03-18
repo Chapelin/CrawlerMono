@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler
 {
+    using Microsoft.Xna.Framework.Input;
+
     public class Map : DrawableGameComponent
     {
         private List<Cell> board;
@@ -29,7 +31,7 @@ namespace Crawler
                 for (int j = 0; j < 50; j++)
                 {
                     var po = new Point(i, j);
-                    var c = new Cell(this.Game, po, i%50 == 0);
+                    var c = new Cell(this.Game, po, i%50 != 0);
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
@@ -38,9 +40,15 @@ namespace Crawler
 
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game,new Point(3,3));
+            this.player = new Player(this.Game,new Vector2(3,3));
+            this.Game.Components.Add(this.player);
         }
 
-      
+        public override void Update(GameTime gameTime)
+        {
+            var k = Keyboard.GetState();
+
+            base.Update(gameTime);
+        }
     }
 }

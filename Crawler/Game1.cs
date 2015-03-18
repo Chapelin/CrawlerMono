@@ -19,13 +19,15 @@ namespace Crawler
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private DrawableFromTileSet dts;
-        private Texture2D text;
+        private Map m;
+
         public Game1()
             : base()
         {
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -37,7 +39,10 @@ namespace Crawler
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.m = new Map(this);
+            this.Components.Add(m);
+            m.InitializeBoard();
+            m.InitializePlayer();
             base.Initialize();
         }
 
@@ -49,9 +54,6 @@ namespace Crawler
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            dts = new DrawableFromTileSet(this, "tile", 10, 10, 32, 32);
-            this.Components.Add(dts);
-            this.dts.SetCursorTo(2);
         }
 
         /// <summary>

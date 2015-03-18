@@ -7,15 +7,13 @@ namespace Crawler
     {
         private Texture2D sprite;
         private SpriteBatch sb;
-        public Point positionCell;
-        public Point CameraOffset;
-        public Player(Game game, Point positionCell)
+        public Vector2 positionCell;
+        public Player(Game game, Vector2 positionCell)
             : base(game)
         {
             this.sprite = game.Content.Load<Texture2D>("sprite//player");
             this.positionCell = positionCell;
             this.sb = new SpriteBatch(game.GraphicsDevice);
-            this.CameraOffset = new Point(0,0);
         }
 
 
@@ -30,9 +28,7 @@ namespace Crawler
 
         private Vector2 ProcessPixelPosition()
         {
-            var vec = Vector2.Zero;
-            vec.AddPoint(this.CameraOffset);
-            vec.AddPoint(this.positionCell);
+            var vec = this.positionCell;
             vec *= 32; //magic : sprite size
             return vec;
         }

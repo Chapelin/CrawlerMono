@@ -12,12 +12,5 @@ namespace Crawler
 
     }
 
-    public static class Vector2Extensions
-    {
-        public static void AddPoint(this Vector2 a, Point p)
-        {
-            a.X += p.X;
-            a.Y += p.Y;
-        }
-    }
+   
 }
