@@ -19,7 +19,9 @@ namespace Crawler
         public const int SpriteSize = 32;
 
         public GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+
+        private SpriteBatch sb;
+
 
         private Map m;
 
@@ -42,11 +44,13 @@ namespace Crawler
         /// </summary>
         protected override void Initialize()
         {
+            this.sb = new SpriteBatch(this.GraphicsDevice);
             // TODO: Add your initialization logic here
-            this.m = new Map(this);
+            this.m = new Map(this,sb);
             this.Components.Add(m);
             m.InitializeBoard();
             m.InitializePlayer();
+            m.InitializeItems();
             base.Initialize();
         }
 
@@ -57,7 +61,6 @@ namespace Crawler
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         /// <summary>
@@ -89,7 +92,9 @@ namespace Crawler
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+            this.sb.Begin();
             base.Draw(gameTime);
+            this.sb.End();
         }
     }
 }

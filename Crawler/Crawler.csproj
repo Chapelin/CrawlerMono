@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E887025D-66CA-4A36-9B37-E73B4DEF6DA1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Crawler</RootNamespace>
     <AssemblyName>Crawler</AssemblyName>
@@ -34,14 +34,19 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDrawableComponent.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Potion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler
 {
+    using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
 
     public class Map : DrawableGameComponent
@@ -14,15 +15,18 @@ namespace Crawler
         private Game1 Game;
         private Player player;
 
+
+        private SpriteBatch sb;
         private Camera c;
         private int timer = 0;
 
-        public Map(Game1 game)
+        public Map(Game1 game, SpriteBatch sb)
             : base(game)
         {
             this.board = new List<Cell>();
             this.c = new Camera(game);
             this.Game = game;
+            this.sb = sb;
         }
 
 
@@ -33,16 +37,29 @@ namespace Crawler
                 for (int j = 0; j < 50; j++)
                 {
                     var po = new Vector2(i, j);
-                    var c = new Cell(this.Game, po, i % 50 != 0, this.c);
+                    var c = new Cell(this.Game, po, i % 50 != 0, this.c, sb);
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
             }
         }
 
+        public void InitializeItems()
+        {
+
+            var p = new List<Item>()
+                        {
+                            new Potion(this.Game, new Vector2(5, 5), this.c, "sprite\\potion",this.sb), 
+                            new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion",this.sb), 
+                            new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb) 
+                        
+                        };
+            p.ForEach(x=> this.Game.Components.Add(x));
+        }
+
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game, new Vector2(3, 3), this.c);
+            this.player = new Player(this.Game, new Vector2(3, 3), this.c, this.sb);
             this.Game.Components.Add(this.player);
         }
 
@@ -113,6 +130,11 @@ namespace Crawler
                     timer = 30;
                 }
             }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            
         }
     }
 }

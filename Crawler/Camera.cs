@@ -6,7 +6,7 @@
     {
         // X/Y beginning
         public Vector2 Offset { get; set; }
-        public Vector2 Size { get; set; }
+        public Vector2 SizeOfView { get; set; }
 
         private Game1 g;
 
@@ -14,7 +14,7 @@
         {
             this.g = g;
             this.Offset = Vector2.Zero;
-            this.Size = new Vector2(g.graphics.PreferredBackBufferWidth / Game1.SpriteSize, g.graphics.PreferredBackBufferHeight / Game1.SpriteSize);
+            this.SizeOfView = new Vector2(g.graphics.PreferredBackBufferWidth / Game1.SpriteSize-10, g.graphics.PreferredBackBufferHeight / Game1.SpriteSize);
         }
 
         public void Move(Vector2 v)
@@ -27,8 +27,8 @@
 
         public bool IsOnCamera(Vector2 position)
         {
-            return !(position.X < Offset.X || position.Y < Offset.Y || position.X > Offset.X + Size.X
-                   || position.Y > Offset.Y + Size.Y);
+            return !(position.X < Offset.X || position.Y < Offset.Y || position.X > Offset.X + this.SizeOfView.X
+                   || position.Y > Offset.Y + this.SizeOfView.Y);
 
         }
 
@@ -42,7 +42,7 @@
 
         public void CenterOn(Vector2 position)
         {
-            this.Offset = position - this.Size / 2;
+            this.Offset = position - this.SizeOfView / 2;
         }
 
     }

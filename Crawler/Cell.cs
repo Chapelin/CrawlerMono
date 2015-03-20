@@ -11,8 +11,8 @@ namespace Crawler
     {
         public bool IsWalkable { get; set; }
 
-        public Cell(Game1 game, Vector2 p, bool w, Camera c)
-            : base(game,p,c)
+        public Cell(Game1 game, Vector2 p, bool w, Camera c, SpriteBatch sb)
+            : base(game,p,c, sb)
         {
             string sprite = "sprite\\";
             this.IsWalkable = w;
