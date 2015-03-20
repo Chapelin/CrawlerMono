@@ -11,6 +11,7 @@ namespace Crawler
     {
         private List<Cell> board;
 
+        private Game1 Game;
         private Player player;
 
         private Camera c;
@@ -21,6 +22,7 @@ namespace Crawler
         {
             this.board = new List<Cell>();
             this.c = new Camera(game);
+            this.Game = game;
         }
 
 
@@ -31,7 +33,7 @@ namespace Crawler
                 for (int j = 0; j < 50; j++)
                 {
                     var po = new Vector2(i, j);
-                    var c = new Cell(this.Game, po, i % 50 != 0,this.c);
+                    var c = new Cell(this.Game, po, i % 50 != 0, this.c);
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
@@ -40,7 +42,7 @@ namespace Crawler
 
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game, new Vector2(3, 3),this.c);
+            this.player = new Player(this.Game, new Vector2(3, 3), this.c);
             this.Game.Components.Add(this.player);
         }
 
@@ -55,6 +57,11 @@ namespace Crawler
             {
                 if (timer == 0)
                     this.HandleKeyboardPlayerMovement(k);
+
+                if (k.GetPressedKeys().Contains(Keys.Space))
+                {
+                    this.c.CenterOn(this.player.positionCell);
+                }
             }
 
             base.Update(gameTime);
@@ -101,7 +108,7 @@ namespace Crawler
             {
                 if (targetCellObject.IsWalkable)
                 {
-                    this.c.MoveCamera(targetCell - this.player.positionCell);
+                    this.c.Move(targetCell - this.player.positionCell);
                     this.player.positionCell = targetCell;
                     timer = 30;
                 }

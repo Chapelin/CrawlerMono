@@ -17,18 +17,10 @@
             this.Size = new Vector2(g.graphics.PreferredBackBufferWidth / Game1.SpriteSize, g.graphics.PreferredBackBufferHeight / Game1.SpriteSize);
         }
 
-        public void MoveCamera(Vector2 v)
+        public void Move(Vector2 v)
         {
             var targetOffset = this.Offset + v;
-            if (targetOffset.X < 0)
-            {
-                targetOffset.X = 0;
-            }
-
-            if (targetOffset.Y < 0)
-            {
-                targetOffset.Y = 0;
-            }
+            this.Offset = targetOffset;
             this.Offset = targetOffset;
 
         }
@@ -46,6 +38,11 @@
             vec += cellPosition;
             return vec * Game1.SpriteSize;
 
+        }
+
+        public void CenterOn(Vector2 position)
+        {
+            this.Offset = position - this.Size / 2;
         }
 
     }
