@@ -92,7 +92,7 @@ namespace Crawler
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            this.sb.Begin();
+            this.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
             this.sb.End();
         }

@@ -16,6 +16,7 @@ namespace Crawler
         {
             string sprite = "sprite\\";
             this.IsWalkable = w;
+            this.z = 1F;
             sprite += (this.IsWalkable ? "floor" : "wall");
             this.sprite = game.Content.Load<Texture2D>(sprite);
         }
