@@ -11,15 +11,22 @@ namespace Crawler
     {
         public bool IsWalkable { get; set; }
 
-        public Cell(Game1 game, Vector2 p, bool w, Camera c, SpriteBatch sb)
+        public Cell(Game1 game, Vector2 p,Camera c, SpriteBatch sb)
             : base(game,p,c, sb)
         {
-            string sprite = "sprite\\";
-            this.IsWalkable = w;
             this.z = 1F;
-            sprite += (this.IsWalkable ? "floor" : "wall");
-            this.sprite = game.Content.Load<Texture2D>(sprite);
         }
+
+        public void OnEnter(Player p)
+        {
+            
+        }
+
+        public void OnExit(Player p)
+        {
+            
+        }
+
 
     }
 }

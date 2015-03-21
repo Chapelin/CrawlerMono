@@ -37,7 +37,15 @@ namespace Crawler
                 for (int j = 0; j < 50; j++)
                 {
                     var po = new Vector2(i, j);
-                    var c = new Cell(this.Game, po, i % 50 != 0, this.c, sb);
+                    Cell c;
+                    if (i % 50 != 0)
+                    {
+                        c = new Floor(this.Game, po, this.c, sb);
+                    }
+                    else
+                    {
+                        c = new Wall(this.Game, po, this.c, sb);
+                    }
                     this.board.Add(c);
                     this.Game.Components.Add(c);
                 }
@@ -54,7 +62,7 @@ namespace Crawler
                             new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb) 
                         
                         };
-            p.ForEach(x=> this.Game.Components.Add(x));
+            p.ForEach(x => this.Game.Components.Add(x));
         }
 
         public void InitializePlayer()
@@ -125,16 +133,22 @@ namespace Crawler
             {
                 if (targetCellObject.IsWalkable)
                 {
-                    this.c.Move(targetCell - this.player.positionCell);
-                    this.player.positionCell = targetCell;
+                    MovePlayer(this.player, targetCell);
                     timer = 30;
                 }
             }
         }
 
-        public override void Draw(GameTime gameTime)
+        public void MovePlayer(Player p, Vector2 targetPosition)
         {
-            
+
+            this.c.Move(targetPosition - p.positionCell);
+
+            p.positionCell = targetPosition;
+            var targetCell = this.board.First(x => x.positionCell == targetPosition);
+
         }
+
     }
+
 }
