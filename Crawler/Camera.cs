@@ -1,4 +1,6 @@
-﻿namespace Crawler
+﻿using System;
+
+namespace Crawler
 {
     using Microsoft.Xna.Framework;
 
@@ -43,6 +45,7 @@
         public void CenterOn(Vector2 position)
         {
             this.Offset = position - this.SizeOfView / 2;
+            this.Offset = new Vector2((float)Math.Floor(this.Offset.X),(float)Math.Floor(this.Offset.Y));
         }
 
     }
