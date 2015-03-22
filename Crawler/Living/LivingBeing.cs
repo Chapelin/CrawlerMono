@@ -6,6 +6,7 @@ namespace Crawler.Living
 {
     public class LivingBeing : MapDrawableComponent
     {
+        public Statistics statistics;
 
         public List<Item.Item> Inventory; 
 

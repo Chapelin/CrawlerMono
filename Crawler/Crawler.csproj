@@ -46,6 +46,7 @@
     <Compile Include="Item\Item.cs" />
     <Compile Include="Living\Bat.cs" />
     <Compile Include="Living\LivingBeing.cs" />
+    <Compile Include="Living\Statistics.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDrawableComponent.cs" />
     <Compile Include="Living\Player.cs" />
@@ -53,6 +54,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cells\Wall.cs" />
+    <Compile Include="Scheduling\ScheduledLiving.cs" />
+    <Compile Include="Scheduling\Scheduler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
