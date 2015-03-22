@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler
 {
-    public class Player : MapDrawableComponent
+    public class Player : LivingBeing
     {
 
         public Player(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
