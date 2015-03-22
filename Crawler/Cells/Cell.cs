@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Crawler.Living;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Crawler
+namespace Crawler.Cells
 {
     public class Cell : MapDrawableComponent
     {
@@ -17,12 +14,12 @@ namespace Crawler
             this.z = 1F;
         }
 
-        public void OnEnter(Player p)
+        public void OnEnter(LivingBeing p)
         {
             
         }
 
-        public void OnExit(Player p)
+        public void OnExit(LivingBeing p)
         {
             
         }

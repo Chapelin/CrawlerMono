@@ -11,7 +11,7 @@ namespace Crawler
     /// <summary>
     /// The potion.
     /// </summary>
-    public class Potion : Item
+    public class Potion : Item.Item
     {
         public Potion(Game1 game, Vector2 positionCell, Camera c, string spriteName, SpriteBatch sb)
             : base(game, positionCell, c, sb)

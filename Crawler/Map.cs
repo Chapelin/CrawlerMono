@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using Crawler.Cells;
+using Crawler.Living;
 using Microsoft.Xna.Framework;
 
 namespace Crawler
@@ -55,7 +56,7 @@ namespace Crawler
         public void InitializeItems()
         {
 
-            var p = new List<Item>()
+            var p = new List<Item.Item>()
                         {
                             new Potion(this.Game, new Vector2(5, 5), this.c, "sprite\\potion",this.sb), 
                             new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion",this.sb), 
@@ -63,6 +64,12 @@ namespace Crawler
                         
                         };
             p.ForEach(x => this.Game.Components.Add(x));
+        }
+
+        public void InitializeEnnemis()
+        {
+            var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
+            this.Game.Components.Add(b);
         }
 
         public void InitializePlayer()

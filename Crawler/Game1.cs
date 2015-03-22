@@ -51,6 +51,7 @@ namespace Crawler
             m.InitializeBoard();
             m.InitializePlayer();
             m.InitializeItems();
+            m.InitializeEnnemis();
             base.Initialize();
         }
 

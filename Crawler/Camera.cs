@@ -16,7 +16,7 @@ namespace Crawler
         {
             this.g = g;
             this.Offset = Vector2.Zero;
-            this.SizeOfView = new Vector2(g.graphics.PreferredBackBufferWidth / Game1.SpriteSize-10, g.graphics.PreferredBackBufferHeight / Game1.SpriteSize);
+            this.SizeOfView = new Vector2(g.graphics.PreferredBackBufferWidth / Game1.SpriteSize, g.graphics.PreferredBackBufferHeight / Game1.SpriteSize);
         }
 
         public void Move(Vector2 v)

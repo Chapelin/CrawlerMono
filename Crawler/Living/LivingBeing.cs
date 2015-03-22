@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Crawler
+namespace Crawler.Living
 {
     public class LivingBeing : MapDrawableComponent
     {
 
-        public List<Item> Inventory; 
+        public List<Item.Item> Inventory; 
 
         public LivingBeing(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb) : base(game, positionCell, c, sb)
         {

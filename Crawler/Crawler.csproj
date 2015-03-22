@@ -44,10 +44,11 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Item\Item.cs" />
-    <Compile Include="LivingBeing\LivingBeing.cs" />
+    <Compile Include="Living\Bat.cs" />
+    <Compile Include="Living\LivingBeing.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDrawableComponent.cs" />
-    <Compile Include="LivingBeing\Player.cs" />
+    <Compile Include="Living\Player.cs" />
     <Compile Include="Item\Potion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
