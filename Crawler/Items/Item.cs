@@ -1,9 +1,10 @@
-﻿using Crawler.Living;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Crawler.Item
+﻿namespace Crawler.Items
 {
+    using Crawler.Living;
+
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Item : MapDrawableComponent
     {
         public Item(Game1 game, Vector2 positionCell, Camera c,SpriteBatch sb)

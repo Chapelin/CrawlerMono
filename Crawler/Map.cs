@@ -6,12 +6,16 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler
 {
+    using Crawler.Items;
+
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
 
     public class Map : DrawableGameComponent
     {
         private List<Cell> board;
+
+        private List<Item> itemsOnBoard;
 
         private Game1 Game;
         private Player player;
@@ -28,6 +32,7 @@ namespace Crawler
             this.c = new Camera(game);
             this.Game = game;
             this.sb = sb;
+            this.itemsOnBoard = new List<Item>();
         }
 
 
@@ -56,14 +61,11 @@ namespace Crawler
         public void InitializeItems()
         {
 
-            var p = new List<Item.Item>()
-                        {
-                            new Potion(this.Game, new Vector2(5, 5), this.c, "sprite\\potion",this.sb), 
-                            new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion",this.sb), 
-                            new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb) 
-                        
-                        };
-            p.ForEach(x => this.Game.Components.Add(x));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), this.c, "sprite\\potion", this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion", this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, "sprite\\potion", this.sb));
+            this.itemsOnBoard.ForEach(x => this.Game.Components.Add(x));
         }
 
         public void InitializeEnnemis()
@@ -138,7 +140,7 @@ namespace Crawler
             var targetCellObject = this.board.FirstOrDefault(x => x.positionCell == targetCell);
             if (null != targetCellObject)
             {
-                if (targetCellObject.IsWalkable)
+                if (targetCellObject.IsWalkable(this.player))
                 {
                     MovePlayer(this.player, targetCell);
                     timer = 30;
@@ -149,11 +151,18 @@ namespace Crawler
         public void MovePlayer(Player p, Vector2 targetPosition)
         {
 
+            var currentCell = this.board.First(x => x.positionCell == p.positionCell);
+            currentCell.OnExit(p);
             this.c.Move(targetPosition - p.positionCell);
-
             p.positionCell = targetPosition;
             var targetCell = this.board.First(x => x.positionCell == targetPosition);
+            targetCell.OnEnter(p);
 
+        }
+
+        public IEnumerable<Item> ItemOnCell(Vector2 targetPosition)
+        {
+            return this.itemsOnBoard.Where(x => x.positionCell == targetPosition);
         }
 
     }

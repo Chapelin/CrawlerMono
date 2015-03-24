@@ -6,7 +6,10 @@ namespace Crawler.Cells
 {
     public class Cell : MapDrawableComponent
     {
-        public bool IsWalkable { get; set; }
+        public virtual bool IsWalkable(LivingBeing lv)
+        {
+            return true;
+        }
 
         public Cell(Game1 game, Vector2 p,Camera c, SpriteBatch sb)
             : base(game,p,c, sb)
@@ -14,12 +17,12 @@ namespace Crawler.Cells
             this.z = 1F;
         }
 
-        public void OnEnter(LivingBeing p)
+        public virtual void OnEnter(LivingBeing p)
         {
             
         }
 
-        public void OnExit(LivingBeing p)
+        public virtual void OnExit(LivingBeing p)
         {
             
         }

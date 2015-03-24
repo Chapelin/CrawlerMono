@@ -4,11 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Living
 {
+    using Crawler.Items;
+
     public class LivingBeing : MapDrawableComponent
     {
         public Statistics statistics;
 
-        public List<Item.Item> Inventory; 
+        public List<Item> Inventory; 
 
         public LivingBeing(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb) : base(game, positionCell, c, sb)
         {
