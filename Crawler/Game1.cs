@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Crawler
 {
+    using Crawler.Scheduling;
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -45,7 +47,6 @@ namespace Crawler
         protected override void Initialize()
         {
             this.sb = new SpriteBatch(this.GraphicsDevice);
-            // TODO: Add your initialization logic here
             this.m = new Map(this,sb);
             this.Components.Add(m);
             m.InitializeBoard();

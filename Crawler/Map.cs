@@ -6,7 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler
 {
+    using System.Security.Cryptography.X509Certificates;
+
     using Crawler.Items;
+    using Crawler.Scheduling;
 
     using Microsoft.Xna.Framework.Graphics;
     using Microsoft.Xna.Framework.Input;
@@ -17,10 +20,13 @@ namespace Crawler
 
         private List<Item> itemsOnBoard;
 
+        private List<LivingBeing> livingOnMap;
         private Game1 Game;
         private Player player;
 
+        private Scheduler scheduler;
 
+        private List<LivingBeing> beingToPlay;
         private SpriteBatch sb;
         private Camera c;
         private int timer = 0;
@@ -28,11 +34,15 @@ namespace Crawler
         public Map(Game1 game, SpriteBatch sb)
             : base(game)
         {
+
             this.board = new List<Cell>();
             this.c = new Camera(game);
             this.Game = game;
             this.sb = sb;
             this.itemsOnBoard = new List<Item>();
+            this.livingOnMap = new List<LivingBeing>();
+            this.scheduler = new Scheduler();
+            this.beingToPlay = new List<LivingBeing>();
         }
 
 
@@ -71,34 +81,67 @@ namespace Crawler
         public void InitializeEnnemis()
         {
             var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
+            this.livingOnMap.Add(b);
+            this.scheduler.AddABeing(b);
             this.Game.Components.Add(b);
         }
 
         public void InitializePlayer()
         {
             this.player = new Player(this.Game, new Vector2(3, 3), this.c, this.sb);
+            this.livingOnMap.Add(player);
             this.Game.Components.Add(this.player);
+            this.scheduler.AddABeing(this.player);
         }
 
         public override void Update(GameTime gameTime)
         {
-            var k = Keyboard.GetState();
-            if (timer > 0)
+            // if list empty
+            if (!beingToPlay.Any())
             {
-                timer--;
+                beingToPlay = this.scheduler.NextPlaying().ToList();
+            }
+
+            //for each being to play
+            var automatedBeing = beingToPlay.Where(x => !x.IsUserControlled);
+            // we delete them from the list to play
+            
+            foreach (var livingBeing in automatedBeing)
+            {
+                // and we autoplay theù
+                livingBeing.AutoPlay();
+            }
+            beingToPlay.RemoveAll(x => !x.IsUserControlled);
+
+            // we handle only one user controller for now
+            // the Player
+            if (beingToPlay.Any(x => x.IsUserControlled))
+            {
+                this.HandleKeyboard();
+            }
+
+            base.Update(gameTime);
+        }
+
+        private void HandleKeyboard()
+        {
+            var k = Keyboard.GetState();
+            if (this.timer > 0)
+            {
+                this.timer--;
             }
             if (k.GetPressedKeys().Any())
             {
-                if (timer == 0)
+                if (this.timer == 0)
+                {
                     this.HandleKeyboardPlayerMovement(k);
+                }
 
                 if (k.GetPressedKeys().Contains(Keys.Space))
                 {
                     this.c.CenterOn(this.player.positionCell);
                 }
             }
-
-            base.Update(gameTime);
         }
 
         private void HandleKeyboardPlayerMovement(KeyboardState k)
@@ -157,6 +200,8 @@ namespace Crawler
             p.positionCell = targetPosition;
             var targetCell = this.board.First(x => x.positionCell == targetPosition);
             targetCell.OnEnter(p);
+            // we have played, so we remove it
+            this.beingToPlay.RemoveAt(0);
 
         }
 

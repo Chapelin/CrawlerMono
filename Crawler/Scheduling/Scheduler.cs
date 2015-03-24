@@ -27,31 +27,26 @@ namespace Crawler.Scheduling
             this.listOfBeing.Add(new BeingScheduled(b));
         }
 
-        public IEnumerable<LivingBeing> NextPlaying()
+        public List<LivingBeing> NextPlaying()
         {
-            while (true)
+            var listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+            if (!listPlayable.Any())
             {
                 this.CurrentTurn++;
                 this.TickList();
-                var listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
-                do
-                {
-                    foreach (var beingScheduled in listPlayable)
-                    {
-                        beingScheduled.TakeTurn(TURN_TREESHOLD);
-
-                        yield return beingScheduled.being;
-                    }
-
-                    listPlayable = this.GetListOfPlayable(listPlayable, TURN_TREESHOLD);
-                }
-                while (listPlayable.Any());
+                listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
             }
+            foreach (var beingScheduled in listPlayable)
+            {
+                beingScheduled.TakeTurn(TURN_TREESHOLD);
+            }
+            return listPlayable.Select(x => x.being).ToList();
+
         }
 
-        private IEnumerable<BeingScheduled> GetListOfPlayable(IEnumerable<BeingScheduled> listPlayable, int turnTreeshold)
+        private List<BeingScheduled> GetListOfPlayable(List<BeingScheduled> listPlayable, int turnTreeshold)
         {
-            return listPlayable.Where(x => x.Score >= turnTreeshold);
+            return listPlayable.Where(x => x.Score >= turnTreeshold).ToList();
         }
 
         public void TickList()

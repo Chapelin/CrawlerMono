@@ -11,6 +11,10 @@ namespace Crawler.Living
         {
             this.sprite = game.Content.Load<Texture2D>("sprite//player");
             this.z = 0F;
+            this.statistics = new Statistics();
+            this.statistics.Speed = 10;
+            this.IsUserControlled = true;
+            this.Name = "Player";
         }
 
     }
