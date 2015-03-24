@@ -54,7 +54,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cells\Wall.cs" />
-    <Compile Include="Scheduling\ScheduledLiving.cs" />
+    <Compile Include="Scheduling\BeingScheduled.cs" />
     <Compile Include="Scheduling\Scheduler.cs" />
   </ItemGroup>
   <ItemGroup>

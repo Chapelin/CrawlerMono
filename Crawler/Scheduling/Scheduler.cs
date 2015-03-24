@@ -1,33 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Crawler.Living;
+using System.Text;
 
 namespace Crawler.Scheduling
 {
+    using Crawler.Living;
+
     public class Scheduler
     {
-        public List<ScheduledLiving> targets { get; set; }
+        public int CurrentTurn { get; set; }
 
+        private List<BeingScheduled> listOfBeing;
 
+        public const int TURN_TREESHOLD = 10;
 
-
-        public void Add(LivingBeing lb)
+        public Scheduler()
         {
-            var sl = new ScheduledLiving(lb);
-            this.targets.Add(sl);
+            this.listOfBeing = new List<BeingScheduled>();
+            this.CurrentTurn = 0;
+
         }
 
-        public LivingBeing GetNextPlayer()
+        public void AddABeing(LivingBeing b)
         {
-            var lowerSpeed = targets.Min(x => x.Being.statistics.Speed);
-            var maxScore = targets.Max(y => y.Score);
-            var nextPlayer = targets.First(x => x.Score == maxScore);
-            nextPlayer.Tick(lowerSpeed);
-            if (!targets.Any(x => x.Score > 0))
+            this.listOfBeing.Add(new BeingScheduled(b));
+        }
+
+        public IEnumerable<LivingBeing> NextPlaying()
+        {
+            while (true)
             {
-                targets.ForEach(x=> x.ResetScore());
+                this.CurrentTurn++;
+                this.TickList();
+                var listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+                do
+                {
+                    foreach (var beingScheduled in listPlayable)
+                    {
+                        beingScheduled.TakeTurn(TURN_TREESHOLD);
+
+                        yield return beingScheduled.being;
+                    }
+
+                    listPlayable = this.GetListOfPlayable(listPlayable, TURN_TREESHOLD);
+                }
+                while (listPlayable.Any());
             }
-            return nextPlayer.Being;
         }
+
+        private IEnumerable<BeingScheduled> GetListOfPlayable(IEnumerable<BeingScheduled> listPlayable, int turnTreeshold)
+        {
+            return listPlayable.Where(x => x.Score >= turnTreeshold);
+        }
+
+        public void TickList()
+        {
+            this.listOfBeing.ForEach(x => x.Tick());
+        }
+
+
+
+
+
     }
 }
