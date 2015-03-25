@@ -21,12 +21,22 @@ namespace Crawler.Living
         public LivingBeing(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
-
+            this.Inventory = new List<Item>();
         }
 
         public virtual void AutoPlay()
         {
             Console.WriteLine("{0} Autoplayed", this.Name);
+        }
+
+        public void DumpInventory()
+        {
+            Console.WriteLine("{0} inventory :",this.Name);
+            foreach (var item in Inventory)
+            {
+                Console.WriteLine("\t {0}",item.Description);
+            }
+
         }
     }
 }

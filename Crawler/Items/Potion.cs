@@ -13,5 +13,13 @@
         {
             this.sprite = game.Content.Load<Texture2D>(spriteName);
         }
+
+        public override string Description
+        {
+            get
+            {
+                return "Potion beurk";
+            }
+        }
     }
 }

@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler
 {
+    using System;
+
     using Crawler.Items;
     using Crawler.Scheduling;
 
@@ -14,12 +16,12 @@ namespace Crawler
 
     public class Map : DrawableGameComponent
     {
-        private List<Cell> board;
+        private ListGameAware<Cell> board;
 
-        private List<Item> itemsOnBoard;
+        private ListGameAware<Item> itemsOnBoard;
 
-        private List<LivingBeing> livingOnMap;
-        private Game1 Game;
+        private ListGameAware<LivingBeing> livingOnMap;
+        private new Game1 Game;
 
         private Scheduler scheduler;
 
@@ -32,12 +34,12 @@ namespace Crawler
             : base(game)
         {
 
-            this.board = new List<Cell>();
+            this.board = new ListGameAware<Cell>(game);
             this.c = new Camera(game);
             this.Game = game;
             this.sb = sb;
-            this.itemsOnBoard = new List<Item>();
-            this.livingOnMap = new List<LivingBeing>();
+            this.itemsOnBoard = new ListGameAware<Item>(game);
+            this.livingOnMap = new ListGameAware<LivingBeing>(game);
             this.scheduler = new Scheduler();
             this.beingToPlay = new List<LivingBeing>();
         }
@@ -60,7 +62,7 @@ namespace Crawler
                         c = new Wall(this.Game, po, this.c, sb);
                     }
                     this.board.Add(c);
-                    this.Game.Components.Add(c);
+
                 }
             }
         }
@@ -72,16 +74,14 @@ namespace Crawler
             this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion", this.sb));
             this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb));
             this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, "sprite\\potion", this.sb));
-            this.itemsOnBoard.ForEach(x => this.Game.Components.Add(x));
         }
 
         public void InitializeEnnemis()
         {
             var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
-            b.IsUserControlled = true;
+            b.IsUserControlled = false;
             this.livingOnMap.Add(b);
             this.scheduler.AddABeing(b);
-            this.Game.Components.Add(b);
         }
 
         public void InitializePlayer()
@@ -89,7 +89,6 @@ namespace Crawler
             var human = new Human(this.Game, new Vector2(4, 4), this.c, this.sb);
             human.IsUserControlled = true;
             this.livingOnMap.Add(human);
-            this.Game.Components.Add(human);
             this.scheduler.AddABeing(human);
         }
 
@@ -135,13 +134,27 @@ namespace Crawler
                 if (this.timer == 0)
                 {
                     this.HandleKeyboardPlayerMovement(k, lb);
+
+                    if (k.GetPressedKeys().Contains(Keys.P))
+                    {
+                        Pickup(lb);
+                    }
                 }
 
                 if (k.GetPressedKeys().Contains(Keys.Space))
                 {
                     this.c.CenterOn(lb.positionCell);
                 }
+                
             }
+        }
+
+        private void Pickup(LivingBeing lb)
+        {
+            var listObject = this.itemsOnBoard.Where(x => x.positionCell == lb.positionCell);
+            lb.Inventory.AddRange(listObject);
+            this.itemsOnBoard.RemoveAll(x => listObject.Contains(x));
+            lb.DumpInventory();
         }
 
         private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)

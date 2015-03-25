@@ -12,24 +12,26 @@
         {
         }
 
-        public bool CanEquip(LivingBeing lb)
+        public virtual bool CanEquip(LivingBeing lb)
         {
             return true;
         }
 
-        public void Equip(LivingBeing lb)
+        public virtual void Equip(LivingBeing lb)
         {
             
         }
 
-        public bool CanUse(LivingBeing lb)
+        public virtual bool CanUse(LivingBeing lb)
         {
             return true;
         }
 
-        public void Use(LivingBeing lb)
+        public virtual void Use(LivingBeing lb)
         {
             
         }
+
+        public virtual string Description { get; set; }
     }
 }

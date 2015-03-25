@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Crawler.Scheduling
+﻿namespace Crawler.Scheduling
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Crawler.Living;
 
     public class Scheduler
@@ -19,7 +17,6 @@ namespace Crawler.Scheduling
         {
             this.listOfBeing = new List<BeingScheduled>();
             this.CurrentTurn = 0;
-
         }
 
         public void AddABeing(LivingBeing b)
@@ -29,12 +26,12 @@ namespace Crawler.Scheduling
 
         public List<LivingBeing> NextPlaying()
         {
-            var listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+            var listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
             if (!listPlayable.Any())
             {
                 this.CurrentTurn++;
                 this.TickList();
-                listPlayable = this.GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+                listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
             }
             foreach (var beingScheduled in listPlayable)
             {
