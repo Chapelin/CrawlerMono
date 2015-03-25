@@ -69,10 +69,12 @@
         public void InitializeItems()
         {
 
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), this.c, "sprite\\potion", this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), this.c, "sprite\\potion", this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), this.c, "sprite\\potion", this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, "sprite\\potion", this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), this.c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), this.c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), this.c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, this.sb));
+            this.itemsOnBoard.Add(new Rod(this.Game, new Vector2(5, 5), this.c, this.sb));
         }
 
         public void InitializeEnnemis()

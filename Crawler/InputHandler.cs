@@ -9,7 +9,6 @@ namespace Crawler
 
     public class InputHandler
     {
-        private Keys lastPressedKey;
 
         private int timer;
 

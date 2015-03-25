@@ -14,7 +14,7 @@
 
         public virtual bool CanEquip(LivingBeing lb)
         {
-            return true;
+            return false;
         }
 
         public virtual void Equip(LivingBeing lb)
