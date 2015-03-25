@@ -74,8 +74,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprite\player.png">
-      <Name>player</Name>
+    <Compile Include="sprite\human.png">
+      <Name>human</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

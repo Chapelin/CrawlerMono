@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler
 {
-    using System.Security.Cryptography.X509Certificates;
-
     using Crawler.Items;
     using Crawler.Scheduling;
 
@@ -22,7 +20,6 @@ namespace Crawler
 
         private List<LivingBeing> livingOnMap;
         private Game1 Game;
-        private Player player;
 
         private Scheduler scheduler;
 
@@ -81,6 +78,7 @@ namespace Crawler
         public void InitializeEnnemis()
         {
             var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
+            b.IsUserControlled = true;
             this.livingOnMap.Add(b);
             this.scheduler.AddABeing(b);
             this.Game.Components.Add(b);
@@ -88,10 +86,11 @@ namespace Crawler
 
         public void InitializePlayer()
         {
-            this.player = new Player(this.Game, new Vector2(3, 3), this.c, this.sb);
-            this.livingOnMap.Add(player);
-            this.Game.Components.Add(this.player);
-            this.scheduler.AddABeing(this.player);
+            var human = new Human(this.Game, new Vector2(4, 4), this.c, this.sb);
+            human.IsUserControlled = true;
+            this.livingOnMap.Add(human);
+            this.Game.Components.Add(human);
+            this.scheduler.AddABeing(human);
         }
 
         public override void Update(GameTime gameTime)
@@ -105,7 +104,7 @@ namespace Crawler
             //for each being to play
             var automatedBeing = beingToPlay.Where(x => !x.IsUserControlled);
             // we delete them from the list to play
-            
+
             foreach (var livingBeing in automatedBeing)
             {
                 // and we autoplay theù
@@ -117,13 +116,14 @@ namespace Crawler
             // the Player
             if (beingToPlay.Any(x => x.IsUserControlled))
             {
-                this.HandleKeyboard();
+                var being = beingToPlay.First();
+                this.HandleKeyboard(being);
             }
 
             base.Update(gameTime);
         }
 
-        private void HandleKeyboard()
+        private void HandleKeyboard(LivingBeing lb)
         {
             var k = Keyboard.GetState();
             if (this.timer > 0)
@@ -134,19 +134,19 @@ namespace Crawler
             {
                 if (this.timer == 0)
                 {
-                    this.HandleKeyboardPlayerMovement(k);
+                    this.HandleKeyboardPlayerMovement(k, lb);
                 }
 
                 if (k.GetPressedKeys().Contains(Keys.Space))
                 {
-                    this.c.CenterOn(this.player.positionCell);
+                    this.c.CenterOn(lb.positionCell);
                 }
             }
         }
 
-        private void HandleKeyboardPlayerMovement(KeyboardState k)
+        private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)
         {
-            var targetCell = this.player.positionCell;
+            var targetCell = lb.positionCell;
             if (k.IsKeyDown(Keys.NumPad2))
             {
                 targetCell.Y++;
@@ -179,19 +179,21 @@ namespace Crawler
             {
                 targetCell += new Vector2(1, 1);
             }
-
-            var targetCellObject = this.board.FirstOrDefault(x => x.positionCell == targetCell);
-            if (null != targetCellObject)
+            if (targetCell != lb.positionCell)
             {
-                if (targetCellObject.IsWalkable(this.player))
+                var targetCellObject = this.board.FirstOrDefault(x => x.positionCell == targetCell);
+                if (null != targetCellObject)
                 {
-                    MovePlayer(this.player, targetCell);
-                    timer = 30;
+                    if (targetCellObject.IsWalkable(lb))
+                    {
+                        this.MoveBeing(lb, targetCell);
+                        timer = 30;
+                    }
                 }
             }
         }
 
-        public void MovePlayer(Player p, Vector2 targetPosition)
+        public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
 
             var currentCell = this.board.First(x => x.positionCell == p.positionCell);
