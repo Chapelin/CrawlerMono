@@ -44,6 +44,17 @@ namespace Crawler
             }
         }
 
+        public void RemoveList(List<T> itemsToRemove)
+        {
+            base.RemoveAll(itemsToRemove.Contains);
+            foreach (var item in itemsToRemove)
+            {
+                this.Game.Components.Remove(item);
+
+            }
+
+        }
+
 
     }
 }

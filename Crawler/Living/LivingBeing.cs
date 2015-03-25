@@ -22,6 +22,7 @@ namespace Crawler.Living
             : base(game, positionCell, c, sb)
         {
             this.Inventory = new List<Item>();
+            this.IsUserControlled = false;
         }
 
         public virtual void AutoPlay()

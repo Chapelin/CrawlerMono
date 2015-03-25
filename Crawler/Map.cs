@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Crawler.Cells;
-using Crawler.Living;
-using Microsoft.Xna.Framework;
-
-namespace Crawler
+﻿namespace Crawler
 {
-    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
+    using Crawler.Cells;
     using Crawler.Items;
+    using Crawler.Living;
     using Crawler.Scheduling;
 
+    using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
-    using Microsoft.Xna.Framework.Input;
 
     public class Map : DrawableGameComponent
     {
@@ -30,6 +27,7 @@ namespace Crawler
         private Camera c;
         private int timer = 0;
 
+        private InputHandler hd;
         public Map(Game1 game, SpriteBatch sb)
             : base(game)
         {
@@ -42,6 +40,7 @@ namespace Crawler
             this.livingOnMap = new ListGameAware<LivingBeing>(game);
             this.scheduler = new Scheduler();
             this.beingToPlay = new List<LivingBeing>();
+            this.hd = new InputHandler(this.c, this);
         }
 
 
@@ -79,7 +78,6 @@ namespace Crawler
         public void InitializeEnnemis()
         {
             var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
-            b.IsUserControlled = false;
             this.livingOnMap.Add(b);
             this.scheduler.AddABeing(b);
         }
@@ -116,95 +114,12 @@ namespace Crawler
             if (beingToPlay.Any(x => x.IsUserControlled))
             {
                 var being = beingToPlay.First();
-                this.HandleKeyboard(being);
+                this.hd.HandleKeyboard(being);
             }
 
             base.Update(gameTime);
         }
 
-        private void HandleKeyboard(LivingBeing lb)
-        {
-            var k = Keyboard.GetState();
-            if (this.timer > 0)
-            {
-                this.timer--;
-            }
-            if (k.GetPressedKeys().Any())
-            {
-                if (this.timer == 0)
-                {
-                    this.HandleKeyboardPlayerMovement(k, lb);
-
-                    if (k.GetPressedKeys().Contains(Keys.P))
-                    {
-                        Pickup(lb);
-                    }
-                }
-
-                if (k.GetPressedKeys().Contains(Keys.Space))
-                {
-                    this.c.CenterOn(lb.positionCell);
-                }
-                
-            }
-        }
-
-        private void Pickup(LivingBeing lb)
-        {
-            var listObject = this.itemsOnBoard.Where(x => x.positionCell == lb.positionCell);
-            lb.Inventory.AddRange(listObject);
-            this.itemsOnBoard.RemoveAll(x => listObject.Contains(x));
-            lb.DumpInventory();
-        }
-
-        private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)
-        {
-            var targetCell = lb.positionCell;
-            if (k.IsKeyDown(Keys.NumPad2))
-            {
-                targetCell.Y++;
-            }
-            if (k.IsKeyDown(Keys.NumPad4))
-            {
-                targetCell.X--;
-            }
-            if (k.IsKeyDown(Keys.NumPad8))
-            {
-                targetCell.Y--;
-            }
-            if (k.IsKeyDown(Keys.NumPad6))
-            {
-                targetCell.X++;
-            }
-            if (k.IsKeyDown(Keys.NumPad9))
-            {
-                targetCell += new Vector2(1, -1);
-            }
-            if (k.IsKeyDown(Keys.NumPad7))
-            {
-                targetCell += new Vector2(-1, -1);
-            }
-            if (k.IsKeyDown(Keys.NumPad1))
-            {
-                targetCell += new Vector2(-1, 1);
-            }
-            if (k.IsKeyDown(Keys.NumPad3))
-            {
-                targetCell += new Vector2(1, 1);
-            }
-            if (targetCell != lb.positionCell)
-            {
-                var targetCellObject = this.board.FirstOrDefault(x => x.positionCell == targetCell);
-                if (null != targetCellObject)
-                {
-                    if (targetCellObject.IsWalkable(lb))
-                    {
-                        this.MoveBeing(lb, targetCell);
-                        timer = 30;
-                    }
-                }
-            }
-        }
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
@@ -220,9 +135,19 @@ namespace Crawler
 
         }
 
-        public IEnumerable<Item> ItemOnCell(Vector2 targetPosition)
+        public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
             return this.itemsOnBoard.Where(x => x.positionCell == targetPosition);
+        }
+
+        public Cell CellOnPosition(Vector2 targetposition)
+        {
+            return this.board.FirstOrDefault(x => x.positionCell == targetposition);
+        }
+
+        public void RemoveItem(List<Item> it)
+        {
+            this.itemsOnBoard.RemoveList(it);
         }
 
     }
