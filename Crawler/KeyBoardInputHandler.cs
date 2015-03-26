@@ -10,6 +10,7 @@
     public class KeyBoardInputHandler
     {
 
+        private int TimerResetValue = 30;
         private int timer;
 
         private Camera c;
@@ -18,11 +19,15 @@
 
         public KeyBoardInputHandler(Camera c, Map m)
         {
-            this.timer = 30;
+            this.ResetTimer();
             this.c = c;
             this.m = m;
         }
 
+        private void ResetTimer()
+        {
+            this.timer = this.TimerResetValue;
+        }
 
         public void HandleInput(LivingBeing lb)
         {
@@ -37,10 +42,7 @@
                 {
                     this.HandleKeyboardPlayerMovement(k, lb);
 
-                    if (k.GetPressedKeys().Contains(Keys.P))
-                    {
-                        this.m.Pickup(lb);
-                    }
+                    this.HandleKeyboardPlayerMenu(k, lb);
                 }
 
                 if (k.GetPressedKeys().Contains(Keys.Space))
@@ -51,7 +53,29 @@
             }
         }
 
-     
+        private void HandleKeyboardPlayerMenu(KeyboardState k, LivingBeing lb)
+        {
+            if (k.GetPressedKeys().Contains(Keys.P))
+            {
+                this.m.Pickup(lb);
+                this.ResetTimer();
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.I))
+            {
+               this.m.ShowInventory(lb);
+                this.ResetTimer();
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.D))
+            {
+                this.m.DropFirstObject(lb);
+                this.ResetTimer();
+
+            }
+
+        }
+
         private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)
         {
             var targetCell = lb.positionCell;
@@ -95,7 +119,7 @@
                     if (targetCellObject.IsWalkable(lb))
                     {
                         this.m.MoveBeing(lb, targetCell);
-                        this.timer = 30;
+                        this.ResetTimer();
                     }
                 }
             }

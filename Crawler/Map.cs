@@ -157,7 +157,22 @@
             var listObject = this.ItemOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
             this.RemoveItems(listObject);
-            lb.DumpInventory();
+        }
+
+        public void ShowInventory(LivingBeing lb)
+        {
+           lb.DumpInventory();
+        }
+
+        public void DropFirstObject(LivingBeing lb)
+        {
+            var itemToDrop = lb.Inventory.FirstOrDefault();
+            if (itemToDrop != null)
+            {
+                lb.Inventory.Remove(itemToDrop);
+                itemToDrop.positionCell = lb.positionCell;
+                this.itemsOnBoard.Add(itemToDrop);
+            }
         }
 
 
