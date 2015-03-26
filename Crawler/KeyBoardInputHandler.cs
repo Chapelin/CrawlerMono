@@ -1,13 +1,13 @@
-﻿using System.Linq;
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System.Linq;
+
     using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
 
-    public class InputHandler
+    public class KeyBoardInputHandler
     {
 
         private int timer;
@@ -16,7 +16,7 @@ namespace Crawler
 
         private Map m;
 
-        public InputHandler(Camera c, Map m)
+        public KeyBoardInputHandler(Camera c, Map m)
         {
             this.timer = 30;
             this.c = c;
@@ -24,7 +24,7 @@ namespace Crawler
         }
 
 
-        public void HandleKeyboard(LivingBeing lb)
+        public void HandleInput(LivingBeing lb)
         {
             var k = Keyboard.GetState();
             if (this.timer > 0)
@@ -39,7 +39,7 @@ namespace Crawler
 
                     if (k.GetPressedKeys().Contains(Keys.P))
                     {
-                        Pickup(lb);
+                        this.m.Pickup(lb);
                     }
                 }
 
@@ -51,14 +51,7 @@ namespace Crawler
             }
         }
 
-        private void Pickup(LivingBeing lb)
-        {
-            var listObject = this.m.ItemOnPosition(lb.positionCell).ToList();
-            lb.Inventory.AddRange(listObject);
-            this.m.RemoveItem(listObject);
-            lb.DumpInventory();
-        }
-
+     
         private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)
         {
             var targetCell = lb.positionCell;

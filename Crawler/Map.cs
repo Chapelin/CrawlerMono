@@ -27,7 +27,7 @@
         private Camera c;
         private int timer = 0;
 
-        private InputHandler hd;
+        private KeyBoardInputHandler hd;
         public Map(Game1 game, SpriteBatch sb)
             : base(game)
         {
@@ -40,7 +40,7 @@
             this.livingOnMap = new ListGameAware<LivingBeing>(game);
             this.scheduler = new Scheduler();
             this.beingToPlay = new List<LivingBeing>();
-            this.hd = new InputHandler(this.c, this);
+            this.hd = new KeyBoardInputHandler(this.c, this);
         }
 
 
@@ -116,7 +116,7 @@
             if (beingToPlay.Any(x => x.IsUserControlled))
             {
                 var being = beingToPlay.First();
-                this.hd.HandleKeyboard(being);
+                this.hd.HandleInput(being);
             }
 
             base.Update(gameTime);
@@ -147,10 +147,19 @@
             return this.board.FirstOrDefault(x => x.positionCell == targetposition);
         }
 
-        public void RemoveItem(List<Item> it)
+        public void RemoveItems(List<Item> it)
         {
             this.itemsOnBoard.RemoveList(it);
         }
+
+        public void Pickup(LivingBeing lb)
+        {
+            var listObject = this.ItemOnPosition(lb.positionCell).ToList();
+            lb.Inventory.AddRange(listObject);
+            this.RemoveItems(listObject);
+            lb.DumpInventory();
+        }
+
 
     }
 

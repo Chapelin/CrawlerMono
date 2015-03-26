@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System;
+    using System.Collections.Generic;
+
     using Microsoft.Xna.Framework;
 
     public class ListGameAware<T> : List<T> where T: GameComponent
