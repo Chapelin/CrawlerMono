@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Crawler.Living
+﻿namespace Crawler.Living
 {
     using System;
+    using System.Collections.Generic;
 
     using Crawler.Items;
 
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class LivingBeing : MapDrawableComponent
     {
+
+        public Guid uniqueIdentifier;
+
         public Statistics statistics;
 
         public bool IsUserControlled { get; set; }
@@ -23,6 +26,8 @@ namespace Crawler.Living
         {
             this.Inventory = new List<Item>();
             this.IsUserControlled = false;
+            this.uniqueIdentifier = Guid.NewGuid();
+            this.VisitedColor = Color.Transparent;
         }
 
         public virtual void AutoPlay()

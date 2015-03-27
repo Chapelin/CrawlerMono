@@ -10,6 +10,7 @@
             this.sprite = this.Game.Content.Load<Texture2D>("sprite\\bat");
             this.statistics = new Statistics();
             this.statistics.Speed = 10;
+            this.statistics.FOV = 2;
             this.IsUserControlled = false;
             this.Name = "Bat";
         }

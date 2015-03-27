@@ -9,5 +9,7 @@ namespace Crawler.Living
     {
 
         public int Speed;
+
+        public int FOV;
     }
 }

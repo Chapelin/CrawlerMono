@@ -18,6 +18,7 @@ namespace Crawler
             this.sprite = game.Content.Load<Texture2D>("sprite//human");
             this.z = 0F;
             this.statistics = new Statistics();
+            this.statistics.FOV = 5;
             this.statistics.Speed = 10;
             this.Name = "Human";
         }

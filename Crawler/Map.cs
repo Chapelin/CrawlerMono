@@ -1,6 +1,7 @@
 ﻿namespace Crawler
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
 
     using Crawler.Cells;
@@ -81,6 +82,7 @@
         {
             var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
             this.livingOnMap.Add(b);
+            b.IsUserControlled = false;
             this.scheduler.AddABeing(b);
         }
 
@@ -116,12 +118,64 @@
             if (beingToPlay.Any(x => x.IsUserControlled))
             {
                 var being = beingToPlay.First();
+
                 this.hd.HandleInput(being);
+                this.HandleVisibility(being);
             }
 
             base.Update(gameTime);
         }
 
+        private void HandleVisibility(LivingBeing being)
+        {
+            var posLb = being.positionCell;
+            var listCell = this.GetPositionAtDistanceMax(posLb, being.statistics.FOV);
+            this.HandleVisibilityOfList(being, listCell, this.board);
+            this.HandleVisibilityOfList(being, listCell, this.itemsOnBoard);
+            this.HandleVisibilityOfList(being, listCell, this.livingOnMap);
+
+        }
+
+        private void HandleVisibilityOfList<T>(LivingBeing being, List<Vector2> listCell, ListGameAware<T> listGameAware) where  T : MapDrawableComponent
+        {
+            foreach (var cell in listGameAware)
+            {
+                if (listCell.Contains(cell.positionCell))
+                {
+                    cell.SetColorToUse(Visibility.InView);
+                    if (!cell.SeenBy.Contains(being.uniqueIdentifier))
+                    {
+                        cell.SeenBy.Add(being.uniqueIdentifier);
+                    }
+                }
+                else
+                {
+                    if (cell.SeenBy.Contains(being.uniqueIdentifier))
+                    {
+                        cell.SetColorToUse(Visibility.Visited);
+                    }
+                    else
+                    {
+                        cell.SetColorToUse(Visibility.Unvisited);
+                    }
+                }
+            }
+        }
+
+        public List<Vector2> GetPositionAtDistanceMax(Vector2 begin, int distance)
+        {
+            var retour = new List<Vector2>();
+
+            for (var x = begin.X - distance; x <= begin.X + distance; x++)
+            {
+                for(var  y = begin.Y - distance; y<=begin.Y + distance; y++)
+                    retour.Add(new Vector2(x,y));
+            }
+
+            return retour;
+
+
+        }
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
@@ -161,7 +215,7 @@
 
         public void ShowInventory(LivingBeing lb)
         {
-           lb.DumpInventory();
+            lb.DumpInventory();
         }
 
         public void DropFirstObject(LivingBeing lb)
