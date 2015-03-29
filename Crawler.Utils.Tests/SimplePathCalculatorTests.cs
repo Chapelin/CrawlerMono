@@ -67,6 +67,19 @@ namespace Crawler.Utils.Tests
                 yield return new object[] { new Vector2(3, 3), Vector2.Zero, expectedPath };
             }
         }
+
+        public static IEnumerable<Object[]> Fuzzy
+        {
+            get
+            {
+                var expectedPath = new List<Vector2>();
+                expectedPath.Add(new Vector2(-1, 1));
+                expectedPath.Add(new Vector2(-1, 1));
+                expectedPath.Add(new Vector2(0, 1));
+                expectedPath.Add(new Vector2(0, 1));
+                yield return new object[] { new Vector2(7, -1), new Vector2(5,3), expectedPath };
+            }
+        }
             #endregion TestData
 
         [Fact]
@@ -88,6 +101,7 @@ namespace Crawler.Utils.Tests
         [MemberData("OneHigher")]
         [MemberData("FullLeft")]
         [MemberData("Diagonal")]
+        [MemberData("Fuzzy")]
         public void SimplePathCalculator_WhenCallingFindPath_ReturnsGoodValue(Vector2 start, Vector2 end,
             List<Vector2> expectedPAth)
         {
