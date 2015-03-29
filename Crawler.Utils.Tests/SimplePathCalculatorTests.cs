@@ -29,8 +29,48 @@ namespace Crawler.Utils.Tests
 
         #region FindPath
 
+        #region TestData
+
+        public static IEnumerable<Object[]> OneHigher
+        {
+            get
+            {
+                var expectedPath = new List<Vector2>();
+                expectedPath.Add(new Vector2(0,1));
+                yield return new object[] { Vector2.Zero, Vector2.UnitY, expectedPath };
+            }
+        }
+
+        public static IEnumerable<Object[]> FullLeft
+        {
+            get
+            {
+                var expectedPath = new List<Vector2>();
+                expectedPath.Add(new Vector2(-1, 0));
+                expectedPath.Add(new Vector2(-1, 0));
+                expectedPath.Add(new Vector2(-1, 0));
+                expectedPath.Add(new Vector2(-1, 0));
+                expectedPath.Add(new Vector2(-1, 0));
+                expectedPath.Add(new Vector2(-1, 0));
+                yield return new object[] { new Vector2(5,0), new Vector2(-1,0), expectedPath };
+            }
+        }
+
+        public static IEnumerable<Object[]> Diagonal
+        {
+            get
+            {
+                var expectedPath = new List<Vector2>();
+                expectedPath.Add(new Vector2(-1, -1));
+                expectedPath.Add(new Vector2(-1, -1));
+                expectedPath.Add(new Vector2(-1, -1));
+                yield return new object[] { new Vector2(3, 3), Vector2.Zero, expectedPath };
+            }
+        }
+            #endregion TestData
+
         [Fact]
-        public void SimplePathCalculator_WhenCallingFinPath_WithSameOriginAnTarget_ReturnEmptyList()
+        public void SimplePathCalculator_WhenCallingFindPath_WithSameOriginAnTarget_ReturnEmptyList()
         {
             // Actors
             var origin = new Vector2(5, 5);
@@ -41,6 +81,21 @@ namespace Crawler.Utils.Tests
             // Asserts
             Assert.NotNull(result);
             Assert.Empty(result);
+        }
+
+
+        [Theory]
+        [MemberData("OneHigher")]
+        [MemberData("FullLeft")]
+        [MemberData("Diagonal")]
+        public void SimplePathCalculator_WhenCallingFindPath_ReturnsGoodValue(Vector2 start, Vector2 end,
+            List<Vector2> expectedPAth)
+        {
+            var result = this.pathCalculator.FindPath(start, end);
+
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+            Assert.Equal(expectedPAth,result);
         }
 
         #endregion FindPath
