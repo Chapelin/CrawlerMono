@@ -18,5 +18,10 @@ namespace Crawler.Cells
         {
             return false;
         }
+
+        public override bool BlockVisibility(LivingBeing lb)
+        {
+            return true;
+        }
     }
 }

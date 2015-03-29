@@ -130,13 +130,16 @@
         {
             var posLb = being.positionCell;
             var listCell = this.GetPositionAtDistanceMax(posLb, being.statistics.FOV);
-            this.HandleVisibilityOfList(being, listCell, this.board);
-            this.HandleVisibilityOfList(being, listCell, this.itemsOnBoard);
-            this.HandleVisibilityOfList(being, listCell, this.livingOnMap);
+            var totalList = new List<MapDrawableComponent>();
+            totalList.AddRange(this.board);
+            totalList.AddRange(this.itemsOnBoard);
+            totalList.AddRange(this.livingOnMap);
+
+            this.HandleVisibilityOfList(being, listCell, totalList);
 
         }
 
-        private void HandleVisibilityOfList<T>(LivingBeing being, List<Vector2> listCell, ListGameAware<T> listGameAware) where  T : MapDrawableComponent
+        private void HandleVisibilityOfList<T>(LivingBeing being, List<Vector2> listCell, List<T> listGameAware) where  T : MapDrawableComponent
         {
             foreach (var cell in listGameAware)
             {

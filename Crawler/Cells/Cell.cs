@@ -11,6 +11,7 @@ namespace Crawler.Cells
     {
        
 
+
         public virtual bool IsWalkable(LivingBeing lv)
         {
             return true;
@@ -31,6 +32,11 @@ namespace Crawler.Cells
         public virtual void OnExit(LivingBeing p)
         {
 
+        }
+
+        public virtual bool BlockVisibility(LivingBeing lb)
+        {
+            return false;
         }
 
        
