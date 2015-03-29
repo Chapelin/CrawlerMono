@@ -1,4 +1,6 @@
-﻿namespace Crawler
+﻿using Crawler.Utils;
+
+namespace Crawler
 {
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -129,7 +131,7 @@
         private void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = this.GetPositionAtDistanceMax(posLb, being.statistics.FOV);
+            var listCell = this.GetPathsToDistanceMax(posLb, being.statistics.FOV);
             var totalList = new List<MapDrawableComponent>();
             totalList.AddRange(this.board);
             totalList.AddRange(this.itemsOnBoard);
@@ -139,42 +141,49 @@
 
         }
 
-        private void HandleVisibilityOfList<T>(LivingBeing being, List<Vector2> listCell, List<T> listGameAware) where  T : MapDrawableComponent
+        private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listCell, List<T> listGameAware) where  T : MapDrawableComponent
         {
-            foreach (var cell in listGameAware)
+            //reinit visibility
+            foreach (var element in listGameAware)
             {
-                if (listCell.Contains(cell.positionCell))
+                if (element.SeenBy.Contains(being.uniqueIdentifier))
                 {
-                    cell.SetColorToUse(Visibility.InView);
-                    if (!cell.SeenBy.Contains(being.uniqueIdentifier))
-                    {
-                        cell.SeenBy.Add(being.uniqueIdentifier);
-                    }
+                    element.SetColorToUse(Visibility.Visited);
                 }
-                else
+            }
+
+            //handle new visibility
+            var currentPos = being.positionCell;
+            foreach (var path in listCell)
+            {
+                currentPos = being.positionCell;
+                for (int i = 0; i < path.Count; i++)
                 {
-                    if (cell.SeenBy.Contains(being.uniqueIdentifier))
+                    currentPos += path[i];
+                    var listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
+                    var stop = false;
+                    foreach (var v in listAtPos)
                     {
-                        cell.SetColorToUse(Visibility.Visited);
+                        v.SetColorToUse(Visibility.InView);
+                        if (!v.SeenBy.Contains(being.uniqueIdentifier))
+                        {
+                            v.SeenBy.Add(being.uniqueIdentifier);
+                        }
+                        stop |= v.BlockVisibility(being);
                     }
-                    else
-                    {
-                        cell.SetColorToUse(Visibility.Unvisited);
-                    }
+                    if (stop)
+                        break;
+
                 }
             }
         }
 
-        public List<Vector2> GetPositionAtDistanceMax(Vector2 begin, int distance)
+        public List<List<Vector2>> GetPathsToDistanceMax(Vector2 begin, int distance)
         {
-            var retour = new List<Vector2>();
+            var retour = new List<List<Vector2>>();
+            var simplePathCalculator = new SimplePathCalculator();
 
-            for (var x = begin.X - distance; x <= begin.X + distance; x++)
-            {
-                for(var  y = begin.Y - distance; y<=begin.Y + distance; y++)
-                    retour.Add(new Vector2(x,y));
-            }
-
+         
             return retour;
 
 

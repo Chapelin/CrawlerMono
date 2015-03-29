@@ -1,4 +1,6 @@
-﻿namespace Crawler
+﻿using Crawler.Living;
+
+namespace Crawler
 {
     using System;
     using System.Collections.Generic;
@@ -62,6 +64,12 @@
             {
                 this.colorToUse = Color.White;
             }
+        }
+
+
+        public virtual bool BlockVisibility(LivingBeing lb)
+        {
+            return false;
         }
     }
 }

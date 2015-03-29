@@ -34,10 +34,6 @@ namespace Crawler.Cells
 
         }
 
-        public virtual bool BlockVisibility(LivingBeing lb)
-        {
-            return false;
-        }
 
        
 
