@@ -2,6 +2,7 @@
 
 namespace Crawler
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
@@ -49,6 +50,8 @@ namespace Crawler
 
         public void InitializeBoard()
         {
+            var rnd = new Random();
+                 
             for (int i = 0; i < 50; i++)
             {
                 for (int j = 0; j < 50; j++)
@@ -57,7 +60,14 @@ namespace Crawler
                     Cell c;
                     if (i % 50 != 0)
                     {
-                        c = new Floor(this.Game, po, this.c, sb);
+                        if (rnd.Next(100) == 50)
+                        {
+                            c = new Wall(this.Game, po, this.c, sb);
+                        }
+                        else
+                        {
+                            c = new Floor(this.Game, po, this.c, sb);
+                        }
                     }
                     else
                     {
@@ -141,7 +151,7 @@ namespace Crawler
 
         }
 
-        private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listCell, List<T> listGameAware) where  T : MapDrawableComponent
+        private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<T> listGameAware) where T : MapDrawableComponent
         {
             //reinit visibility
             foreach (var element in listGameAware)
@@ -150,17 +160,30 @@ namespace Crawler
                 {
                     element.SetColorToUse(Visibility.Visited);
                 }
+                else
+                {
+                    element.SetColorToUse(Visibility.Unvisited);
+                }
             }
 
             //handle new visibility
             var currentPos = being.positionCell;
-            foreach (var path in listCell)
+            var listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
+            foreach (var v in listAtPos)
+            {
+                v.SetColorToUse(Visibility.InView);
+                if (!v.SeenBy.Contains(being.uniqueIdentifier))
+                {
+                    v.SeenBy.Add(being.uniqueIdentifier);
+                }
+            }
+            foreach (var path in listPathOfVisibility)
             {
                 currentPos = being.positionCell;
                 for (int i = 0; i < path.Count; i++)
                 {
                     currentPos += path[i];
-                    var listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
+                    listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
                     var stop = false;
                     foreach (var v in listAtPos)
                     {
@@ -182,8 +205,46 @@ namespace Crawler
         {
             var retour = new List<List<Vector2>>();
             var simplePathCalculator = new SimplePathCalculator();
+            var current = new Vector2(begin.X - distance, begin.Y - distance);
+            do
+            {
+                retour.Add(simplePathCalculator.FindPath(begin, current));
+                current.X++;
 
-         
+            }
+            while (current.X != begin.X + distance);
+
+
+            do
+            {
+
+                retour.Add(simplePathCalculator.FindPath(begin, current));
+                current.Y++;
+
+            }
+            while (current.Y != begin.Y + distance);
+
+            do
+            {
+
+                retour.Add(simplePathCalculator.FindPath(begin, current));
+                current.X--;
+
+            }
+            while (current.X != begin.X - distance);
+
+            do
+            {
+
+                retour.Add(simplePathCalculator.FindPath(begin, current));
+                current.Y--;
+
+            }
+            while (current.Y != begin.Y - distance);
+
+            retour.Add(simplePathCalculator.FindPath(begin, current));
+
+
             return retour;
 
 
