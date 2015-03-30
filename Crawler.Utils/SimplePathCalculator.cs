@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler.Utils
 {
-    public class SimplePathCalculator
+    public class SimplePathCalculator : IPathCalculator
     {
         public List<Vector2> FindPath(Vector2 origin, Vector2 target)
         {

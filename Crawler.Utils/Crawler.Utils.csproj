@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicRayPathCalculator.cs" />
+    <Compile Include="IPathCalculator.cs" />
     <Compile Include="SimplePathCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
