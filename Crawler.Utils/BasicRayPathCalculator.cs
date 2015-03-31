@@ -11,68 +11,28 @@ namespace Crawler.Utils
         {
             var diffVector = target - origin;
             var path = new List<Vector2>();
-            //que du positif
 
-            // Y est plus rapide que X : SSW
-            if (Math.Abs(diffVector.Y) > Math.Abs(diffVector.X))
+            var isYGreater = Math.Abs(diffVector.Y) > Math.Abs(diffVector.X);
+            var currentPos = origin;
+            var totalError = 0F;
+            var deltaToApplyY = Math.Sign(diffVector.Y);
+            var deltaToApplyX = Math.Sign(diffVector.X);
+
+            var error = isYGreater ? Math.Abs(diffVector.X / diffVector.Y) : Math.Abs(diffVector.Y / diffVector.X);
+
+            while (currentPos != target)
             {
-                var currentPos = origin;
-                var totalError = 0F;
-                // diff X < diff  Y 
-                var error = Math.Abs(diffVector.X / diffVector.Y);
-                var deltaToApplyY = -1;
-                var deltaToApplyX = -1;
-                if (diffVector.Y > 0)
-                    deltaToApplyY = 1;
-                if (diffVector.X > 0)
-                    deltaToApplyX = 1;
-
-
-                while (currentPos != target)
+                int dep = 0;
+                totalError += error;
+                if (totalError >= 0.5)
                 {
-                    // on est sur Y
-                    int depX = 0;
-                    totalError += error;
-                    if (totalError >= 0.5)
-                    {
-                        totalError--;
-                        depX = deltaToApplyX;
-                    }
-                    var newDepl = new Vector2(depX, deltaToApplyY);
-                    currentPos += newDepl;
-                    path.Add(newDepl);
+                    totalError--;
+                    dep = isYGreater ? deltaToApplyX : deltaToApplyY;
                 }
+                var newDepl = isYGreater ? new Vector2(dep, deltaToApplyY) : new Vector2(deltaToApplyX, dep);
+                currentPos += newDepl;
+                path.Add(newDepl);
             }
-            else
-            {
-                var currentPos = origin;
-                var totalError = 0F;
-                // diff X < diff  Y 
-                var error = Math.Abs(diffVector.Y / diffVector.X);
-                var deltaToApplyY = -1;
-                var deltaToApplyX = -1;
-                if (diffVector.Y > 0)
-                    deltaToApplyY = 1;
-                if (diffVector.X > 0)
-                    deltaToApplyX = 1;
-
-                while (currentPos != target)
-                {
-                    // on est sur X
-                    int depY = 0;
-                    totalError += error;
-                    if (totalError >= 0.5)
-                    {
-                        totalError--;
-                        depY = deltaToApplyY;
-                    }
-                    var newDepl = new Vector2(deltaToApplyX, depY);
-                   
-                    currentPos += newDepl;
-                    path.Add(newDepl);
-                }
-            }
-
 
             return path;
 
