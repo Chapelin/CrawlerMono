@@ -21,6 +21,7 @@ namespace Crawler
             this.statistics.FOV = 5;
             this.statistics.Speed = 10;
             this.Name = "Human";
+            this.traits = Traits.Walking;
         }
     }
 }

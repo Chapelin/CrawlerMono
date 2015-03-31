@@ -130,7 +130,6 @@ namespace Crawler
             if (beingToPlay.Any(x => x.IsUserControlled))
             {
                 var being = beingToPlay.First();
-
                 this.hd.HandleInput(being);
                 this.HandleVisibility(being);
             }

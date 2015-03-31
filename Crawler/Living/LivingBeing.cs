@@ -13,6 +13,8 @@
 
         public Guid uniqueIdentifier;
 
+        public Traits traits { get; set; }
+
         public Statistics statistics;
 
         public bool IsUserControlled { get; set; }
