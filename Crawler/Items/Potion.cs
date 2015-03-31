@@ -8,7 +8,7 @@
     /// </summary>
     public class Potion : Item
     {
-        public Potion(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public Potion(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
             this.sprite = game.Content.Load<Texture2D>("sprite\\potion");

@@ -5,7 +5,7 @@
 
     public class Rod : Equipable
     {
-        public Rod(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public Rod(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
             this.sprite = game.Content.Load<Texture2D>("sprite\\rod");

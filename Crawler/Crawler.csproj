@@ -46,7 +46,7 @@
     <Compile Include="Cells\Cell.cs" />
     <Compile Include="Cells\Floor.cs" />
     <Compile Include="Cells\Water.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="KeyBoardInputHandler.cs" />
     <Compile Include="Items\Rod.cs" />

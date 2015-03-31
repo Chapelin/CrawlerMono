@@ -1,6 +1,10 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Crawler.Cells;
+using Crawler.Living;
+using Crawler.Scheduling;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,23 +15,26 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Crawler
 {
-    using Crawler.Scheduling;
 
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class GameEngine : Game
     {
         public const int SpriteSize = 32;
 
         public GraphicsDeviceManager graphics;
 
         private SpriteBatch sb;
-
+        private KeyBoardInputHandler hd;
 
         private Map m;
+        private Camera c;
+        private Scheduler scheduler;
+        private List<LivingBeing> beingToPlay;
 
-        public Game1()
+
+        public GameEngine()
             : base()
         {
 
@@ -36,6 +43,10 @@ namespace Crawler
             this.IsMouseVisible = true;
             this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
+            this.c = new Camera(this);
+            this.beingToPlay = new List<LivingBeing>();
+            this.scheduler = new Scheduler();
+
         }
 
         /// <summary>
@@ -47,13 +58,14 @@ namespace Crawler
         protected override void Initialize()
         {
             this.sb = new SpriteBatch(this.GraphicsDevice);
-            this.m = new Map(this,sb);
+            this.m = new Map(this, sb);
             this.Components.Add(m);
-            m.InitializeBoard();
-            m.InitializePlayer();
-            m.InitializeItems();
-            m.InitializeEnnemis();
+            m.InitializeBoard(c);
+            m.InitializePlayer(this.c, this.scheduler);
+            m.InitializeItems(this.c);
+            m.InitializeEnnemis(this.c, this.scheduler);
             base.Initialize();
+            this.hd = new KeyBoardInputHandler(this.c, this.m, this);
         }
 
         /// <summary>
@@ -73,19 +85,42 @@ namespace Crawler
         {
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            // if list empty
+            if (!beingToPlay.Any())
+            {
+                beingToPlay = this.scheduler.NextPlaying().ToList();
+            }
+
+            //for each being to play
+            var automatedBeing = beingToPlay.Where(x => !x.IsUserControlled);
+            // we delete them from the list to play
+
+            foreach (var livingBeing in automatedBeing)
+            {
+                // and we autoplay theù
+                livingBeing.AutoPlay();
+            }
+            beingToPlay.RemoveAll(x => !x.IsUserControlled);
+
+            // we handle only one user controller for now
+            // the Player
+            if (beingToPlay.Any(x => x.IsUserControlled))
+            {
+                var being = beingToPlay.First();
+                this.hd.HandleInput(being);
+                this.m.HandleVisibility(being);
+            }
 
             base.Update(gameTime);
         }
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -97,6 +132,20 @@ namespace Crawler
             this.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
             this.sb.End();
+        }
+
+        public void MoveBeing(LivingBeing p, Vector2 targetPosition)
+        {
+
+            var currentCell = this.m.board.First(x => x.positionCell == p.positionCell);
+            currentCell.OnExit(p);
+            this.c.Move(targetPosition - p.positionCell);
+            p.positionCell = targetPosition;
+            var targetCell = this.m.board.First(x => x.positionCell == targetPosition);
+            targetCell.OnEnter(p);
+            // we have played, so we remove it
+            this.beingToPlay.RemoveAt(0);
+
         }
     }
 }

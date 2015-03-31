@@ -2,7 +2,7 @@
 {
     using System.Linq;
 
-    using Crawler.Living;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
@@ -14,14 +14,16 @@
         private int timer;
 
         private Camera c;
+        private GameEngine Game;
 
         private Map m;
 
-        public KeyBoardInputHandler(Camera c, Map m)
+        public KeyBoardInputHandler(Camera c, Map m, GameEngine game)
         {
             this.ResetTimer();
             this.c = c;
             this.m = m;
+            this.Game = game;
         }
 
         private void ResetTimer()
@@ -118,7 +120,7 @@
                 {
                     if (targetCellObject.IsWalkable(lb))
                     {
-                        this.m.MoveBeing(lb, targetCell);
+                        this.Game.MoveBeing(lb, targetCell);
                         this.ResetTimer();
                     }
                 }

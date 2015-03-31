@@ -13,7 +13,7 @@ namespace Crawler.Cells
 
     public class Water : Cell
     {
-        public Water(Game1 game, Vector2 p, Camera c, SpriteBatch sb)
+        public Water(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
             : base(game, p, c, sb)
         {
         }

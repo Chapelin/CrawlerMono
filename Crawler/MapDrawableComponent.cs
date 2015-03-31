@@ -15,7 +15,7 @@ namespace Crawler
         protected Texture2D sprite;
 
         protected Camera camera;
-        protected new Game1 Game;
+        protected new GameEngine Game;
         protected SpriteBatch sb;
         public Vector2 positionCell;
 
@@ -28,7 +28,7 @@ namespace Crawler
 
         public List<Guid> SeenBy;
 
-        public MapDrawableComponent(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public MapDrawableComponent(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game)
         {
             this.positionCell = positionCell;

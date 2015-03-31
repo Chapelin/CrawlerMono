@@ -9,7 +9,7 @@
     public class Item : MapDrawableComponent
     {
 
-        public Item(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public Item(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
             this.VisitedColor = new Color(125, 125, 125);

@@ -7,8 +7,8 @@
 
     public class ListGameAware<T> : List<T> where T: GameComponent
     {
-        private Game1 Game;
-        public ListGameAware(Game1 g)
+        private GameEngine Game;
+        public ListGameAware(GameEngine g)
         {
             this.Game = g;
         }

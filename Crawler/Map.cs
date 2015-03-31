@@ -17,41 +17,39 @@ namespace Crawler
 
     public class Map : DrawableGameComponent
     {
-        private ListGameAware<Cell> board;
+        public ListGameAware<Cell> board;
 
         private ListGameAware<Item> itemsOnBoard;
 
         private ListGameAware<LivingBeing> livingOnMap;
-        private new Game1 Game;
+        private new GameEngine Game;
 
-        private Scheduler scheduler;
 
         private List<LivingBeing> beingToPlay;
         private SpriteBatch sb;
-        private Camera c;
         private int timer = 0;
 
-        private KeyBoardInputHandler hd;
-        public Map(Game1 game, SpriteBatch sb)
+       
+        public Map(GameEngine game, SpriteBatch sb)
             : base(game)
         {
 
             this.board = new ListGameAware<Cell>(game);
-            this.c = new Camera(game);
+            
             this.Game = game;
             this.sb = sb;
             this.itemsOnBoard = new ListGameAware<Item>(game);
             this.livingOnMap = new ListGameAware<LivingBeing>(game);
-            this.scheduler = new Scheduler();
-            this.beingToPlay = new List<LivingBeing>();
-            this.hd = new KeyBoardInputHandler(this.c, this);
+           
+           
+            
         }
 
 
-        public void InitializeBoard()
+        public void InitializeBoard(Camera cam)
         {
             var rnd = new Random();
-                 
+
             for (int i = 0; i < 50; i++)
             {
                 for (int j = 0; j < 50; j++)
@@ -62,16 +60,16 @@ namespace Crawler
                     {
                         if (rnd.Next(100) == 50)
                         {
-                            c = new Wall(this.Game, po, this.c, sb);
+                            c = new Wall(this.Game, po, cam, sb);
                         }
                         else
                         {
-                            c = new Floor(this.Game, po, this.c, sb);
+                            c = new Floor(this.Game, po, cam, sb);
                         }
                     }
                     else
                     {
-                        c = new Wall(this.Game, po, this.c, sb);
+                        c = new Wall(this.Game, po, cam, sb);
                     }
                     this.board.Add(c);
 
@@ -79,65 +77,35 @@ namespace Crawler
             }
         }
 
-        public void InitializeItems()
+        public void InitializeItems(Camera c)
         {
 
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), this.c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), this.c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), this.c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), this.c, this.sb));
-            this.itemsOnBoard.Add(new Rod(this.Game, new Vector2(5, 5), this.c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), c, this.sb));
+            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), c, this.sb));
+            this.itemsOnBoard.Add(new Rod(this.Game, new Vector2(5, 5), c, this.sb));
         }
 
-        public void InitializeEnnemis()
+        public void InitializeEnnemis(Camera c,Scheduler s)
         {
-            var b = new Bat(this.Game, new Vector2(1, 1), this.c, this.sb);
+            var b = new Bat(this.Game, new Vector2(1, 1), c, this.sb);
             this.livingOnMap.Add(b);
             b.IsUserControlled = false;
-            this.scheduler.AddABeing(b);
+            s.AddABeing(b);
         }
 
-        public void InitializePlayer()
+        public void InitializePlayer(Camera c, Scheduler s)
         {
-            var human = new Human(this.Game, new Vector2(4, 4), this.c, this.sb);
+            var human = new Human(this.Game, new Vector2(4, 4), c, this.sb);
             human.IsUserControlled = true;
             this.livingOnMap.Add(human);
-            this.scheduler.AddABeing(human);
+            s.AddABeing(human);
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            // if list empty
-            if (!beingToPlay.Any())
-            {
-                beingToPlay = this.scheduler.NextPlaying().ToList();
-            }
 
-            //for each being to play
-            var automatedBeing = beingToPlay.Where(x => !x.IsUserControlled);
-            // we delete them from the list to play
-
-            foreach (var livingBeing in automatedBeing)
-            {
-                // and we autoplay theù
-                livingBeing.AutoPlay();
-            }
-            beingToPlay.RemoveAll(x => !x.IsUserControlled);
-
-            // we handle only one user controller for now
-            // the Player
-            if (beingToPlay.Any(x => x.IsUserControlled))
-            {
-                var being = beingToPlay.First();
-                this.hd.HandleInput(being);
-                this.HandleVisibility(being);
-            }
-
-            base.Update(gameTime);
-        }
-
-        private void HandleVisibility(LivingBeing being)
+        internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
             var listCell = this.GetPathsToDistanceMax(posLb, being.statistics.FOV);
@@ -249,19 +217,7 @@ namespace Crawler
 
         }
 
-        public void MoveBeing(LivingBeing p, Vector2 targetPosition)
-        {
-
-            var currentCell = this.board.First(x => x.positionCell == p.positionCell);
-            currentCell.OnExit(p);
-            this.c.Move(targetPosition - p.positionCell);
-            p.positionCell = targetPosition;
-            var targetCell = this.board.First(x => x.positionCell == targetPosition);
-            targetCell.OnEnter(p);
-            // we have played, so we remove it
-            this.beingToPlay.RemoveAt(0);
-
-        }
+        
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {

@@ -12,7 +12,7 @@ namespace Crawler.Cells
             return true;
         }
 
-        public Floor(Game1 game, Vector2 p, Camera c, SpriteBatch sb)
+        public Floor(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
             : base(game, p, c, sb)
         {
             sprite = game.Content.Load<Texture2D>("sprite\\floor");
