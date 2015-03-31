@@ -49,10 +49,76 @@ namespace Crawler.Utils.Tests
             }
         }
 
+        public static IEnumerable<object[]> NNW1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(0, -1));
+                expected.Add(new Vector2(0, -1));
+                expected.Add(new Vector2(1, -1));
+                yield return new object[] { Vector2.Zero, new Vector2(1, -3), expected };
+            }
+        }
+
+        public static IEnumerable<object[]> NNE1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(0, -1));
+                expected.Add(new Vector2(0, -1));
+                expected.Add(new Vector2(-1, -1));
+                yield return new object[] { Vector2.Zero, new Vector2(-1, -3), expected };
+            }
+        }
+
+        public static IEnumerable<object[]> NEE1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(-1, 0));
+                expected.Add(new Vector2(-1, 0));
+                expected.Add(new Vector2(-1, -1));
+                yield return new object[] { Vector2.Zero, new Vector2(-3, -1), expected };
+            }
+        }
+
+
+        public static IEnumerable<object[]> SSE1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(0, 1));
+                expected.Add(new Vector2(0, 1));
+                expected.Add(new Vector2(-1, 1));
+                yield return new object[] { Vector2.Zero, new Vector2(-1, 3), expected };
+            }
+        }
+
+        public static IEnumerable<object[]> SEE1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(-1, 0));
+                expected.Add(new Vector2(-1, 0));
+                expected.Add(new Vector2(-1, 1));
+                yield return new object[] { Vector2.Zero, new Vector2(-3, 1), expected };
+            }
+        }
+
         [Theory]
         [MemberData("SSW1")]
         [MemberData("SWW1")]
         [MemberData("NWW1")]
+        [MemberData("NNW1")]
+        [MemberData("NNE1")]
+        [MemberData("NEE1")]
+        [MemberData("SSE1")]
+        [MemberData("SEE1")]
         public void BasicRayPathCalculator_WhenCallingGetPath_WithNormalData_checkReturnsGoodValue(Vector2 origin,
             Vector2 target, List<Vector2> expected)
         {
