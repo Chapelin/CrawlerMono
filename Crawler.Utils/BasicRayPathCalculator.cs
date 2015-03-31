@@ -32,13 +32,13 @@ namespace Crawler.Utils
                 {
                     // on est sur Y
                     int depX = 0;
+                    totalError += error;
                     if (totalError >= 0.5)
                     {
                         totalError--;
                         depX = deltaToApplyX;
                     }
                     var newDepl = new Vector2(depX, deltaToApplyY);
-                    totalError += error;
                     currentPos += newDepl;
                     path.Add(newDepl);
                 }

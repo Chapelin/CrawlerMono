@@ -15,6 +15,22 @@ namespace Crawler.Utils.Tests
 
         #region test values
 
+
+        public static IEnumerable<object[]> NNE2
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(-1, -1));
+                expected.Add(new Vector2(-1, -1));
+                expected.Add(new Vector2(0, -1));
+                expected.Add(new Vector2(-1, -1));
+                expected.Add(new Vector2(-1, -1));
+                yield return new object[] { new Vector2(4, 4), new Vector2(0, -1), expected };
+            }
+        }
+
+
         public static IEnumerable<object[]> S
         {
             get
@@ -117,8 +133,8 @@ namespace Crawler.Utils.Tests
             {
                 var expected = new List<Vector2>();
                 expected.Add(new Vector2(0, 1));
-                expected.Add(new Vector2(0, 1));
                 expected.Add(new Vector2(1, 1));
+                expected.Add(new Vector2(0, 1));
                 yield return new object[] { Vector2.Zero, new Vector2(1, 3), expected };
             }
         }
@@ -153,8 +169,8 @@ namespace Crawler.Utils.Tests
             {
                 var expected = new List<Vector2>();
                 expected.Add(new Vector2(0, -1));
-                expected.Add(new Vector2(0, -1));
                 expected.Add(new Vector2(1, -1));
+                expected.Add(new Vector2(0, -1));
                 yield return new object[] { Vector2.Zero, new Vector2(1, -3), expected };
             }
         }
@@ -165,8 +181,8 @@ namespace Crawler.Utils.Tests
             {
                 var expected = new List<Vector2>();
                 expected.Add(new Vector2(0, -1));
-                expected.Add(new Vector2(0, -1));
                 expected.Add(new Vector2(-1, -1));
+                expected.Add(new Vector2(0, -1));
                 yield return new object[] { Vector2.Zero, new Vector2(-1, -3), expected };
             }
         }
@@ -190,8 +206,8 @@ namespace Crawler.Utils.Tests
             {
                 var expected = new List<Vector2>();
                 expected.Add(new Vector2(0, 1));
-                expected.Add(new Vector2(0, 1));
                 expected.Add(new Vector2(-1, 1));
+                expected.Add(new Vector2(0, 1));
                 yield return new object[] { Vector2.Zero, new Vector2(-1, 3), expected };
             }
         }
@@ -216,6 +232,7 @@ namespace Crawler.Utils.Tests
         [MemberData("NNW1")]
         [MemberData("NNE1")]
         [MemberData("NEE1")]
+        [MemberData("NNE2")]
         [MemberData("SSE1")]
         [MemberData("SEE1")]
         [MemberData("SW")]
