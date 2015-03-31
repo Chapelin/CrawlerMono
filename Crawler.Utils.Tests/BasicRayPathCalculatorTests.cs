@@ -25,8 +25,34 @@ namespace Crawler.Utils.Tests
             }
         }
 
+        public static IEnumerable<object[]> SWW1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(1,0));
+                expected.Add(new Vector2(1, 0));
+                expected.Add(new Vector2(1, 1));
+                yield return new object[] { Vector2.Zero, new Vector2(3, 1), expected };
+            }
+        }
+
+        public static IEnumerable<object[]> NWW1
+        {
+            get
+            {
+                var expected = new List<Vector2>();
+                expected.Add(new Vector2(1, 0));
+                expected.Add(new Vector2(1, 0));
+                expected.Add(new Vector2(1, -1));
+                yield return new object[] { Vector2.Zero, new Vector2(3, -1), expected };
+            }
+        }
+
         [Theory]
         [MemberData("SSW1")]
+        [MemberData("SWW1")]
+        [MemberData("NWW1")]
         public void BasicRayPathCalculator_WhenCallingGetPath_WithNormalData_checkReturnsGoodValue(Vector2 origin,
             Vector2 target, List<Vector2> expected)
         {
