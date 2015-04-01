@@ -257,6 +257,21 @@ namespace Crawler
             }
         }
 
+        public bool TryMoveLivingBeing(LivingBeing lb, Vector2 position)
+        {
+            var retour = false;
+            var targetCellObject = this.CellOnPosition(position);
+            if (null != targetCellObject)
+            {
+                if (targetCellObject.IsWalkable(lb))
+                {
+                    this.Game.MoveBeing(lb, position);
+                    retour = true;
+                }
+            }
+            return retour;
+        }
+
 
     }
 

@@ -65,7 +65,7 @@ namespace Crawler
             m.InitializeItems(this.c);
             m.InitializeEnnemis(this.c, this.scheduler);
             base.Initialize();
-            this.hd = new KeyBoardInputHandler(this.c, this.m, this);
+            this.hd = new KeyBoardInputHandler(this.c, this.m);
         }
 
         /// <summary>

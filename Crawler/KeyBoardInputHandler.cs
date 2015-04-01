@@ -14,16 +14,14 @@
         private int timer;
 
         private Camera c;
-        private GameEngine Game;
 
         private Map m;
 
-        public KeyBoardInputHandler(Camera c, Map m, GameEngine game)
+        public KeyBoardInputHandler(Camera c, Map m)
         {
             this.ResetTimer();
             this.c = c;
             this.m = m;
-            this.Game = game;
         }
 
         private void ResetTimer()
@@ -115,14 +113,10 @@
             }
             if (targetCell != lb.positionCell)
             {
-                var targetCellObject = this.m.CellOnPosition(targetCell);
-                if (null != targetCellObject)
+                var res = this.m.TryMoveLivingBeing(lb, targetCell);
+                if (res)
                 {
-                    if (targetCellObject.IsWalkable(lb))
-                    {
-                        this.Game.MoveBeing(lb, targetCell);
-                        this.ResetTimer();
-                    }
+                    this.ResetTimer();
                 }
             }
         }
