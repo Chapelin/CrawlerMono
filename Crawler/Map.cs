@@ -4,14 +4,12 @@ namespace Crawler
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Crawler.Cells;
-    using Crawler.Items;
-    using Crawler.Living;
-    using Crawler.Scheduling;
+    using Cells;
+    using Items;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -25,20 +23,17 @@ namespace Crawler
         private ListGameAware<LivingBeing> livingOnMap;
         private new GameEngine Game;
 
-
-        private List<LivingBeing> beingToPlay;
         private SpriteBatch sb;
-
 
         public Map(GameEngine game, SpriteBatch sb)
             : base(game)
         {
 
-            this.Game = game;
+            Game = game;
             this.sb = sb;
-            this.itemsOnBoard = new ListGameAware<Item>(game);
-            this.livingOnMap = new ListGameAware<LivingBeing>(game);
-            this.board = new ListGameAware<Cell>(game);
+            itemsOnBoard = new ListGameAware<Item>(game);
+            livingOnMap = new ListGameAware<LivingBeing>(game);
+            board = new ListGameAware<Cell>(game);
         }
 
 
@@ -56,61 +51,61 @@ namespace Crawler
                     {
                         if (rnd.Next(100) == 50)
                         {
-                            c = new Wall(this.Game, po, cam, sb);
+                            c = new Wall(Game, po, cam, sb);
                         }
                         else
                         {
-                            c = new Floor(this.Game, po, cam, sb);
+                            c = new Floor(Game, po, cam, sb);
                         }
                     }
                     else
                     {
-                        c = new Wall(this.Game, po, cam, sb);
+                        c = new Wall(Game, po, cam, sb);
                     }
-                    this.board.Add(c);
-
+                    board.Add(c);
                 }
             }
         }
 
         public void InitializeItems(Camera c)
         {
-
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(5, 5), c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(10, 5), c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(7, 2), c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), c, this.sb));
-            this.itemsOnBoard.Add(new Potion(this.Game, new Vector2(4, 11), c, this.sb));
-            this.itemsOnBoard.Add(new Rod(this.Game, new Vector2(5, 5), c, this.sb));
+            var li = new List<Item>(){
+                new Potion(Game, new Vector2(5, 5), c, sb),
+                new Potion(Game, new Vector2(10, 5), c, sb),
+                new Potion(Game, new Vector2(7, 2), c, sb),
+                new Potion(Game, new Vector2(4, 11), c, sb),
+                new Potion(Game, new Vector2(4, 11), c, sb),
+                new Rod(Game, new Vector2(5, 5), c, sb)};
+            itemsOnBoard.AddRange(li);
         }
 
-        public void InitializeEnnemis(Camera c, Scheduler s)
+        public LivingBeing InitializeEnnemis(Camera c)
         {
-            var b = new Bat(this.Game, new Vector2(1, 1), c, this.sb);
-            this.livingOnMap.Add(b);
+            var b = new Bat(Game, new Vector2(1, 1), c, sb);
+            livingOnMap.Add(b);
             b.IsUserControlled = false;
-            s.AddABeing(b);
+            return b;
         }
 
-        public void InitializePlayer(Camera c, Scheduler s)
+        public LivingBeing InitializePlayer(Camera c)
         {
-            var human = new Human(this.Game, new Vector2(4, 4), c, this.sb);
+            var human = new Human(Game, new Vector2(4, 4), c, sb);
             human.IsUserControlled = true;
-            this.livingOnMap.Add(human);
-            s.AddABeing(human);
-        }
+            livingOnMap.Add(human);
+            return human;
 
+        }
 
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = this.GetPathsToDistanceMax(posLb, being.statistics.FOV);
+            var listCell = GetPathsToDistanceMax(posLb, being.statistics.FOV);
             var totalList = new List<MapDrawableComponent>();
-            totalList.AddRange(this.board);
-            totalList.AddRange(this.itemsOnBoard);
-            totalList.AddRange(this.livingOnMap);
+            totalList.AddRange(board);
+            totalList.AddRange(itemsOnBoard);
+            totalList.AddRange(livingOnMap);
 
-            this.HandleVisibilityOfList(being, listCell, totalList);
+            HandleVisibilityOfList(being, listCell, totalList);
 
         }
 
@@ -175,10 +170,8 @@ namespace Crawler
             {
                 retour.Add(pathCalculator.FindPath(begin, current));
                 current.X++;
-
             }
             while (current.X != begin.X + distance);
-
 
             do
             {
@@ -209,34 +202,31 @@ namespace Crawler
 
             retour.Add(pathCalculator.FindPath(begin, current));
 
-
             return retour;
-
-
         }
 
 
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
-            return this.itemsOnBoard.Where(x => x.positionCell == targetPosition);
+            return itemsOnBoard.Where(x => x.positionCell == targetPosition);
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return this.board.FirstOrDefault(x => x.positionCell == targetposition);
+            return board.FirstOrDefault(x => x.positionCell == targetposition);
         }
 
         public void RemoveItems(List<Item> it)
         {
-            this.itemsOnBoard.RemoveList(it);
+            itemsOnBoard.RemoveList(it);
         }
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = this.ItemOnPosition(lb.positionCell).ToList();
+            var listObject = ItemOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
-            this.RemoveItems(listObject);
+            RemoveItems(listObject);
         }
 
         public void ShowInventory(LivingBeing lb)
@@ -251,19 +241,19 @@ namespace Crawler
             {
                 lb.Inventory.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
-                this.itemsOnBoard.Add(itemToDrop);
+                itemsOnBoard.Add(itemToDrop);
             }
         }
 
         public bool TryMoveLivingBeing(LivingBeing lb, Vector2 position)
         {
             var retour = false;
-            var targetCellObject = this.CellOnPosition(position);
+            var targetCellObject = CellOnPosition(position);
             if (null != targetCellObject)
             {
                 if (targetCellObject.IsWalkable(lb))
                 {
-                    this.Game.MoveBeing(lb, position);
+                    Game.MoveBeing(lb, position);
                     retour = true;
                 }
             }

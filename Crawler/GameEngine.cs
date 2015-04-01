@@ -61,9 +61,9 @@ namespace Crawler
             this.m = new Map(this, sb);
             this.Components.Add(m);
             m.InitializeBoard(c);
-            m.InitializePlayer(this.c, this.scheduler);
+            this.scheduler.AddABeing(m.InitializePlayer(this.c));
             m.InitializeItems(this.c);
-            m.InitializeEnnemis(this.c, this.scheduler);
+            this.scheduler.AddABeing(m.InitializeEnnemis(this.c));
             base.Initialize();
             this.hd = new KeyBoardInputHandler(this.c, this.m);
         }
