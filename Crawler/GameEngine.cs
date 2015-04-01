@@ -31,7 +31,7 @@ namespace Crawler
         private Map m;
         private Camera c;
         private Scheduler scheduler;
-        private List<LivingBeing> beingToPlay;
+        private LivingBeing beingToPlay;
 
 
         public GameEngine()
@@ -44,7 +44,7 @@ namespace Crawler
             this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
             this.c = new Camera(this);
-            this.beingToPlay = new List<LivingBeing>();
+            this.beingToPlay = null;
             this.scheduler = new Scheduler();
 
         }
@@ -92,30 +92,23 @@ namespace Crawler
                 Exit();
 
             // if list empty
-            if (!beingToPlay.Any())
+            while (beingToPlay == null)
             {
-                beingToPlay = this.scheduler.NextPlaying().ToList();
+                beingToPlay = this.scheduler.CurrentPlaying();
+                if (!beingToPlay.IsUserControlled)
+                {
+                    beingToPlay.AutoPlay();
+                    this.scheduler.Played();
+                    beingToPlay = null;
+                }
             }
 
-            //for each being to play
-            var automatedBeing = beingToPlay.Where(x => !x.IsUserControlled);
-            // we delete them from the list to play
 
-            foreach (var livingBeing in automatedBeing)
-            {
-                // and we autoplay theù
-                livingBeing.AutoPlay();
-            }
-            beingToPlay.RemoveAll(x => !x.IsUserControlled);
-
-            // we handle only one user controller for now
-            // the Player
-            if (beingToPlay.Any(x => x.IsUserControlled))
-            {
-                var being = beingToPlay.First();
-                this.hd.HandleInput(being);
-                this.m.HandleVisibility(being);
-            }
+     
+              
+               
+                this.m.HandleVisibility(beingToPlay);
+                this.hd.HandleInput(beingToPlay);
 
             base.Update(gameTime);
         }
@@ -144,7 +137,8 @@ namespace Crawler
             var targetCell = this.m.board.First(x => x.positionCell == targetPosition);
             targetCell.OnEnter(p);
             // we have played, so we remove it
-            this.beingToPlay.RemoveAt(0);
+            this.scheduler.Played();
+            this.beingToPlay = null;
 
         }
     }

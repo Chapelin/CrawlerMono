@@ -13,10 +13,29 @@
 
         public const int TURN_TREESHOLD = 10;
 
+        private List<LivingBeing> playing;
+
+        public LivingBeing CurrentPlaying()
+        {
+            if (!playing.Any())
+            {
+                this.playing = NextPlaying();
+            }
+            return playing.First();
+
+        }
+
+        public void Played()
+        {
+            this.playing.RemoveAt(0);
+        }
+
+
         public Scheduler()
         {
             this.listOfBeing = new List<BeingScheduled>();
             this.CurrentTurn = 0;
+            this.playing = new List<LivingBeing>();
         }
 
         public void AddABeing(LivingBeing b)
@@ -24,7 +43,7 @@
             this.listOfBeing.Add(new BeingScheduled(b));
         }
 
-        public List<LivingBeing> NextPlaying()
+        protected List<LivingBeing> NextPlaying()
         {
             var listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
             if (!listPlayable.Any())
