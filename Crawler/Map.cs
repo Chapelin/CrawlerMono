@@ -6,6 +6,7 @@ namespace Crawler
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Crawler.Cells;
     using Crawler.Items;
@@ -27,22 +28,17 @@ namespace Crawler
 
         private List<LivingBeing> beingToPlay;
         private SpriteBatch sb;
-        private int timer = 0;
 
-       
+
         public Map(GameEngine game, SpriteBatch sb)
             : base(game)
         {
 
-            this.board = new ListGameAware<Cell>(game);
-            
             this.Game = game;
             this.sb = sb;
             this.itemsOnBoard = new ListGameAware<Item>(game);
             this.livingOnMap = new ListGameAware<LivingBeing>(game);
-           
-           
-            
+            this.board = new ListGameAware<Cell>(game);
         }
 
 
@@ -88,7 +84,7 @@ namespace Crawler
             this.itemsOnBoard.Add(new Rod(this.Game, new Vector2(5, 5), c, this.sb));
         }
 
-        public void InitializeEnnemis(Camera c,Scheduler s)
+        public void InitializeEnnemis(Camera c, Scheduler s)
         {
             var b = new Bat(this.Game, new Vector2(1, 1), c, this.sb);
             this.livingOnMap.Add(b);
@@ -121,21 +117,23 @@ namespace Crawler
         private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<T> listGameAware) where T : MapDrawableComponent
         {
             //reinit visibility
-            foreach (var element in listGameAware)
-            {
-                if (element.SeenBy.Contains(being.uniqueIdentifier))
+            Parallel.ForEach(
+                listGameAware,
+                element =>
                 {
-                    element.SetColorToUse(Visibility.Visited);
-                }
-                else
-                {
-                    element.SetColorToUse(Visibility.Unvisited);
-                }
-            }
+                    if (element.SeenBy.Contains(being.uniqueIdentifier))
+                    {
+                        element.SetColorToUse(Visibility.Visited);
+                    }
+                    else
+                    {
+                        element.SetColorToUse(Visibility.Unvisited);
+                    }
+                });
 
             //handle new visibility
-            var currentPos = being.positionCell;
-            var listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
+            var currentPosition = being.positionCell;
+            var listAtPos = listGameAware.Where(x => x.positionCell == currentPosition);
             foreach (var v in listAtPos)
             {
                 v.SetColorToUse(Visibility.InView);
@@ -144,12 +142,13 @@ namespace Crawler
                     v.SeenBy.Add(being.uniqueIdentifier);
                 }
             }
+
             foreach (var path in listPathOfVisibility)
             {
-                currentPos = being.positionCell;
-                for (int i = 0; i < path.Count; i++)
+                var currentPos = being.positionCell;
+                foreach (Vector2 t in path)
                 {
-                    currentPos += path[i];
+                    currentPos += t;
                     listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
                     var stop = false;
                     foreach (var v in listAtPos)
@@ -163,7 +162,6 @@ namespace Crawler
                     }
                     if (stop)
                         break;
-
                 }
             }
         }
@@ -217,7 +215,7 @@ namespace Crawler
 
         }
 
-        
+
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
