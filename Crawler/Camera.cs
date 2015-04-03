@@ -10,13 +10,24 @@ namespace Crawler
         public Vector2 Offset { get; set; }
         public Vector2 SizeOfView { get; set; }
 
-        private GameEngine g;
+        // offset in px in the window
+        public Vector2 CameraOffset
+        {
+            get; set;
+            
+        }
 
         public Camera(GameEngine g)
+            : this(new Vector2(g.graphics.PreferredBackBufferWidth / GameEngine.SpriteSize, g.graphics.PreferredBackBufferHeight / GameEngine.SpriteSize), Vector2.Zero)
         {
-            this.g = g;
+
+        }
+
+        public Camera(Vector2 SizeOfView, Vector2 cameraOffset)
+        {
             this.Offset = Vector2.Zero;
-            this.SizeOfView = new Vector2(g.graphics.PreferredBackBufferWidth / GameEngine.SpriteSize, g.graphics.PreferredBackBufferHeight / GameEngine.SpriteSize);
+            this.SizeOfView = SizeOfView;
+            this.CameraOffset = cameraOffset;
         }
 
         public void Move(Vector2 v)
@@ -38,14 +49,14 @@ namespace Crawler
         {
             var vec = -this.Offset;
             vec += cellPosition;
-            return vec * GameEngine.SpriteSize;
+            return vec * GameEngine.SpriteSize + this.CameraOffset;
 
         }
 
         public void CenterOn(Vector2 position)
         {
             this.Offset = position - this.SizeOfView / 2;
-            this.Offset = new Vector2((float)Math.Floor(this.Offset.X),(float)Math.Floor(this.Offset.Y));
+            this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
         }
 
     }
