@@ -17,7 +17,7 @@ namespace Crawler.Cells
             return true;
         }
 
-        public Cell(Game1 game, Vector2 p, Camera c, SpriteBatch sb)
+        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
             : base(game, p, c, sb)
         {
             this.z = 1F;

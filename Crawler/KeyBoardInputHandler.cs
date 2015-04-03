@@ -2,7 +2,7 @@
 {
     using System.Linq;
 
-    using Crawler.Living;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
@@ -113,14 +113,10 @@
             }
             if (targetCell != lb.positionCell)
             {
-                var targetCellObject = this.m.CellOnPosition(targetCell);
-                if (null != targetCellObject)
+                var res = this.m.TryMoveLivingBeing(lb, targetCell);
+                if (res)
                 {
-                    if (targetCellObject.IsWalkable(lb))
-                    {
-                        this.m.MoveBeing(lb, targetCell);
-                        this.ResetTimer();
-                    }
+                    this.ResetTimer();
                 }
             }
         }

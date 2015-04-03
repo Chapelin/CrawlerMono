@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using Crawler.Items;
+    using Items;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +23,7 @@
 
         public String Name { get; set; }
 
-        public LivingBeing(Game1 game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
             this.Inventory = new List<Item>();

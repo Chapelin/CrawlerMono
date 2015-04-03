@@ -7,7 +7,7 @@ namespace Crawler.Cells
 
     public class Wall : Cell
     {
-        public Wall(Game1 game, Vector2 p, Camera c, SpriteBatch sb)
+        public Wall(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
             : base(game, p, c, sb)
         {
             
