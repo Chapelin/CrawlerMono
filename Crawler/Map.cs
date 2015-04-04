@@ -24,12 +24,14 @@ namespace Crawler
         private new GameEngine Game;
 
         private SpriteBatch sb;
+        private ILogPrinter log;
 
-        public Map(GameEngine game, SpriteBatch sb)
+        public Map(GameEngine game, SpriteBatch sb, ILogPrinter lp)
             : base(game)
         {
 
             Game = game;
+            this.log = lp;
             this.sb = sb;
             itemsOnBoard = new ListGameAware<Item>(game);
             livingOnMap = new ListGameAware<LivingBeing>(game);
@@ -81,7 +83,7 @@ namespace Crawler
 
         public LivingBeing InitializeEnnemis(Camera c)
         {
-            var b = new Bat(Game, new Vector2(1, 1), c, sb);
+            var b = new Bat(Game, new Vector2(1, 1), c, sb,this.log);
             livingOnMap.Add(b);
             b.IsUserControlled = false;
             return b;

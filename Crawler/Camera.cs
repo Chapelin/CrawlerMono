@@ -6,6 +6,7 @@ namespace Crawler
 
     public class Camera
     {
+        private ILogPrinter log;
         // X/Y beginning
         public Vector2 Offset { get; set; }
         public Vector2 SizeOfView { get; set; }
@@ -17,23 +18,17 @@ namespace Crawler
             
         }
 
-        public Camera(GameEngine g)
-            : this(new Vector2(g.graphics.PreferredBackBufferWidth / GameEngine.SpriteSize, g.graphics.PreferredBackBufferHeight / GameEngine.SpriteSize), Vector2.Zero)
-        {
-
-        }
-
-        public Camera(Vector2 SizeOfView, Vector2 cameraOffset)
+        public Camera(Vector2 SizeOfView, Vector2 cameraOffset, ILogPrinter log)
         {
             this.Offset = Vector2.Zero;
             this.SizeOfView = SizeOfView;
             this.CameraOffset = cameraOffset;
+            this.log = log;
         }
 
         public void Move(Vector2 v)
         {
             var targetOffset = this.Offset + v;
-            this.Offset = targetOffset;
             this.Offset = targetOffset;
 
         }
