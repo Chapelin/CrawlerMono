@@ -43,7 +43,7 @@ namespace Crawler
             this.IsMouseVisible = true;
             this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
-            this.c = new Camera(new Vector2(18, 13), new Vector2(0, 50));
+            this.c = new Camera(new Vector2(15, 13), new Vector2(0, 50));
             this.beingToPlay = null;
             this.scheduler = new Scheduler();
 
