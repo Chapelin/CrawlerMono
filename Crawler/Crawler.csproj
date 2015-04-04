@@ -48,6 +48,7 @@
     <Compile Include="Cells\Water.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="UI\ILogPrinter.cs" />
     <Compile Include="KeyBoardInputHandler.cs" />
     <Compile Include="Items\Rod.cs" />
     <Compile Include="Items\Equipable.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Living\LivingBeing.cs" />
     <Compile Include="Living\Statistics.cs" />
     <Compile Include="Living\Traits.cs" />
+    <Compile Include="UI\BasicLogPrinter.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapDrawableComponent.cs" />
     <Compile Include="Items\Potion.cs" />

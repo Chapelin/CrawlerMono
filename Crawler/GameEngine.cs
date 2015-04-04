@@ -32,7 +32,7 @@ namespace Crawler
         private Camera c;
         private Scheduler scheduler;
         private LivingBeing beingToPlay;
-
+        private BasicLogPrinter blp;
 
         public GameEngine()
             : base()
@@ -46,6 +46,7 @@ namespace Crawler
             this.c = new Camera(new Vector2(15, 13), new Vector2(0, 50));
             this.beingToPlay = null;
             this.scheduler = new Scheduler();
+          
 
         }
 
@@ -58,6 +59,10 @@ namespace Crawler
         protected override void Initialize()
         {
             this.sb = new SpriteBatch(this.GraphicsDevice);
+              this.blp = new BasicLogPrinter(this, this.sb);
+            this.blp.PositionPixel = new Vector2(517,420);
+            this.Components.Add(blp);
+            
             this.m = new Map(this, sb);
             this.Components.Add(m);
             m.InitializeBoard(c);
