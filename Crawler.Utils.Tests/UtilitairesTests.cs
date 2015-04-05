@@ -42,8 +42,7 @@ namespace Crawler.Utils.Tests
                  new Vector2(-1, 2),
                 new Vector2(-1, 3),
                 new Vector2(-1, 4),
-                new Vector2(-1, 5),
-                new Vector2(-1, 6),
+                new Vector2(-1, 5)
             };
             yield return new object[] { rect, expected };
         }

@@ -14,25 +14,25 @@ namespace Crawler.Utils
         {
             var result = new List<Vector2>();
             var current = new Vector2(r.X, r.Y);
-            for (int x = 0; x < r.Right-r.Left; x++)
+            for (int x = 0; x < r.Width; x++)
             {
                 current.X++;
                 result.Add(current);
             }
 
-            for (int y = 0; y < r.Bottom - r.Height; y++)
+            for (int y = 0; y < r.Height; y++)
             {
                 current.Y++;
                 result.Add(current);
             }
 
-            for (int x = 0; x < r.Right-r.Left; x++)
+            for (int x = 0; x < r.Width; x++)
             {
                 current.X--;
                 result.Add(current);
             }
 
-            for (int y = 0; y < r.Bottom - r.Height; y++)
+            for (int y = 0; y < r.Height; y++)
             {
                 current.Y--;
                 result.Add(current);
