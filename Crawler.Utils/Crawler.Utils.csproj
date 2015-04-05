@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapGenerator\BasicMapGenerator.cs" />
+    <Compile Include="MapGenerator\Room.cs" />
     <Compile Include="PathCalculator\BasicRayPathCalculator.cs" />
     <Compile Include="PathCalculator\IPathCalculator.cs" />
     <Compile Include="PathCalculator\SimplePathCalculator.cs" />
@@ -48,7 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Random\Rand.cs" />
     <Compile Include="Random\RandomManager.cs" />
+    <Compile Include="Utilitaires.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
