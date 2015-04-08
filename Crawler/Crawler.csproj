@@ -48,6 +48,8 @@
     <Compile Include="Cells\Water.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="MapGenerator\BasicMapGenerator.cs" />
+    <Compile Include="MapGenerator\Room.cs" />
     <Compile Include="UI\ILogPrinter.cs" />
     <Compile Include="KeyBoardInputHandler.cs" />
     <Compile Include="Items\Rod.cs" />

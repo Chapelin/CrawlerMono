@@ -88,5 +88,11 @@ namespace Crawler.Utils.MapGenerator
             return spc.FindPath(origin, destination);
         }
 
+
+        public void GenerateBoard(Map mapGenerate)
+        {
+            
+        }
+
     }
 }

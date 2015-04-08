@@ -26,16 +26,20 @@ namespace Crawler
         private SpriteBatch sb;
         private ILogPrinter log;
 
-        public Map(GameEngine game, SpriteBatch sb, ILogPrinter lp)
+        public Vector2 SizeOfMap;
+
+        public Map(GameEngine game, SpriteBatch sb, ILogPrinter lp, Vector2 size = default(Vector2))
             : base(game)
         {
-
+            if(size == default(Vector2))
+                size = new Vector2(50,50);
             Game = game;
             this.log = lp;
             this.sb = sb;
             itemsOnBoard = new ListGameAware<Item>(game);
             livingOnMap = new ListGameAware<LivingBeing>(game);
             board = new ListGameAware<Cell>(game);
+            this.SizeOfMap = size;
         }
 
 
@@ -43,13 +47,13 @@ namespace Crawler
         {
             var rnd = new Random();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i <  this.SizeOfMap.X; i++)
             {
-                for (int j = 0; j < 50; j++)
+                for (int j = 0; j < this.SizeOfMap.Y; j++)
                 {
                     var po = new Vector2(i, j);
                     Cell c;
-                    if (i % 50 != 0)
+                    if (i % this.SizeOfMap.X != 0)
                     {
                         if (rnd.Next(100) == 50)
                         {

@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapGenerator\BasicMapGenerator.cs" />
-    <Compile Include="MapGenerator\Room.cs" />
     <Compile Include="PathCalculator\BasicRayPathCalculator.cs" />
     <Compile Include="PathCalculator\IPathCalculator.cs" />
     <Compile Include="PathCalculator\SimplePathCalculator.cs" />
