@@ -21,9 +21,9 @@ namespace Crawler
         private ListGameAware<Item> itemsOnBoard;
 
         private ListGameAware<LivingBeing> livingOnMap;
-        private new GameEngine Game;
+        public  new GameEngine Game;
 
-        private SpriteBatch sb;
+        internal SpriteBatch sb;
         private ILogPrinter log;
 
         public Vector2 SizeOfMap;
@@ -95,7 +95,8 @@ namespace Crawler
 
         public LivingBeing InitializePlayer(Camera c)
         {
-            var human = new Human(Game, new Vector2(4, 4), c, sb);
+            var position = this.board.First(x => x.GetType() == typeof(Floor)).positionCell;
+            var human = new Human(Game, position, c, sb);
             human.IsUserControlled = true;
             livingOnMap.Add(human);
             return human;

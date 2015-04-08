@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 
 namespace Crawler.Utils.MapGenerator
 {
+
+    using Crawler.Cells;
+    using Crawler.MapGenerator;
+
     public class BasicMapGenerator
     {
         public Vector2 minRoomSize;
@@ -19,8 +23,12 @@ namespace Crawler.Utils.MapGenerator
 
         private RandomManager randomManager;
 
-        public BasicMapGenerator()
+        public BasicMapGenerator(int roomNumber, Vector2 mapSize, Vector2 minRoomSize, Vector2 maxRoomSize)
         {
+            this.RoomNumber = roomNumber;
+            this.MapSize = mapSize;
+            this.minRoomSize = minRoomSize;
+            this.maxRoomSize = maxRoomSize;
             randomManager = new RandomManager();
             spc = new SimplePathCalculator();
         }
@@ -43,8 +51,8 @@ namespace Crawler.Utils.MapGenerator
                     var tentativeRoom = new Room()
                     {
                         Setting =
-                            new Rectangle((int)nextPos.X, (int)nextPos.Y, (int)(nextPos.X + nextSize.X),
-                                (int)(nextPos.Y + nextSize.Y))
+                            new Rectangle((int)nextPos.X, (int)nextPos.Y, (int)(nextSize.X),
+                                (int)(nextSize.Y))
                     };
 
                     if (!listResult.Any(x => x.Setting.Intersects(tentativeRoom.Setting)))
@@ -61,37 +69,86 @@ namespace Crawler.Utils.MapGenerator
             return listResult;
         }
 
-        public List<Room> GenerateIo(List<Room> lr )
+        public List<Room> GenerateIo(List<Room> lr)
         {
             int maxIo = 4;
-            for(int i=0; i<lr.Count; i++)
+            for (int i = 0; i < lr.Count; i++)
             {
                 var currentR = lr[i];
-                var currentnumberOfIo = randomManager.GetInt(maxIo-1)+1;
+                var currentnumberOfIo = randomManager.GetInt(maxIo - 1) + 1;
                 var listOfCell = Utilitaires.RectangleDelimitationCells(currentR.Setting);
                 for (int j = 0; j < currentnumberOfIo; j++)
                 {
                     var nextIo = listOfCell[randomManager.GetInt(listOfCell.Count)];
-                    while(!currentR.IOs.Any(x=> (nextIo - x).Length()<=1))
+                    var cpt = 10;
+                    while (currentR.IOs.Any(x => Math.Abs((nextIo - x.Position).Length()) <= 1) ||cpt == 0)
                     {
+                        cpt--;
                         nextIo = listOfCell[randomManager.GetInt(listOfCell.Count)];
                     }
-                    currentR.IOs.Add(nextIo);
+                    currentR.IOs.Add(new Exit() { Position = nextIo });
                 }
             }
 
             return lr;
         }
 
-        public List<Vector2> GenerateBasicPath(Vector2 origin, Vector2 destination)
+        public Tuple<Vector2, List<Vector2>> GenerateBasicPath(Vector2 origin, Vector2 destination)
         {
-            return spc.FindPath(origin, destination);
+            return new Tuple<Vector2,List<Vector2>>(origin,spc.FindPath(origin, destination));
         }
 
 
-        public void GenerateBoard(Map mapGenerate)
+        public List<Tuple<Vector2, List<Vector2>>> GeneratePaths(List<Room> lr)
         {
-            
+            var availableIo = lr.SelectMany(x => x.IOs.Select(y => y.Position)).ToList();
+            var listPath = new List<Tuple<Vector2,List<Vector2>>>();
+            while (availableIo.Count > 1)
+            {
+                var io1 = availableIo[randomManager.GetInt(availableIo.Count)];
+                availableIo.Remove(io1);
+                var io2 = availableIo[randomManager.GetInt(availableIo.Count)];
+                availableIo.Remove(io2);
+                listPath.Add(this.GenerateBasicPath(io1, io2));
+            }
+
+            return listPath;
+        }
+
+        public void GenerateBoard(Map mapGenerate, Camera camera)
+        {
+            var lr = this.GenerateRooms();
+            lr = this.GenerateIo(lr);
+            List<Tuple<Vector2, List<Vector2>>> paths = this.GeneratePaths(lr);
+            for (int x = 0; x < mapGenerate.SizeOfMap.X; x++)
+            {
+                for (int y = 0; y < mapGenerate.SizeOfMap.Y; y++)
+                {
+                    var vec = new Vector2(x, y);
+                    var isFloor = lr.Any(z => z.Setting.Contains(vec));
+                    Cell c;
+                    if (isFloor)
+                    {
+                        c = new Floor(mapGenerate.Game, vec, camera, mapGenerate.sb);
+                    }
+                    else
+                    {
+                        c = new Wall(mapGenerate.Game,vec,camera,mapGenerate.sb);
+                    }
+                    mapGenerate.board.Add(c);
+                }
+            }
+            // now : the corridors
+            foreach (var path in paths)
+            {
+                var current = path.Item1;
+                for (int i = 0; i < path.Item2.Count; i++)
+                {
+                    current += path.Item2[i];
+                    mapGenerate.board.RemoveAll(x=> x.positionCell == current);
+                    mapGenerate.board.Add(new Floor(mapGenerate.Game,current,camera,mapGenerate.sb));
+                }
+            }
         }
 
     }

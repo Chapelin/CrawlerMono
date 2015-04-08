@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Crawler
 {
+    using Crawler.Utils.MapGenerator;
 
     /// <summary>
     /// This is the main type for your game
@@ -45,8 +46,8 @@ namespace Crawler
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
 
             this.beingToPlay = null;
-            
-          
+
+
 
         }
 
@@ -59,15 +60,16 @@ namespace Crawler
         protected override void Initialize()
         {
             this.sb = new SpriteBatch(this.GraphicsDevice);
-              this.blp = new BasicLogPrinter(this, this.sb);
-              this.c = new Camera(new Vector2(15, 13), new Vector2(0, 50), this.blp);
-              this.scheduler = new Scheduler();
-            this.blp.PositionPixel = new Vector2(517,420);
+            this.blp = new BasicLogPrinter(this, this.sb);
+            this.c = new Camera(new Vector2(15, 13), new Vector2(0, 50), this.blp);
+            this.scheduler = new Scheduler();
+            this.blp.PositionPixel = new Vector2(517, 420);
             this.Components.Add(blp);
-            
+
             this.m = new Map(this, sb, this.blp);
             this.Components.Add(m);
-            m.InitializeBoard(c);
+            var roomGenerator = new BasicMapGenerator(10, new Vector2(50, 50), new Vector2(4, 4), new Vector2(7, 7));
+            roomGenerator.GenerateBoard(m, c);
             this.scheduler.AddABeing(m.InitializePlayer(this.c));
             m.InitializeItems(this.c);
             this.scheduler.AddABeing(m.InitializeEnnemis(this.c));
