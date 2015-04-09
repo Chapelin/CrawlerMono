@@ -81,7 +81,7 @@ namespace Crawler.Utils.MapGenerator
                 {
                     var nextIo = listOfCell[randomManager.GetInt(listOfCell.Count)];
                     var cpt = 10;
-                    while (currentR.IOs.Any(x => Math.Abs((nextIo - x.Position).Length()) <= 1) ||cpt == 0)
+                    while (currentR.IOs.Any(x => Math.Abs((nextIo - x.Position).Length()) <= 1) || cpt == 0)
                     {
                         cpt--;
                         nextIo = listOfCell[randomManager.GetInt(listOfCell.Count)];
@@ -95,14 +95,14 @@ namespace Crawler.Utils.MapGenerator
 
         public Tuple<Vector2, List<Vector2>> GenerateBasicPath(Vector2 origin, Vector2 destination)
         {
-            return new Tuple<Vector2,List<Vector2>>(origin,spc.FindPath(origin, destination));
+            return new Tuple<Vector2, List<Vector2>>(origin, spc.FindPath(origin, destination));
         }
 
 
         public List<Tuple<Vector2, List<Vector2>>> GeneratePaths(List<Room> lr)
         {
             var availableIo = lr.SelectMany(x => x.IOs.Select(y => y.Position)).ToList();
-            var listPath = new List<Tuple<Vector2,List<Vector2>>>();
+            var listPath = new List<Tuple<Vector2, List<Vector2>>>();
             while (availableIo.Count > 1)
             {
                 var io1 = availableIo[randomManager.GetInt(availableIo.Count)];
@@ -133,7 +133,7 @@ namespace Crawler.Utils.MapGenerator
                     }
                     else
                     {
-                        c = new Wall(mapGenerate.Game,vec,camera,mapGenerate.sb);
+                        c = new Wall(mapGenerate.Game, vec, camera, mapGenerate.sb);
                     }
                     mapGenerate.board.Add(c);
                 }
@@ -145,11 +145,23 @@ namespace Crawler.Utils.MapGenerator
                 for (int i = 0; i < path.Item2.Count; i++)
                 {
                     current += path.Item2[i];
-                    mapGenerate.board.RemoveAll(x=> x.positionCell == current);
-                    mapGenerate.board.Add(new Floor(mapGenerate.Game,current,camera,mapGenerate.sb));
+                    mapGenerate.board.RemoveAll(x => x.positionCell == current);
+                    mapGenerate.board.Add(new Floor(mapGenerate.Game, current, camera, mapGenerate.sb));
                 }
             }
+
+            this.PlaceStairs(mapGenerate, camera);
         }
 
+        private void PlaceStairs(Map mapGenerate, Camera camera)
+        {
+            var firstPoss = mapGenerate.board.Where(x => x.GetType() == typeof(Floor)).Take(2);
+
+            var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell, camera, mapGenerate.sb);
+            var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell, camera, mapGenerate.sb);
+            mapGenerate.board.RemoveList(firstPoss.ToList());
+            mapGenerate.board.Add(ds);
+            mapGenerate.board.Add(us);
+        }
     }
 }

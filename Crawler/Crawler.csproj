@@ -44,7 +44,10 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Cells\Cell.cs" />
+    <Compile Include="Cells\Downstair.cs" />
     <Compile Include="Cells\Floor.cs" />
+    <Compile Include="Cells\Upstair.cs" />
+    <Compile Include="Cells\Visibility.cs" />
     <Compile Include="Cells\Water.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />

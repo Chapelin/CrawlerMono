@@ -34,15 +34,18 @@ namespace Crawler.Cells
 
         }
 
+        public virtual bool IsActivable(LivingBeing lb)
+        {
+            return false;
+        }
+
+        public virtual void Activate(LivingBeing lb)
+        {
+            
+        }
+
 
        
 
-    }
-
-    public enum Visibility
-    {
-        Unvisited,
-        Visited,
-        InView
     }
 }
