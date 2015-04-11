@@ -1,27 +1,27 @@
-﻿using Crawler.Living;
+﻿using Crawler.Components;
+using Crawler.Living;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Cells
 {
-    using System;
-    using System.Collections.Generic;
-
     public class Cell : MapDrawableComponent
     {
-       
 
+        private readonly IWalkable walkableComponent;
 
-        public virtual bool IsWalkable(LivingBeing lv)
+      
+        public bool IsWalkable(LivingBeing lv)
         {
-            return true;
+            return walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb)
+        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w)
+            : base(game, p, c, s)
         {
             this.z = 1F;
-          
+            this.walkableComponent = w;
+
         }
 
         public virtual void OnEnter(LivingBeing p)

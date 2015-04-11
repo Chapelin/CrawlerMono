@@ -1,4 +1,6 @@
-﻿namespace Crawler.Cells
+﻿using Crawler.Components.Implementation;
+
+namespace Crawler.Cells
 {
     using Crawler.Living;
 
@@ -8,15 +10,12 @@
     public class Upstair : Cell
     {
         public Upstair(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb)
+            : base(game, p, c, sb, new BasicFloorWalkable())
         {
             this.sprite = game.Content.Load<Texture2D>("sprite//upstair");
         }
 
-        public override bool IsWalkable(LivingBeing lb)
-        {
-            return true;
-        }
+      
 
         public override bool IsActivable(LivingBeing lb)
         {
