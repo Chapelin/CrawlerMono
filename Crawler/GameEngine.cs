@@ -34,6 +34,7 @@ namespace Crawler
         private Scheduler scheduler;
         private LivingBeing beingToPlay;
         private BasicLogPrinter blp;
+        private Dongeon donjon;
 
         public GameEngine()
             : base()
@@ -46,9 +47,6 @@ namespace Crawler
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
 
             this.beingToPlay = null;
-
-
-
         }
 
         /// <summary>
@@ -65,11 +63,8 @@ namespace Crawler
             this.scheduler = new Scheduler();
             this.blp.PositionPixel = new Vector2(517, 420);
             this.Components.Add(blp);
-
-            this.m = new Map(this, sb, this.blp);
-            this.Components.Add(m);
-            var roomGenerator = new BasicMapGenerator(10, new Vector2(50, 50), new Vector2(4, 4), new Vector2(7, 7));
-            roomGenerator.GenerateBoard(m, c);
+            this.donjon = new Dongeon(this,this.c,this.sb,this.blp);
+            this.m = this.donjon.Levels[this.donjon.currentLevel];
             this.scheduler.AddABeing(m.InitializePlayer(this.c));
             m.InitializeItems(this.c);
             this.scheduler.AddABeing(m.InitializeEnnemis(this.c));
@@ -112,10 +107,6 @@ namespace Crawler
                 }
             }
 
-
-
-
-
             this.m.HandleVisibility(beingToPlay);
             this.hd.HandleInput(beingToPlay);
 
@@ -138,17 +129,11 @@ namespace Crawler
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
-
-          
-  
             this.c.Move(targetPosition - p.positionCell);
             p.positionCell = targetPosition;
-
-           
             // we have played, so we remove it
             this.scheduler.Played();
             this.beingToPlay = null;
-
         }
     }
 }

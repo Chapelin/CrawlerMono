@@ -62,7 +62,7 @@
     <Compile Include="Components\Implementation\ConsumableComponant.cs" />
     <Compile Include="Components\Implementation\UnconsumableComponant.cs" />
     <Compile Include="Components\IWalkable.cs" />
-    <Compile Include="Dongeon.cs" />
+    <Compile Include="MapGenerator\Dongeon.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MapGenerator\BasicMapGenerator.cs" />
