@@ -64,7 +64,7 @@ namespace Crawler
             this.blp.PositionPixel = new Vector2(517, 420);
             this.Components.Add(blp);
             this.donjon = new Dongeon(this,this.c,this.sb,this.blp);
-            this.m = this.donjon.Levels[this.donjon.currentLevel];
+            this.m = this.donjon.CurrentMap;
             this.scheduler.AddABeing(m.InitializePlayer(this.c));
             m.InitializeItems(this.c);
             this.scheduler.AddABeing(m.InitializeEnnemis(this.c));
@@ -134,6 +134,19 @@ namespace Crawler
             // we have played, so we remove it
             this.scheduler.Played();
             this.beingToPlay = null;
+        }
+
+        public void ChangeMap(LivingBeing lb, bool goingDown)
+        {
+            var nextLVL = this.donjon.currentLevel + (goingDown ? 1 : -1);
+            this.m.RemoveLivingBeing(lb);
+            if(!lb.IsUserControlled)
+                throw new Exception("Error");
+
+            this.donjon.currentLevel = nextLVL;
+            this.m = this.donjon.CurrentMap;
+            var targetpos = this.m.board.First(x => x.IsWalkable(lb)).positionCell;
+            this.m.AddLivingBeing(lb,targetpos);
         }
     }
 }

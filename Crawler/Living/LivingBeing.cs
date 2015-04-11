@@ -46,5 +46,18 @@
             }
 
         }
+
+        public void GoMapDown()
+        {
+            Console.WriteLine("Going down");
+            this.Game.ChangeMap(this,true);
+            
+        }
+
+        public void GoMapUp()
+        {
+            Console.WriteLine("Going up");
+            this.Game.ChangeMap(this, false);
+        }
     }
 }

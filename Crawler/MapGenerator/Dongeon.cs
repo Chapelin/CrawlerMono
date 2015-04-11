@@ -26,8 +26,15 @@ namespace Crawler
             this.g = e;
             this.sb = sb;
             this.printer = log;
-            this.AddALevel();
+            this.GenerateLevels();
             this.currentLevel = 0;
+        }
+
+        private void GenerateLevels()
+        {
+            this.AddALevel();
+            this.AddALevel();
+            this.AddALevel();
         }
 
         public void AddALevel()
@@ -38,6 +45,10 @@ namespace Crawler
             Levels.Add(map);
         }
 
+        public Map CurrentMap
+        {
+            get { return this.Levels[this.currentLevel]; }
+        }
 
 
     }

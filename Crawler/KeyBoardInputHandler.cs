@@ -1,4 +1,6 @@
-﻿namespace Crawler
+﻿using System;
+
+namespace Crawler
 {
     using System.Linq;
 
@@ -48,6 +50,24 @@
                 if (k.GetPressedKeys().Contains(Keys.Space))
                 {
                     this.c.CenterOn(lb.positionCell);
+                }
+
+                if (k.GetPressedKeys().Contains(Keys.A))
+                {
+                    Console.WriteLine("Action dispos : ");
+                    var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                    foreach (var actionDoable in listAction)
+                    {
+                        Console.WriteLine(actionDoable.ActionName);
+                    }
+                }
+
+                if (k.GetPressedKeys().Contains(Keys.U))
+                {
+                    Console.WriteLine("Doing first action dispo");
+                    var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                    if(listAction.Any())
+                        listAction.First().ActionActivity.Invoke();
                 }
 
             }

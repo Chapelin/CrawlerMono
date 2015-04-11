@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crawler.Annotations;
+﻿using System.Collections.Generic;
 using Crawler.Living;
 
 namespace Crawler.Components
 {
     public interface IActivableComponent
     {
-        List<Action> Activables(LivingBeing lb);
+        List<ActionDoable> Activables(LivingBeing lb);
     }
 }

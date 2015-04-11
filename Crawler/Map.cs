@@ -224,6 +224,18 @@ namespace Crawler
             return board.FirstOrDefault(x => x.positionCell == targetposition);
         }
 
+        public void RemoveLivingBeing(LivingBeing lb)
+        {
+            this.livingOnMap.Remove(lb);
+        }
+
+        public void AddLivingBeing(LivingBeing lb, Vector2 pos)
+        {
+            lb.positionCell = pos;
+            this.livingOnMap.Add(lb);
+
+        }
+
         public void RemoveItems(List<Item> it)
         {
             itemsOnBoard.RemoveList(it);

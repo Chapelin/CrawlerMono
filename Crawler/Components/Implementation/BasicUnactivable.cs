@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Crawler.Living;
 
 namespace Crawler.Components.Implementation
 {
     public class BasicUnactivable : IActivableComponent
     {
-        public List<Action> Activables(LivingBeing lb)
+        public List<ActionDoable> Activables(LivingBeing lb)
         {
-           return new List<Action>();
+           return new List<ActionDoable>();
         }
     }
 }

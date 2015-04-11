@@ -34,7 +34,7 @@ namespace Crawler.Cells
             return this.ac.Activables(lb).Any();
         }
 
-        public List<Action> PossibleActions(LivingBeing lb)
+        public List<ActionDoable> PossibleActions(LivingBeing lb)
         {
             return this.ac.Activables(lb);
         }
