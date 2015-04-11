@@ -9,7 +9,7 @@ namespace Crawler.Cells
      
 
         public Floor(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicFloorWalkable())
+            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable())
         {
             sprite = game.Content.Load<Texture2D>("sprite\\floor");
         }

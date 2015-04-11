@@ -1,4 +1,6 @@
-﻿namespace Crawler.Items
+﻿using Crawler.Components.Implementation;
+
+namespace Crawler.Items
 {
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +11,7 @@
     public class Potion : Item
     {
         public Potion(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb)
+            : base(game, positionCell, c, sb, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable())
         {
             this.sprite = game.Content.Load<Texture2D>("sprite\\potion");
         }

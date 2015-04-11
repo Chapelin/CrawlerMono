@@ -1,4 +1,7 @@
-﻿using Crawler.Components;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Crawler.Components;
 using Crawler.Living;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,42 +13,31 @@ namespace Crawler.Cells
 
         private readonly IWalkable walkableComponent;
 
+        private readonly IActivableComponent ac;
       
         public bool IsWalkable(LivingBeing lv)
         {
             return walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w)
+        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac)
             : base(game, p, c, s)
         {
             this.z = 1F;
             this.walkableComponent = w;
+            this.ac = ac;
 
         }
 
-        public virtual void OnEnter(LivingBeing p)
+        public bool IsActivable(LivingBeing lb)
         {
-
+            return this.ac.Activables(lb).Any();
         }
 
-        public virtual void OnExit(LivingBeing p)
+        public List<Action> PossibleActions(LivingBeing lb)
         {
-
+            return this.ac.Activables(lb);
         }
-
-        public virtual bool IsActivable(LivingBeing lb)
-        {
-            return false;
-        }
-
-        public virtual void Activate(LivingBeing lb)
-        {
-            
-        }
-
-
-       
 
     }
 }

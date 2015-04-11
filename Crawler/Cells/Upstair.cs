@@ -10,16 +10,9 @@ namespace Crawler.Cells
     public class Upstair : Cell
     {
         public Upstair(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicFloorWalkable())
+            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable())
         {
             this.sprite = game.Content.Load<Texture2D>("sprite//upstair");
-        }
-
-      
-
-        public override bool IsActivable(LivingBeing lb)
-        {
-            return lb.IsUserControlled;
         }
     }
 }
