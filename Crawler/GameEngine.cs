@@ -134,12 +134,12 @@ namespace Crawler
 
         public void ChangeMap(LivingBeing lb, bool goingDown)
         {
-            var nextLVL = donjon.currentLevel + (goingDown ? 1 : -1);
+            var nextLVL = donjon.CurrentLevel + (goingDown ? 1 : -1);
             m.RemoveLivingBeing(lb);
             if(!lb.IsUserControlled)
                 throw new Exception("Error");
             m.SetAsActive(false);
-            donjon.currentLevel = nextLVL;
+            donjon.CurrentLevel = nextLVL;
             m = donjon.CurrentMap;
             var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
             m.AddLivingBeing(lb,targetpos);
