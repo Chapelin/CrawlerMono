@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Crawler
+namespace Crawler.MapGenerator
 {
-    using Crawler.Utils.MapGenerator;
-
-    using Microsoft.Xna.Framework;
-
     public class Dongeon
     {
         public List<Map> Levels;
@@ -23,31 +16,31 @@ namespace Crawler
         {
             Levels = new List<Map>();
             this.c = c;
-            this.g = e;
+            g = e;
             this.sb = sb;
-            this.printer = log;
-            this.GenerateLevels();
-            this.currentLevel = 0;
+            printer = log;
+            GenerateLevels();
+            currentLevel = 0;
         }
 
         private void GenerateLevels()
         {
-            this.AddALevel();
-            this.AddALevel();
-            this.AddALevel();
+            AddALevel();
+            AddALevel();
+            AddALevel();
         }
 
         public void AddALevel()
         {
             var bmg = new BasicMapGenerator(8, new Vector2(30, 30), new Vector2(3, 3), new Vector2(5, 5));
-            var map = new Map(this.g, this.sb, this.printer, new Vector2(50, 50));
-            bmg.GenerateBoard(map, this.c);
+            var map = new Map(g, sb, printer, new Vector2(50, 50));
+            bmg.GenerateBoard(map, c);
             Levels.Add(map);
         }
 
         public Map CurrentMap
         {
-            get { return this.Levels[this.currentLevel]; }
+            get { return Levels[currentLevel]; }
         }
 
 

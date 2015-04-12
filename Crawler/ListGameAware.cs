@@ -7,48 +7,85 @@
 
     public class ListGameAware<T> : List<T> where T: GameComponent
     {
+
+        private bool _isactive;
+        public bool IsActive
+        {
+            get { return _isactive; }
+            set
+            {
+                if (_isactive != value)
+                {
+                    if (value)
+                    {
+                        foreach (var elem in this)
+                        {
+                            Game.Components.Add(elem);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var elem in this)
+                        {
+                            Game.Components.Remove(elem);
+                        }
+                    }
+                    _isactive = value;
+                }
+            }
+        }
         private GameEngine Game;
         public ListGameAware(GameEngine g)
         {
-            this.Game = g;
+            _isactive = false;
+            Game = g;
         }
 
         public void Add(T obj)
         {
             base.Add(obj);
-            this.Game.Components.Add(obj);
+            if(_isactive)
+                Game.Components.Add(obj);
         }
 
         public void Remove(T obj)
         {
             base.Remove(obj);
-            this.Game.Components.Remove(obj);
+            if (_isactive)
+                Game.Components.Remove(obj);
         }
 
         public void RemoveAt(int index)
         {
             var toRemove = base[index];
             base.RemoveAt(index);
-            this.Game.Components.Remove(toRemove);
+            if (_isactive)
+                Game.Components.Remove(toRemove);
         }
 
         public void RemoveAll(Predicate<T> match)
         {
-            var elementToRemove = this.FindAll(match);
+            var elementToRemove = FindAll(match);
             base.RemoveAll(match);
-            foreach (var el in elementToRemove)
+            if (_isactive)
             {
-                this.Game.Components.Remove(el);
+                foreach (var el in elementToRemove)
+                {
+                    Game.Components.Remove(el);
+                }
             }
         }
 
         public void RemoveList(List<T> itemsToRemove)
         {
             base.RemoveAll(itemsToRemove.Contains);
-            foreach (var item in itemsToRemove)
+            if (_isactive)
             {
-                this.Game.Components.Remove(item);
+                foreach (var item in itemsToRemove)
+                {
+                    Game.Components.Remove(item);
 
+                }
             }
 
         }

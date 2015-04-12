@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Crawler.Cells;
+using Crawler.Utils;
 using Crawler.Utils.Random;
 using Microsoft.Xna.Framework;
 
-namespace Crawler.Utils.MapGenerator
+namespace Crawler.MapGenerator
 {
-
-    using Crawler.Cells;
-    using Crawler.MapGenerator;
-
     public class BasicMapGenerator
     {
         public Vector2 minRoomSize;
@@ -25,8 +22,8 @@ namespace Crawler.Utils.MapGenerator
 
         public BasicMapGenerator(int roomNumber, Vector2 mapSize, Vector2 minRoomSize, Vector2 maxRoomSize)
         {
-            this.RoomNumber = roomNumber;
-            this.MapSize = mapSize;
+            RoomNumber = roomNumber;
+            MapSize = mapSize;
             this.minRoomSize = minRoomSize;
             this.maxRoomSize = maxRoomSize;
             randomManager = new RandomManager();
@@ -109,7 +106,7 @@ namespace Crawler.Utils.MapGenerator
                 availableIo.Remove(io1);
                 var io2 = availableIo[randomManager.GetInt(availableIo.Count)];
                 availableIo.Remove(io2);
-                listPath.Add(this.GenerateBasicPath(io1, io2));
+                listPath.Add(GenerateBasicPath(io1, io2));
             }
 
             return listPath;
@@ -117,9 +114,9 @@ namespace Crawler.Utils.MapGenerator
 
         public void GenerateBoard(Map mapGenerate, Camera camera)
         {
-            var lr = this.GenerateRooms();
-            lr = this.GenerateIo(lr);
-            List<Tuple<Vector2, List<Vector2>>> paths = this.GeneratePaths(lr);
+            var lr = GenerateRooms();
+            lr = GenerateIo(lr);
+            List<Tuple<Vector2, List<Vector2>>> paths = GeneratePaths(lr);
             for (int x = 0; x < mapGenerate.SizeOfMap.X; x++)
             {
                 for (int y = 0; y < mapGenerate.SizeOfMap.Y; y++)
@@ -150,7 +147,7 @@ namespace Crawler.Utils.MapGenerator
                 }
             }
 
-            this.PlaceStairs(mapGenerate, camera);
+            PlaceStairs(mapGenerate, camera);
         }
 
         private void PlaceStairs(Map mapGenerate, Camera camera)

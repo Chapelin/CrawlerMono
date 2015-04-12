@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Cells
 {
-    using Crawler.Living;
+    using Living;
 
     public class Wall : Cell
     {
@@ -12,7 +12,7 @@ namespace Crawler.Cells
             : base(game, p, c, sb, new BasicWallUnwalkable(), new BasicVoidActivable())
         {
             
-            this.sprite = game.Content.Load<Texture2D>("sprite\\wall");
+            sprite = game.Content.Load<Texture2D>("sprite\\wall");
         }
 
 

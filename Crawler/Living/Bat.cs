@@ -1,8 +1,6 @@
 ﻿namespace Crawler.Living
 {
     using System;
-    using System.Security.Cryptography;
-
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -11,19 +9,19 @@
         ILogPrinter log;
         public Bat(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, ILogPrinter printer) : base(game, positionCell, c, sb)
         {
-            this.sprite = this.Game.Content.Load<Texture2D>("sprite\\bat");
-            this.statistics = new Statistics();
-            this.statistics.Speed = 10;
-            this.statistics.FOV = 2;
-            this.IsUserControlled = false;
-            this.Name = "Bat";
-            this.traits = Traits.Flying;
-            this.log = printer;
+            sprite = Game.Content.Load<Texture2D>("sprite\\bat");
+            statistics = new Statistics();
+            statistics.Speed = 10;
+            statistics.FOV = 2;
+            IsUserControlled = false;
+            Name = "Bat";
+            traits = Traits.Flying;
+            log = printer;
         }
 
         public override void AutoPlay()
         {
-            this.log.AddLine("{0} autoplaying", this.Name);
+            log.AddLine("{0} autoplaying", Name);
             var Rrnd = new Random();
             var ca = Rrnd.Next(9);
             var dep = new Vector2(0, 0);
@@ -43,7 +41,7 @@
                     break;
 
             }
-            this.positionCell += dep;
+            positionCell += dep;
             base.AutoPlay();
         }
     }

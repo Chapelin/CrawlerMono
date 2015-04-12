@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crawler.MapGenerator
+﻿namespace Crawler.MapGenerator
 {
     using Microsoft.Xna.Framework;
 
@@ -16,7 +10,7 @@ public class Exit
 
     public Exit()
     {
-        this.IsUsed = false;
+        IsUsed = false;
     }
 }
 }

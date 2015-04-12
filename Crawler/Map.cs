@@ -34,12 +34,12 @@ namespace Crawler
             if(size == default(Vector2))
                 size = new Vector2(50,50);
             Game = game;
-            this.log = lp;
+            log = lp;
             this.sb = sb;
             itemsOnBoard = new ListGameAware<Item>(game);
             livingOnMap = new ListGameAware<LivingBeing>(game);
             board = new ListGameAware<Cell>(game);
-            this.SizeOfMap = size;
+            SizeOfMap = size;
         }
 
 
@@ -47,13 +47,13 @@ namespace Crawler
         {
             var rnd = new Random();
 
-            for (int i = 0; i <  this.SizeOfMap.X; i++)
+            for (int i = 0; i <  SizeOfMap.X; i++)
             {
-                for (int j = 0; j < this.SizeOfMap.Y; j++)
+                for (int j = 0; j < SizeOfMap.Y; j++)
                 {
                     var po = new Vector2(i, j);
                     Cell c;
-                    if (i % this.SizeOfMap.X != 0)
+                    if (i % SizeOfMap.X != 0)
                     {
                         if (rnd.Next(100) == 50)
                         {
@@ -87,7 +87,7 @@ namespace Crawler
 
         public LivingBeing InitializeEnnemis(Camera c)
         {
-            var b = new Bat(Game, new Vector2(1, 1), c, sb,this.log);
+            var b = new Bat(Game, new Vector2(1, 1), c, sb,log);
             livingOnMap.Add(b);
             b.IsUserControlled = false;
             return b;
@@ -95,7 +95,7 @@ namespace Crawler
 
         public LivingBeing InitializePlayer(Camera c)
         {
-            var position = this.board.First(x => x.GetType() == typeof(Floor)).positionCell;
+            var position = board.First(x => x.GetType() == typeof(Floor)).positionCell;
             var human = new Human(Game, position, c, sb);
             human.IsUserControlled = true;
             livingOnMap.Add(human);
@@ -226,13 +226,13 @@ namespace Crawler
 
         public void RemoveLivingBeing(LivingBeing lb)
         {
-            this.livingOnMap.Remove(lb);
+            livingOnMap.Remove(lb);
         }
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
             lb.positionCell = pos;
-            this.livingOnMap.Add(lb);
+            livingOnMap.Add(lb);
 
         }
 
@@ -279,6 +279,12 @@ namespace Crawler
             return retour;
         }
 
+        public void SetAsActive(bool toActive)
+        {
+            board.IsActive = toActive;
+            livingOnMap.IsActive = toActive;
+            itemsOnBoard.IsActive = toActive;
+        }
 
     }
 

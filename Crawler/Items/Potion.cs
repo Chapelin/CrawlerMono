@@ -13,7 +13,7 @@ namespace Crawler.Items
         public Potion(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable())
         {
-            this.sprite = game.Content.Load<Texture2D>("sprite\\potion");
+            sprite = game.Content.Load<Texture2D>("sprite\\potion");
         }
 
         public override string Description

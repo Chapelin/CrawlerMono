@@ -8,7 +8,7 @@
         public Rod(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
-            this.sprite = game.Content.Load<Texture2D>("sprite\\rod");
+            sprite = game.Content.Load<Texture2D>("sprite\\rod");
         }
 
         public override string Description

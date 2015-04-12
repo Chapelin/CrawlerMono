@@ -26,20 +26,20 @@
         public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
-            this.Inventory = new List<Item>();
-            this.IsUserControlled = false;
-            this.uniqueIdentifier = Guid.NewGuid();
-            this.VisitedColor = Color.Transparent;
+            Inventory = new List<Item>();
+            IsUserControlled = false;
+            uniqueIdentifier = Guid.NewGuid();
+            VisitedColor = Color.Transparent;
         }
 
         public virtual void AutoPlay()
         {
-            Console.WriteLine("{0} Autoplayed", this.Name);
+            Console.WriteLine("{0} Autoplayed", Name);
         }
 
         public void DumpInventory()
         {
-            Console.WriteLine("{0} inventory :",this.Name);
+            Console.WriteLine("{0} inventory :",Name);
             foreach (var item in Inventory)
             {
                 Console.WriteLine("\t {0}",item.Description);
@@ -50,14 +50,14 @@
         public void GoMapDown()
         {
             Console.WriteLine("Going down");
-            this.Game.ChangeMap(this,true);
+            Game.ChangeMap(this,true);
             
         }
 
         public void GoMapUp()
         {
             Console.WriteLine("Going up");
-            this.Game.ChangeMap(this, false);
+            Game.ChangeMap(this, false);
         }
     }
 }

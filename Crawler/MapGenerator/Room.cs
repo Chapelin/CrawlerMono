@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Crawler.Utils.MapGenerator
+namespace Crawler.MapGenerator
 {
-    using Crawler.MapGenerator;
-
     public class Room
     {
         public Rectangle Setting;
@@ -16,7 +10,7 @@ namespace Crawler.Utils.MapGenerator
 
         public Room()
         {
-            this.IOs = new List<Exit>();
+            IOs = new List<Exit>();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Crawler
     using System;
     using System.Collections.Generic;
 
-    using Crawler.Cells;
+    using Cells;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -32,19 +32,19 @@ namespace Crawler
             : base(game)
         {
             this.positionCell = positionCell;
-            this.camera = c;
+            camera = c;
             this.sb = sb;
-            this.Game = game;
-            this.z = 0.5F;
-            this.colorToUse = Color.White;
-            this.SeenBy = new List<Guid>();
+            Game = game;
+            z = 0.5F;
+            colorToUse = Color.White;
+            SeenBy = new List<Guid>();
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (camera.IsOnCamera(this.positionCell))
+            if (camera.IsOnCamera(positionCell))
             {
-                this.sb.Draw(this.sprite, camera.GetPixelPosition(this.positionCell), depth: z, color: colorToUse);
+                sb.Draw(sprite, camera.GetPixelPosition(positionCell), depth: z, color: colorToUse);
             }
 
             base.Draw(gameTime);
@@ -54,15 +54,15 @@ namespace Crawler
         {
             if (cv == Visibility.Unvisited)
             {
-                this.colorToUse = Color.Black;
+                colorToUse = Color.Black;
             }
             else if (cv == Visibility.Visited)
             {
-                this.colorToUse = this.VisitedColor;
+                colorToUse = VisitedColor;
             }
             else
             {
-                this.colorToUse = Color.White;
+                colorToUse = Color.White;
             }
         }
 

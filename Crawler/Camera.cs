@@ -20,38 +20,38 @@ namespace Crawler
 
         public Camera(Vector2 SizeOfView, Vector2 cameraOffset, ILogPrinter log)
         {
-            this.Offset = Vector2.Zero;
+            Offset = Vector2.Zero;
             this.SizeOfView = SizeOfView;
-            this.CameraOffset = cameraOffset;
+            CameraOffset = cameraOffset;
             this.log = log;
         }
 
         public void Move(Vector2 v)
         {
-            var targetOffset = this.Offset + v;
-            this.Offset = targetOffset;
+            var targetOffset = Offset + v;
+            Offset = targetOffset;
 
         }
 
         public bool IsOnCamera(Vector2 position)
         {
-            return !(position.X < Offset.X || position.Y < Offset.Y || position.X > Offset.X + this.SizeOfView.X
-                   || position.Y > Offset.Y + this.SizeOfView.Y);
+            return !(position.X < Offset.X || position.Y < Offset.Y || position.X > Offset.X + SizeOfView.X
+                   || position.Y > Offset.Y + SizeOfView.Y);
 
         }
 
         public Vector2 GetPixelPosition(Vector2 cellPosition)
         {
-            var vec = -this.Offset;
+            var vec = -Offset;
             vec += cellPosition;
-            return vec * GameEngine.SpriteSize + this.CameraOffset;
+            return vec * GameEngine.SpriteSize + CameraOffset;
 
         }
 
         public void CenterOn(Vector2 position)
         {
-            this.Offset = position - this.SizeOfView / 2;
-            this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
+            Offset = position - SizeOfView / 2;
+            Offset = new Vector2((float)Math.Floor(Offset.X), (float)Math.Floor(Offset.Y));
         }
 
     }

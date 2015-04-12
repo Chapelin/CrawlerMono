@@ -21,41 +21,41 @@ namespace Crawler
 
         public KeyBoardInputHandler(Camera c, Map m)
         {
-            this.ResetTimer();
+            ResetTimer();
             this.c = c;
             this.m = m;
         }
 
         private void ResetTimer()
         {
-            this.timer = this.TimerResetValue;
+            timer = TimerResetValue;
         }
 
         public void HandleInput(LivingBeing lb)
         {
             var k = Keyboard.GetState();
-            if (this.timer > 0)
+            if (timer > 0)
             {
-                this.timer--;
+                timer--;
             }
             if (k.GetPressedKeys().Any())
             {
-                if (this.timer == 0)
+                if (timer == 0)
                 {
-                    this.HandleKeyboardPlayerMovement(k, lb);
+                    HandleKeyboardPlayerMovement(k, lb);
 
-                    this.HandleKeyboardPlayerMenu(k, lb);
+                    HandleKeyboardPlayerMenu(k, lb);
                 }
 
                 if (k.GetPressedKeys().Contains(Keys.Space))
                 {
-                    this.c.CenterOn(lb.positionCell);
+                    c.CenterOn(lb.positionCell);
                 }
 
                 if (k.GetPressedKeys().Contains(Keys.A))
                 {
                     Console.WriteLine("Action dispos : ");
-                    var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                    var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
                     foreach (var actionDoable in listAction)
                     {
                         Console.WriteLine(actionDoable.ActionName);
@@ -65,7 +65,7 @@ namespace Crawler
                 if (k.GetPressedKeys().Contains(Keys.U))
                 {
                     Console.WriteLine("Doing first action dispo");
-                    var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                    var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
                     if(listAction.Any())
                         listAction.First().ActionActivity.Invoke();
                 }
@@ -77,20 +77,20 @@ namespace Crawler
         {
             if (k.GetPressedKeys().Contains(Keys.P))
             {
-                this.m.Pickup(lb);
-                this.ResetTimer();
+                m.Pickup(lb);
+                ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.I))
             {
-               this.m.ShowInventory(lb);
-                this.ResetTimer();
+               m.ShowInventory(lb);
+                ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.D))
             {
-                this.m.DropFirstObject(lb);
-                this.ResetTimer();
+                m.DropFirstObject(lb);
+                ResetTimer();
 
             }
 
@@ -133,10 +133,10 @@ namespace Crawler
             }
             if (targetCell != lb.positionCell)
             {
-                var res = this.m.TryMoveLivingBeing(lb, targetCell);
+                var res = m.TryMoveLivingBeing(lb, targetCell);
                 if (res)
                 {
-                    this.ResetTimer();
+                    ResetTimer();
                 }
             }
         }

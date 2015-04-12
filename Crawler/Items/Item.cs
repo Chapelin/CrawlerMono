@@ -16,8 +16,8 @@ namespace Crawler.Items
         public Item(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, IEquipableComponent ec, IConsumableComponent cc, IActivableComponent ac)
             : base(game, positionCell, c, sb)
         {
-            this.VisitedColor = new Color(125, 125, 125);
-            this.equipableComponent = ec;
+            VisitedColor = new Color(125, 125, 125);
+            equipableComponent = ec;
             this.cc = cc;
             this.ac = ac;
         }
@@ -49,7 +49,7 @@ namespace Crawler.Items
 
         public bool CanUse(LivingBeing lb)
         {
-            return this.ac.Activables(lb).Any();
+            return ac.Activables(lb).Any();
         }
 
 

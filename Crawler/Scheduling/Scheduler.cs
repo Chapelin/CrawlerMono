@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Living;
+    using Living;
 
     public class Scheduler
     {
@@ -19,7 +19,7 @@
         {
             if (!playing.Any())
             {
-                this.playing = NextPlaying();
+                playing = NextPlaying();
             }
             return playing.First();
 
@@ -27,30 +27,30 @@
 
         public void Played()
         {
-            this.playing.RemoveAt(0);
+            playing.RemoveAt(0);
         }
 
 
         public Scheduler()
         {
-            this.listOfBeing = new List<BeingScheduled>();
-            this.CurrentTurn = 0;
-            this.playing = new List<LivingBeing>();
+            listOfBeing = new List<BeingScheduled>();
+            CurrentTurn = 0;
+            playing = new List<LivingBeing>();
         }
 
         public void AddABeing(LivingBeing b)
         {
-            this.listOfBeing.Add(new BeingScheduled(b));
+            listOfBeing.Add(new BeingScheduled(b));
         }
 
         protected List<LivingBeing> NextPlaying()
         {
-            var listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
+            var listPlayable = GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
             if (!listPlayable.Any())
             {
-                this.CurrentTurn++;
-                this.TickList();
-                listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
+                CurrentTurn++;
+                TickList();
+                listPlayable = GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
             }
             foreach (var beingScheduled in listPlayable)
             {
@@ -67,7 +67,7 @@
 
         public void TickList()
         {
-            this.listOfBeing.ForEach(x => x.Tick());
+            listOfBeing.ForEach(x => x.Tick());
         }
 
 

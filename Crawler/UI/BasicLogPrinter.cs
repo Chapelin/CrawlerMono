@@ -27,27 +27,27 @@ namespace Crawler
             Log.Add("yeah baby");
             Log.Add("prout");
             Log.Add("Salut !");
-            this.defaultFont = game.Content.Load<SpriteFont>("defaultFont");
+            defaultFont = game.Content.Load<SpriteFont>("defaultFont");
         }
 
 
 
         public void AddLine(string text)
         {
-            this.Log.Add(text);
+            Log.Add(text);
         }
 
         public void AddLine(string text, params object[] values)
         {
-            this.AddLine(string.Format(text, values));
+            AddLine(string.Format(text, values));
         }
 
 
         public override void Draw(GameTime gameTime)
         {
-            var listToAdd = this.Log.Skip(this.Log.Count - 5);
-            var currentpos = this.PositionPixel;
-            var posToAdd = this.defaultFont.LineSpacing-2;
+            var listToAdd = Log.Skip(Log.Count - 5);
+            var currentpos = PositionPixel;
+            var posToAdd = defaultFont.LineSpacing-2;
             foreach (var text in listToAdd)
             {
                 sb.DrawString(defaultFont, text, currentpos, Color.White);

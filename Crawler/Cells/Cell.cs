@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Crawler.Components;
 using Crawler.Living;
@@ -23,20 +22,20 @@ namespace Crawler.Cells
         public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac)
             : base(game, p, c, s)
         {
-            this.z = 1F;
-            this.walkableComponent = w;
+            z = 1F;
+            walkableComponent = w;
             this.ac = ac;
 
         }
 
         public bool IsActivable(LivingBeing lb)
         {
-            return this.ac.Activables(lb).Any();
+            return ac.Activables(lb).Any();
         }
 
         public List<ActionDoable> PossibleActions(LivingBeing lb)
         {
-            return this.ac.Activables(lb);
+            return ac.Activables(lb);
         }
 
     }
