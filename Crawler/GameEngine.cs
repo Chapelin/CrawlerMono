@@ -58,7 +58,7 @@ namespace Crawler
             scheduler = new Scheduler();
             blp.PositionPixel = new Vector2(517, 420);
             Components.Add(blp);
-            donjon = new Dongeon(this,c,sb,blp);
+            donjon = new Dongeon(this, c, sb, blp);
             m = donjon.CurrentMap;
             scheduler.AddABeing(m.InitializePlayer(c));
             m.InitializeItems(c);
@@ -136,13 +136,13 @@ namespace Crawler
         {
             var nextLVL = donjon.CurrentLevel + (goingDown ? 1 : -1);
             m.RemoveLivingBeing(lb);
-            if(!lb.IsUserControlled)
+            if (!lb.IsUserControlled)
                 throw new Exception("Error");
             m.SetAsActive(false);
             donjon.CurrentLevel = nextLVL;
             m = donjon.CurrentMap;
             var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
-            m.AddLivingBeing(lb,targetpos);
+            m.AddLivingBeing(lb, targetpos);
             m.SetAsActive(true);
             this.hd = new KeyBoardInputHandler(this.c, m);
         }
