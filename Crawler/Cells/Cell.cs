@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Cells
 {
+    using System;
+
     public class Cell : MapDrawableComponent
     {
 
@@ -37,6 +39,5 @@ namespace Crawler.Cells
         {
             return ac.Activables(lb);
         }
-
     }
 }

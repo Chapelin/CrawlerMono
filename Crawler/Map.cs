@@ -16,7 +16,7 @@ namespace Crawler
 
     public class Map : DrawableGameComponent
     {
-        public ListGameAware<Cell> board;
+        public SortedDictionnaryGameAware<Cell> board;
 
         private ListGameAware<Item> itemsOnBoard;
 
@@ -38,7 +38,7 @@ namespace Crawler
             this.sb = sb;
             itemsOnBoard = new ListGameAware<Item>(game);
             livingOnMap = new ListGameAware<LivingBeing>(game);
-            board = new ListGameAware<Cell>(game);
+            board = new SortedDictionnaryGameAware<Cell>(game);
             SizeOfMap = size;
         }
 
@@ -68,7 +68,7 @@ namespace Crawler
                     {
                         c = new Wall(Game, po, cam, sb);
                     }
-                    board.Add(c);
+                    board.Add(po,c);
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace Crawler
 
         public LivingBeing InitializePlayer(Camera c)
         {
-            var position = board.First(x => x.GetType() == typeof(Floor)).positionCell;
+            var position = board.GetElementWhere(x=> x.GetType() == typeof(Floor)).First().positionCell;
             var human = new Human(Game, position, c, sb);
             human.IsUserControlled = true;
             livingOnMap.Add(human);
@@ -108,7 +108,7 @@ namespace Crawler
             var posLb = being.positionCell;
             var listCell = GetPathsToDistanceMax(posLb, being.statistics.FOV);
             var totalList = new List<MapDrawableComponent>();
-            totalList.AddRange(board);
+            totalList.AddRange(board.GetElementWhere(x=> true));
             totalList.AddRange(itemsOnBoard);
             totalList.AddRange(livingOnMap);
 
@@ -221,7 +221,7 @@ namespace Crawler
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return board.FirstOrDefault(x => x.positionCell == targetposition);
+            return board.GetElementAt(targetposition).First();
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
