@@ -62,12 +62,32 @@ namespace Crawler
                     }
                 }
 
-                if (k.GetPressedKeys().Contains(Keys.U))
+                if (k.GetPressedKeys().Contains(Keys.D))
                 {
                     Console.WriteLine("Doing first action dispo");
                     var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
                     if(listAction.Any())
                         listAction.First().ActionActivity.Invoke();
+                }
+
+                if (k.GetPressedKeys().Contains(Keys.E))
+                {
+                    Console.WriteLine("Trying to equipe first item");
+                    var eq = lb.Inventory.FirstOrDefault(x => x.CanEquip(lb));
+                    if (eq != null)
+                    {
+                               eq.Equip(lb);
+                    }
+                }
+
+                if (k.GetPressedKeys().Contains(Keys.U))
+                {
+                    Console.WriteLine("Trying to unequipe first item");
+                    var eq = lb.Inventory.FirstOrDefault(x => x.IsEquipped);
+                    if (eq != null)
+                    {
+                        eq.UnEquip(lb);
+                    }
                 }
 
             }

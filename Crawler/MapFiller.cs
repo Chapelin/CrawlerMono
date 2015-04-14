@@ -22,6 +22,10 @@ namespace Crawler
                 new Potion(m.Game, new Vector2(4, 11), c, sb),
                 new Potion(m.Game, new Vector2(4, 11), c, sb),
                 new Rod(m.Game, new Vector2(5, 5), c, sb)};
+
+            var pos = m.board.Where(x => x.GetType() == typeof(Floor)).Select(y=> y.positionCell).Take(3);
+            li.Add(new Torso(m.Game,pos.Last(),c,sb));
+                
             m.itemsOnBoard.AddRange(li);
         }
 

@@ -10,5 +10,13 @@
         {
             this.sprite = game.Content.Load<Texture2D>("sprite\\torso");
         }
+
+        public override string Description
+        {
+            get
+            {
+                return "An armor";
+            }
+        }
     }
 }

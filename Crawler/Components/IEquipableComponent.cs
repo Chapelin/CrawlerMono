@@ -9,5 +9,7 @@ namespace Crawler.Components
         void Equip(LivingBeing lb);
 
         void UnEquip(LivingBeing lb);
+
+        bool IsEquipped();
     }
 }
