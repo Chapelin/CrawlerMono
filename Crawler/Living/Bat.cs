@@ -10,9 +10,9 @@
         public Bat(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, ILogPrinter printer) : base(game, positionCell, c, sb)
         {
             sprite = Game.Content.Load<Texture2D>("sprite\\bat");
-            statistics = new Statistics();
-            statistics.Speed = 10;
-            statistics.FOV = 2;
+            statistics = new FullStatistics();
+            statistics.BasicStatistics.Speed = 10;
+            statistics.BasicStatistics.FOV = 2;
             IsUserControlled = false;
             Name = "Bat";
             traits = Traits.Flying;

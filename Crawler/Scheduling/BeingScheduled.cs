@@ -16,7 +16,7 @@
 
         public void Tick()
         {
-            Score += being.statistics.Speed;
+            Score += being.statistics.TotalStatistics.Speed;
         }
 
         public void TakeTurn(int consumption)

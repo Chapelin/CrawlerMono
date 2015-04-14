@@ -15,7 +15,7 @@
 
         public Traits traits { get; set; }
 
-        public Statistics statistics;
+        public FullStatistics statistics;
 
         public bool IsUserControlled { get; set; }
 
@@ -30,6 +30,7 @@
             IsUserControlled = false;
             uniqueIdentifier = Guid.NewGuid();
             VisitedColor = Color.Transparent;
+            this.statistics = new FullStatistics();
         }
 
         public virtual void AutoPlay()

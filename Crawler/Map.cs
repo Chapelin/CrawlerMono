@@ -48,7 +48,7 @@ namespace Crawler
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = GetPathsToDistanceMax(posLb, being.statistics.FOV);
+            var listCell = GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
             var totalList = new List<MapDrawableComponent>();
             totalList.AddRange(board);
             totalList.AddRange(itemsOnBoard);
