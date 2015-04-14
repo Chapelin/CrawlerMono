@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System;
+
     using Microsoft.Xna.Framework;
 
     public class Camera

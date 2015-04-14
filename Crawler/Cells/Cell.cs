@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Crawler.Components;
-using Crawler.Living;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Crawler.Cells
+﻿namespace Crawler.Cells
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Crawler.Components;
+    using Crawler.Living;
+
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     public class Cell : MapDrawableComponent
     {
 

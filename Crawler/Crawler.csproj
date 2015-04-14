@@ -65,6 +65,8 @@
     <Compile Include="Components\Implementation\UnconsumableComponant.cs" />
     <Compile Include="Components\Implementation\UpstairActivable.cs" />
     <Compile Include="Components\IWalkable.cs" />
+    <Compile Include="Items\Torso.cs" />
+    <Compile Include="MapFiller.cs" />
     <Compile Include="MapGenerator\Dongeon.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />
