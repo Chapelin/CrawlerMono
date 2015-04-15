@@ -42,7 +42,12 @@
 
         }
 
-        public Vector2 GetPixelPosition(Vector2 cellPosition)
+        public bool IsOnCamera(Point pxCurrentPos)
+        {
+            return this.IsOnCamera(new Vector2(pxCurrentPos.X, pxCurrentPos.Y));
+        }
+
+        public Vector2 GetPixelPositionOriginOfCell(Vector2 cellPosition)
         {
             var vec = -this.Offset;
             vec += cellPosition;
@@ -56,5 +61,16 @@
             this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
         }
 
+        public Vector2 GetCellPositon(Vector2 pxPosition)
+        {
+            var vec =  pxPosition / GameEngine.SpriteSize - this.CameraOffset;
+            vec += this.Offset;
+            return new Vector2((float)Math.Floor(vec.X), (float)Math.Floor(vec.Y));
+        }
+
+        public Vector2 GetCellPositon(Point pxCurrentPos)
+        {
+            return this.GetCellPositon(new Vector2(pxCurrentPos.X, pxCurrentPos.Y));
+        }
     }
 }

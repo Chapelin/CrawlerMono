@@ -134,6 +134,7 @@
     <Compile Include="Cells\Wall.cs" />
     <Compile Include="Scheduling\BeingScheduled.cs" />
     <Compile Include="Scheduling\Scheduler.cs" />
+    <Compile Include="UI\MouseTargeter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

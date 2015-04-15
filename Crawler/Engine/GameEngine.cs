@@ -37,7 +37,6 @@ namespace Crawler.Engine
         private LivingBeing beingToPlay;
         private BasicLogPrinter blp;
         private Dongeon donjon;
-
         public GameEngine()
             : base()
         {

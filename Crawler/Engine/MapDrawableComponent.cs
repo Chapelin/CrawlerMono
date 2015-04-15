@@ -43,7 +43,7 @@
         {
             if (this.camera.IsOnCamera(this.positionCell))
             {
-                this.sb.Draw(this.sprite, this.camera.GetPixelPosition(this.positionCell), depth: this.z, color: this.colorToUse);
+                this.sb.Draw(this.sprite, this.camera.GetPixelPositionOriginOfCell(this.positionCell), depth: this.z, color: this.colorToUse);
             }
 
             base.Draw(gameTime);
