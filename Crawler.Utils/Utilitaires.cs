@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-
-namespace Crawler.Utils
+﻿namespace Crawler.Utils
 {
+    using System.Collections.Generic;
+
+    using Microsoft.Xna.Framework;
+
     public static class Utilitaires
     {
 
@@ -38,6 +35,50 @@ namespace Crawler.Utils
                 result.Add(current);
             }
             return result;
+        }
+
+        public static List<List<Vector2>> GetPathsToDistanceMax(Vector2 begin, int distance)
+        {
+            var retour = new List<List<Vector2>>();
+            var pathCalculator = new BasicRayPathCalculator();
+            var current = new Vector2(begin.X - distance, begin.Y - distance);
+            do
+            {
+                retour.Add(pathCalculator.FindPath(begin, current));
+                current.X++;
+            }
+            while (current.X != begin.X + distance);
+
+            do
+            {
+
+                retour.Add(pathCalculator.FindPath(begin, current));
+                current.Y++;
+
+            }
+            while (current.Y != begin.Y + distance);
+
+            do
+            {
+
+                retour.Add(pathCalculator.FindPath(begin, current));
+                current.X--;
+
+            }
+            while (current.X != begin.X - distance);
+
+            do
+            {
+
+                retour.Add(pathCalculator.FindPath(begin, current));
+                current.Y--;
+
+            }
+            while (current.Y != begin.Y - distance);
+
+            retour.Add(pathCalculator.FindPath(begin, current));
+
+            return retour;
         }
     }
 }

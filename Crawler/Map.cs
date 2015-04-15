@@ -48,7 +48,7 @@ namespace Crawler
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
+            var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
             var totalList = new List<MapDrawableComponent>();
             totalList.AddRange(board);
             totalList.AddRange(itemsOnBoard);
@@ -110,49 +110,7 @@ namespace Crawler
             }
         }
 
-        public List<List<Vector2>> GetPathsToDistanceMax(Vector2 begin, int distance)
-        {
-            var retour = new List<List<Vector2>>();
-            var pathCalculator = new BasicRayPathCalculator();
-            var current = new Vector2(begin.X - distance, begin.Y - distance);
-            do
-            {
-                retour.Add(pathCalculator.FindPath(begin, current));
-                current.X++;
-            }
-            while (current.X != begin.X + distance);
-
-            do
-            {
-
-                retour.Add(pathCalculator.FindPath(begin, current));
-                current.Y++;
-
-            }
-            while (current.Y != begin.Y + distance);
-
-            do
-            {
-
-                retour.Add(pathCalculator.FindPath(begin, current));
-                current.X--;
-
-            }
-            while (current.X != begin.X - distance);
-
-            do
-            {
-
-                retour.Add(pathCalculator.FindPath(begin, current));
-                current.Y--;
-
-            }
-            while (current.Y != begin.Y - distance);
-
-            retour.Add(pathCalculator.FindPath(begin, current));
-
-            return retour;
-        }
+     
 
 
 
@@ -227,7 +185,6 @@ namespace Crawler
             livingOnMap.IsActive = toActive;
             itemsOnBoard.IsActive = toActive;
         }
-
     }
 
 }
