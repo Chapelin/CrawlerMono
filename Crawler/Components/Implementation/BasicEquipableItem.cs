@@ -14,9 +14,12 @@ namespace Crawler.Components.Implementation
 
         private Item itemTracked;
 
-        public BasicEquipableItem(Item i)
+
+        private IStatisticsModifierComponent statisModifier;
+        public BasicEquipableItem(Item i, IStatisticsModifierComponent modifier)
         {
             this.itemTracked = i;
+            this.statisModifier = modifier;
         }
 
         public bool CanEquip(LivingBeing lb)
@@ -34,6 +37,7 @@ namespace Crawler.Components.Implementation
 
             this._isEquipped = true;
             this.whoEquipped = lb;
+            lb.statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
             Console.WriteLine(this.itemTracked.Description + " is equipped by "+ this.whoEquipped.Name);
         }
 
@@ -41,6 +45,7 @@ namespace Crawler.Components.Implementation
         {
             this._isEquipped = false;
             this.whoEquipped = null;
+            lb.statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
             Console.WriteLine(this.itemTracked.Description + " is desequipped");
         }
 

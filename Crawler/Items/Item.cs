@@ -3,6 +3,8 @@ using Crawler.Components;
 
 namespace Crawler.Items
 {
+    using Crawler.Components.Implementation;
+
     using Living;
 
     using Microsoft.Xna.Framework;

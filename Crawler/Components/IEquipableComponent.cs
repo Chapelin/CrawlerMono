@@ -11,5 +11,6 @@ namespace Crawler.Components
         void UnEquip(LivingBeing lb);
 
         bool IsEquipped();
+
     }
 }

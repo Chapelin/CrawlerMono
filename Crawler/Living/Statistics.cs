@@ -6,5 +6,22 @@
         public int Speed;
 
         public int FOV;
+
+
+        public static Statistics operator +(Statistics s, Statistics s2)
+        {
+            var result = new Statistics();
+            result.FOV = s.FOV + s2.FOV;
+            result.Speed = s.Speed + s2.Speed;
+            return result;
+        }
+
+        public static Statistics operator -(Statistics s, Statistics s2)
+        {
+            var result = new Statistics();
+            result.FOV = s.FOV - s2.FOV;
+            result.Speed = s.Speed - s2.Speed;
+            return result;
+        }
     }
 }

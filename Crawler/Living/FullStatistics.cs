@@ -33,5 +33,17 @@ namespace Crawler.Living
             this.BasicStatistics  = new Statistics();
             this.AddedStatistics = new Statistics();
         }
+
+        public void ApplyBonus(Statistics s)
+        {
+            this.AddedStatistics+=s;
+        }
+
+        public void RemoveBonus(Statistics s)
+        {
+            this.AddedStatistics -= s;
+        }
+
+
     }
 }
