@@ -71,7 +71,6 @@
     <Compile Include="MapGenerator\BasicMapGenerator.cs" />
     <Compile Include="MapGenerator\Exit.cs" />
     <Compile Include="MapGenerator\Room.cs" />
-    <Compile Include="SortedDictionnaryGameAware.cs" />
     <Compile Include="UI\ILogPrinter.cs" />
     <Compile Include="KeyBoardInputHandler.cs" />
     <Compile Include="Items\Rod.cs" />
