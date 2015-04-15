@@ -53,7 +53,8 @@
     <Compile Include="Components\IActivableComponent.cs" />
     <Compile Include="Components\IConsumableComponent.cs" />
     <Compile Include="Components\IEquipableComponent.cs" />
-    <Compile Include="Components\Implementation\BaseStatisticModifierFOv.cs" />
+    <Compile Include="Components\Implementation\BaseStatisticsNeutralModifier.cs" />
+    <Compile Include="Components\Implementation\StatisticModifierFOv.cs" />
     <Compile Include="Components\Implementation\BasicEquipableItem.cs" />
     <Compile Include="Components\Implementation\BasicFlyingWalkable.cs" />
     <Compile Include="Components\Implementation\BasicFloorWalkable.cs" />

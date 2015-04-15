@@ -1,11 +1,9 @@
-﻿using System.Linq;
-using Crawler.Components;
-
-namespace Crawler.Items
+﻿namespace Crawler.Items
 {
-    using Crawler.Components.Implementation;
+    using System.Linq;
 
-    using Living;
+    using Crawler.Components;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

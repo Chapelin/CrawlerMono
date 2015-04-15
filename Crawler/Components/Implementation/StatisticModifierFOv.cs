@@ -2,11 +2,11 @@
 {
     using Crawler.Living;
 
-    public class BaseStatisticModifierFOv : IStatisticsModifierComponent
+    public class StatisticModifierFOv : IStatisticsModifierComponent
     {
         public Statistics StatisticDiffToApply { get; set; }
 
-        public BaseStatisticModifierFOv()
+        public StatisticModifierFOv()
         {
             this.StatisticDiffToApply = new Statistics();
             StatisticDiffToApply.FOV = 3;

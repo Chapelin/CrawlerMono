@@ -197,7 +197,7 @@ namespace Crawler
 
         public void DropFirstObject(LivingBeing lb)
         {
-            var itemToDrop = lb.Inventory.FirstOrDefault();
+            var itemToDrop = lb.Inventory.FirstOrDefault(x=> !x.IsEquipped);
             if (itemToDrop != null)
             {
                 lb.Inventory.Remove(itemToDrop);
