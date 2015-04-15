@@ -1,7 +1,7 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.Others.Implementation
 {
+    using Crawler.Living;
+
     class BasicFlyingWalkable : IWalkable
     {
         public bool IsWalkable(LivingBeing lb)

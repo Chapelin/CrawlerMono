@@ -5,6 +5,8 @@ using System;
 
 namespace Crawler
 {
+    using Crawler.Engine;
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.

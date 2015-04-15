@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.Actions.Implementation
 {
+    using System.Collections.Generic;
+
+    using Crawler.Living;
+
     public class BasicVoidActivable : IActivableComponent
     {
         public List<ActionDoable> Activables(LivingBeing lb)

@@ -1,8 +1,9 @@
-﻿using System;
-using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.ItemRelated.Implementation
 {
+    using System;
+
+    using Crawler.Living;
+
     public class BasicUnequipable : IEquipableComponent
     {
         public bool CanEquip(LivingBeing lb)

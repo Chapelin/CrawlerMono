@@ -4,6 +4,9 @@
     using System.Linq;
 
     using Crawler.Components;
+    using Crawler.Components.Actions;
+    using Crawler.Components.Others;
+    using Crawler.Engine;
     using Crawler.Living;
 
     using Microsoft.Xna.Framework;

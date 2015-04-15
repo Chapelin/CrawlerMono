@@ -1,6 +1,6 @@
-﻿namespace Crawler
+﻿namespace Crawler.Living
 {
-    using Living;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -10,12 +10,12 @@
         public Human(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
             : base(game, positionCell, c, sb)
         {
-            sprite = game.Content.Load<Texture2D>("sprite//human");
-            z = 0F;
-            statistics.BasicStatistics.FOV = 5;
-            statistics.BasicStatistics.Speed = 10;
-            Name = "Human";
-            traits = Traits.Walking;
+            this.sprite = game.Content.Load<Texture2D>("sprite//human");
+            this.z = 0F;
+            this.statistics.BasicStatistics.FOV = 5;
+            this.statistics.BasicStatistics.Speed = 10;
+            this.Name = "Human";
+            this.traits = Traits.Walking;
         }
     }
 }

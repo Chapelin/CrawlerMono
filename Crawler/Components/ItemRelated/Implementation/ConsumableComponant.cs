@@ -1,7 +1,7 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.ItemRelated.Implementation
 {
+    using Crawler.Living;
+
     public class ConsumableComponant : IConsumableComponent
     {
         public bool CanConsume(LivingBeing lb)

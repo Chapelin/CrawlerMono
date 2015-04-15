@@ -5,6 +5,7 @@
     using System.Linq;
 
     using Crawler.Cells;
+    using Crawler.Engine;
     using Crawler.Utils;
     using Crawler.Utils.PathCalculator;
     using Crawler.Utils.Random;

@@ -1,6 +1,10 @@
 ﻿namespace Crawler.Living
 {
     using System;
+
+    using Crawler.Engine;
+    using Crawler.UI;
+
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 

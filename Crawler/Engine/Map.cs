@@ -1,15 +1,15 @@
-﻿using Crawler.Utils;
-
-namespace Crawler
+﻿namespace Crawler.Engine
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Cells;
-    using Items;
-    using Living;
+    using Crawler.Cells;
+    using Crawler.DataStructures;
+    using Crawler.Items;
+    using Crawler.Living;
+    using Crawler.UI;
+    using Crawler.Utils;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -33,13 +33,13 @@ namespace Crawler
         {
             if(size == default(Vector2))
                 size = new Vector2(50,50);
-            Game = game;
-            log = lp;
+            this.Game = game;
+            this.log = lp;
             this.sb = sb;
-            itemsOnBoard = new ListGameAware<Item>(game);
-            livingOnMap = new ListGameAware<LivingBeing>(game);
-            board = new ListGameAware<Cell>(game);
-            SizeOfMap = size;
+            this.itemsOnBoard = new ListGameAware<Item>(game);
+            this.livingOnMap = new ListGameAware<LivingBeing>(game);
+            this.board = new ListGameAware<Cell>(game);
+            this.SizeOfMap = size;
         }
 
 
@@ -50,11 +50,11 @@ namespace Crawler
             var posLb = being.positionCell;
             var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
             var totalList = new List<MapDrawableComponent>();
-            totalList.AddRange(board);
-            totalList.AddRange(itemsOnBoard);
-            totalList.AddRange(livingOnMap);
+            totalList.AddRange(this.board);
+            totalList.AddRange(this.itemsOnBoard);
+            totalList.AddRange(this.livingOnMap);
 
-            HandleVisibilityOfList(being, listCell, totalList);
+            this.HandleVisibilityOfList(being, listCell, totalList);
 
         }
 
@@ -116,36 +116,36 @@ namespace Crawler
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
-            return itemsOnBoard.Where(x => x.positionCell == targetPosition);
+            return this.itemsOnBoard.Where(x => x.positionCell == targetPosition);
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return board.FirstOrDefault(x => x.positionCell == targetposition);
+            return this.board.FirstOrDefault(x => x.positionCell == targetposition);
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
         {
-            livingOnMap.Remove(lb);
+            this.livingOnMap.Remove(lb);
         }
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
             lb.positionCell = pos;
-            livingOnMap.Add(lb);
+            this.livingOnMap.Add(lb);
 
         }
 
         public void RemoveItems(List<Item> it)
         {
-            itemsOnBoard.RemoveList(it);
+            this.itemsOnBoard.RemoveList(it);
         }
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = ItemOnPosition(lb.positionCell).ToList();
+            var listObject = this.ItemOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
-            RemoveItems(listObject);
+            this.RemoveItems(listObject);
         }
 
         public void ShowInventory(LivingBeing lb)
@@ -160,19 +160,19 @@ namespace Crawler
             {
                 lb.Inventory.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
-                itemsOnBoard.Add(itemToDrop);
+                this.itemsOnBoard.Add(itemToDrop);
             }
         }
 
         public bool TryMoveLivingBeing(LivingBeing lb, Vector2 position)
         {
             var retour = false;
-            var targetCellObject = CellOnPosition(position);
+            var targetCellObject = this.CellOnPosition(position);
             if (null != targetCellObject)
             {
                 if (targetCellObject.IsWalkable(lb))
                 {
-                    Game.MoveBeing(lb, position);
+                    this.Game.MoveBeing(lb, position);
                     retour = true;
                 }
             }
@@ -181,9 +181,9 @@ namespace Crawler
 
         public void SetAsActive(bool toActive)
         {
-            board.IsActive = toActive;
-            livingOnMap.IsActive = toActive;
-            itemsOnBoard.IsActive = toActive;
+            this.board.IsActive = toActive;
+            this.livingOnMap.IsActive = toActive;
+            this.itemsOnBoard.IsActive = toActive;
         }
     }
 

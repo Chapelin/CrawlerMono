@@ -1,9 +1,12 @@
-﻿using Crawler.Components.Implementation;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Cells
 {
+    using Crawler.Components.Actions.Implementation;
+    using Crawler.Components.Others.Implementation;
+    using Crawler.Engine;
+
     using Living;
 
     public class Wall : Cell

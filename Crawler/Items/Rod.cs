@@ -1,5 +1,7 @@
 ﻿namespace Crawler.Items
 {
+    using Crawler.Engine;
+
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 

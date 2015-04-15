@@ -1,6 +1,8 @@
-﻿namespace Crawler
+﻿namespace Crawler.Engine
 {
     using System;
+
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 
@@ -20,38 +22,38 @@
 
         public Camera(Vector2 SizeOfView, Vector2 cameraOffset, ILogPrinter log)
         {
-            Offset = Vector2.Zero;
+            this.Offset = Vector2.Zero;
             this.SizeOfView = SizeOfView;
-            CameraOffset = cameraOffset;
+            this.CameraOffset = cameraOffset;
             this.log = log;
         }
 
         public void Move(Vector2 v)
         {
-            var targetOffset = Offset + v;
-            Offset = targetOffset;
+            var targetOffset = this.Offset + v;
+            this.Offset = targetOffset;
 
         }
 
         public bool IsOnCamera(Vector2 position)
         {
-            return !(position.X < Offset.X || position.Y < Offset.Y || position.X > Offset.X + SizeOfView.X
-                   || position.Y > Offset.Y + SizeOfView.Y);
+            return !(position.X < this.Offset.X || position.Y < this.Offset.Y || position.X > this.Offset.X + this.SizeOfView.X
+                   || position.Y > this.Offset.Y + this.SizeOfView.Y);
 
         }
 
         public Vector2 GetPixelPosition(Vector2 cellPosition)
         {
-            var vec = -Offset;
+            var vec = -this.Offset;
             vec += cellPosition;
-            return vec * GameEngine.SpriteSize + CameraOffset;
+            return vec * GameEngine.SpriteSize + this.CameraOffset;
 
         }
 
         public void CenterOn(Vector2 position)
         {
-            Offset = position - SizeOfView / 2;
-            Offset = new Vector2((float)Math.Floor(Offset.X), (float)Math.Floor(Offset.Y));
+            this.Offset = position - this.SizeOfView / 2;
+            this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
         }
 
     }

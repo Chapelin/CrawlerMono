@@ -4,6 +4,8 @@ namespace Crawler
 {
     using System.Linq;
 
+    using Crawler.Engine;
+
     using Living;
 
     using Microsoft.Xna.Framework;

@@ -1,4 +1,4 @@
-﻿namespace Crawler
+﻿namespace Crawler.UI
 {
     public interface ILogPrinter
     {

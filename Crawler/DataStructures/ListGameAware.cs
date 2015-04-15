@@ -1,7 +1,9 @@
-﻿namespace Crawler
+﻿namespace Crawler.DataStructures
 {
     using System;
     using System.Collections.Generic;
+
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -11,67 +13,67 @@
         private bool _isactive;
         public bool IsActive
         {
-            get { return _isactive; }
+            get { return this._isactive; }
             set
             {
-                if (_isactive != value)
+                if (this._isactive != value)
                 {
                     if (value)
                     {
                         foreach (var elem in this)
                         {
-                            Game.Components.Add(elem);
+                            this.Game.Components.Add(elem);
                         }
                     }
                     else
                     {
                         foreach (var elem in this)
                         {
-                            Game.Components.Remove(elem);
+                            this.Game.Components.Remove(elem);
                         }
                     }
-                    _isactive = value;
+                    this._isactive = value;
                 }
             }
         }
         private GameEngine Game;
         public ListGameAware(GameEngine g)
         {
-            _isactive = false;
-            Game = g;
+            this._isactive = false;
+            this.Game = g;
         }
 
         public void Add(T obj)
         {
             base.Add(obj);
-            if(_isactive)
-                Game.Components.Add(obj);
+            if(this._isactive)
+                this.Game.Components.Add(obj);
         }
 
         public void Remove(T obj)
         {
             base.Remove(obj);
-            if (_isactive)
-                Game.Components.Remove(obj);
+            if (this._isactive)
+                this.Game.Components.Remove(obj);
         }
 
         public void RemoveAt(int index)
         {
             var toRemove = base[index];
             base.RemoveAt(index);
-            if (_isactive)
-                Game.Components.Remove(toRemove);
+            if (this._isactive)
+                this.Game.Components.Remove(toRemove);
         }
 
         public void RemoveAll(Predicate<T> match)
         {
-            var elementToRemove = FindAll(match);
+            var elementToRemove = this.FindAll(match);
             base.RemoveAll(match);
-            if (_isactive)
+            if (this._isactive)
             {
                 foreach (var el in elementToRemove)
                 {
-                    Game.Components.Remove(el);
+                    this.Game.Components.Remove(el);
                 }
             }
         }
@@ -79,11 +81,11 @@
         public void RemoveList(List<T> itemsToRemove)
         {
             base.RemoveAll(itemsToRemove.Contains);
-            if (_isactive)
+            if (this._isactive)
             {
                 foreach (var item in itemsToRemove)
                 {
-                    Game.Components.Remove(item);
+                    this.Game.Components.Remove(item);
 
                 }
             }

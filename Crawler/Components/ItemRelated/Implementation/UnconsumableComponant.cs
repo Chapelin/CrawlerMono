@@ -1,8 +1,9 @@
-﻿using System;
-using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.ItemRelated.Implementation
 {
+    using System;
+
+    using Crawler.Living;
+
     public class UnconsumableComponant : IConsumableComponent
     {
         public bool CanConsume(LivingBeing lb)

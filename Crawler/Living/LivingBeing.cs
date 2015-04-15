@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using Crawler.Engine;
+
     using Items;
 
     using Microsoft.Xna.Framework;

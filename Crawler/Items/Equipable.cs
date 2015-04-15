@@ -1,8 +1,10 @@
-﻿using Crawler.Components.Implementation;
-
-namespace Crawler.Items
+﻿namespace Crawler.Items
 {
     using Crawler.Components;
+    using Crawler.Components.Actions.Implementation;
+    using Crawler.Components.ItemRelated;
+    using Crawler.Components.ItemRelated.Implementation;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

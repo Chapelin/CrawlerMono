@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Crawler
+﻿namespace Crawler.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Crawler.Cells;
+    using Crawler.Engine;
     using Crawler.Items;
     using Crawler.Living;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

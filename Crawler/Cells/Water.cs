@@ -1,7 +1,8 @@
-﻿using Crawler.Components.Implementation;
-
-namespace Crawler.Cells
+﻿namespace Crawler.Cells
 {
+    using Crawler.Components.Actions.Implementation;
+    using Crawler.Components.Others.Implementation;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

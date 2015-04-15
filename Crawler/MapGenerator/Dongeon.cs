@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.MapGenerator
 {
+    using Crawler.Engine;
+    using Crawler.UI;
+
     public class Dongeon
     {
         public List<Map> Levels;

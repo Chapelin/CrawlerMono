@@ -1,10 +1,8 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components.Implementation
+﻿namespace Crawler.Components.ItemRelated.Implementation
 {
     using System;
 
-    using Crawler.Items;
+    using Crawler.Living;
 
     public class BasicEquipableItem : IEquipableComponent
     {
@@ -24,7 +22,7 @@ namespace Crawler.Components.Implementation
 
         public bool CanEquip(LivingBeing lb)
         {
-            return whoEquipped == null;
+            return this.whoEquipped == null;
         }
 
         public void Equip(LivingBeing lb)
@@ -51,7 +49,7 @@ namespace Crawler.Components.Implementation
 
         public bool IsEquipped()
         {
-            return _isEquipped;
+            return this._isEquipped;
         }
     }
 }

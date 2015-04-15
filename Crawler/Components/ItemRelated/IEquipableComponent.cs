@@ -1,7 +1,7 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components
+﻿namespace Crawler.Components.ItemRelated
 {
+    using Crawler.Living;
+
     public interface IEquipableComponent
     {
         bool CanEquip(LivingBeing lb);
