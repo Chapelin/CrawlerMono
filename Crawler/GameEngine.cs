@@ -141,7 +141,7 @@ namespace Crawler
             m.SetAsActive(false);
             donjon.CurrentLevel = nextLVL;
             m = donjon.CurrentMap;
-            var targetpos = m.board.GetElementWhere(x => x.IsWalkable(lb)).First().positionCell;
+            var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
             m.AddLivingBeing(lb, targetpos);
             m.SetAsActive(true);
             this.hd = new KeyBoardInputHandler(this.c, m);

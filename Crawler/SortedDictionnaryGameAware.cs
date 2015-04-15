@@ -46,7 +46,7 @@
         public SortedDictionnaryGameAware(GameEngine g)
         {
             this.g = g;
-            this._dictionnary = new SortedDictionary<Vector2, List<T>>(new Vector2Comparer());
+            this._dictionnary = new SortedDictionary<Vector2, List<T>>();
         }
 
         public void Add(Vector2 position, T obje)
@@ -103,16 +103,6 @@
         private void Unregister(T obj)
         {
             this.g.Components.Remove(obj);
-        }
-
-        public Vector2 GetPosElement(T obj)
-        {
-            foreach (var k in this._dictionnary.Keys)
-            {
-
-                if (this._dictionnary[k].Contains(obj)) return k;
-            }
-            throw new Exception("not found");
         }
 
     }

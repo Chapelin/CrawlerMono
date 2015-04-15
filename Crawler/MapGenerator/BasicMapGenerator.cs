@@ -132,7 +132,7 @@ namespace Crawler.MapGenerator
                     {
                         c = new Wall(mapGenerate.Game, vec, camera, mapGenerate.sb);
                     }
-                    mapGenerate.board.Add(vec,c);
+                    mapGenerate.board.Add(c);
                 }
             }
             // now : the corridors
@@ -142,8 +142,8 @@ namespace Crawler.MapGenerator
                 for (int i = 0; i < path.Item2.Count; i++)
                 {
                     current += path.Item2[i];
-                    mapGenerate.board.RemoveAll(current);
-                    mapGenerate.board.Add(current,new Floor(mapGenerate.Game, current, camera, mapGenerate.sb));
+                    mapGenerate.board.RemoveAll(x => x.positionCell == current);
+                    mapGenerate.board.Add(new Floor(mapGenerate.Game, current, camera, mapGenerate.sb));
                 }
             }
 
@@ -152,13 +152,13 @@ namespace Crawler.MapGenerator
 
         private void PlaceStairs(Map mapGenerate, Camera camera)
         {
-            var firstPoss = mapGenerate.board.GetElementWhere((x => x.GetType() == typeof(Floor))).Take(2);
+            var firstPoss = mapGenerate.board.Where(x => x.GetType() == typeof(Floor)).Take(2);
+
             var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell, camera, mapGenerate.sb);
             var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell, camera, mapGenerate.sb);
-            //mapGenerate.board.RemoveList(firstPoss.ToList());
-            firstPoss.ToList().ForEach(x=> mapGenerate.board.Remove(x.positionCell,x));
-            mapGenerate.board.Add(firstPoss.First().positionCell,ds);
-            mapGenerate.board.Add(firstPoss.Last().positionCell, us);
+            mapGenerate.board.RemoveList(firstPoss.ToList());
+            mapGenerate.board.Add(ds);
+            mapGenerate.board.Add(us);
         }
     }
 }
