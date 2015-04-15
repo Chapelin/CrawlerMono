@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Crawler.Cells;
-using Crawler.Utils;
-using Crawler.Utils.Random;
-using Microsoft.Xna.Framework;
-
-namespace Crawler.MapGenerator
+﻿namespace Crawler.MapGenerator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Crawler.Cells;
+    using Crawler.Utils;
+    using Crawler.Utils.PathCalculator;
+    using Crawler.Utils.Random;
+
+    using Microsoft.Xna.Framework;
+
     public class BasicMapGenerator
     {
         public Vector2 minRoomSize;

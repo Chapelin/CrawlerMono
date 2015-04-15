@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using Crawler.Components;
-
-namespace Crawler.Items
+﻿namespace Crawler.Items
 {
-    using Living;
+    using System.Linq;
+
+    using Crawler.Components;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
     public class Item : MapDrawableComponent
     {
-        private IEquipableComponent equipableComponent;
+        protected IEquipableComponent equipableComponent;
         private IConsumableComponent cc;
         private IActivableComponent ac;
         public Item(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, IEquipableComponent ec, IConsumableComponent cc, IActivableComponent ac)
@@ -50,6 +50,14 @@ namespace Crawler.Items
         public bool CanUse(LivingBeing lb)
         {
             return ac.Activables(lb).Any();
+        }
+
+        public bool IsEquipped
+        {
+            get
+            {
+                return this.equipableComponent.IsEquipped();
+            }
         }
 
 

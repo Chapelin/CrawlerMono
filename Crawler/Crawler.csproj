@@ -53,6 +53,8 @@
     <Compile Include="Components\IActivableComponent.cs" />
     <Compile Include="Components\IConsumableComponent.cs" />
     <Compile Include="Components\IEquipableComponent.cs" />
+    <Compile Include="Components\Implementation\BaseStatisticsNeutralModifier.cs" />
+    <Compile Include="Components\Implementation\StatisticModifierFOv.cs" />
     <Compile Include="Components\Implementation\BasicEquipableItem.cs" />
     <Compile Include="Components\Implementation\BasicFlyingWalkable.cs" />
     <Compile Include="Components\Implementation\BasicFloorWalkable.cs" />
@@ -62,9 +64,13 @@
     <Compile Include="Components\Implementation\BasicWallUnwalkable.cs" />
     <Compile Include="Components\Implementation\ConsumableComponant.cs" />
     <Compile Include="Components\Implementation\DownstaireActivable.cs" />
+    <Compile Include="Components\Implementation\IStatisticsModifierComponent.cs" />
     <Compile Include="Components\Implementation\UnconsumableComponant.cs" />
     <Compile Include="Components\Implementation\UpstairActivable.cs" />
     <Compile Include="Components\IWalkable.cs" />
+    <Compile Include="Items\Torso.cs" />
+    <Compile Include="Living\FullStatistics.cs" />
+    <Compile Include="MapFiller.cs" />
     <Compile Include="MapGenerator\Dongeon.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Helpers.cs" />

@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Xunit;
-
-namespace Crawler.Utils.Tests
+﻿namespace Crawler.Utils.Tests
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Crawler.Utils.PathCalculator;
+
+    using Microsoft.Xna.Framework;
+
+    using Xunit;
+
     public class SimplePathCalculatorTests
     {
 

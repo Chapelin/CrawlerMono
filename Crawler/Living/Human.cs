@@ -12,9 +12,8 @@
         {
             sprite = game.Content.Load<Texture2D>("sprite//human");
             z = 0F;
-            statistics = new Statistics();
-            statistics.FOV = 5;
-            statistics.Speed = 10;
+            statistics.BasicStatistics.FOV = 5;
+            statistics.BasicStatistics.Speed = 10;
             Name = "Human";
             traits = Traits.Walking;
         }

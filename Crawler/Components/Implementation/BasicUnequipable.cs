@@ -19,5 +19,10 @@ namespace Crawler.Components.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public bool IsEquipped()
+        {
+            return false;
+        }
     }
 }

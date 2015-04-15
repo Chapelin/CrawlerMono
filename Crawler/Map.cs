@@ -18,9 +18,9 @@ namespace Crawler
     {
         public ListGameAware<Cell> board;
 
-        private ListGameAware<Item> itemsOnBoard;
+        public ListGameAware<Item> itemsOnBoard;
 
-        private ListGameAware<LivingBeing> livingOnMap;
+        public ListGameAware<LivingBeing> livingOnMap;
         public  new GameEngine Game;
 
         internal SpriteBatch sb;
@@ -43,70 +43,12 @@ namespace Crawler
         }
 
 
-        public void InitializeBoard(Camera cam)
-        {
-            var rnd = new Random();
-
-            for (int i = 0; i <  SizeOfMap.X; i++)
-            {
-                for (int j = 0; j < SizeOfMap.Y; j++)
-                {
-                    var po = new Vector2(i, j);
-                    Cell c;
-                    if (i % SizeOfMap.X != 0)
-                    {
-                        if (rnd.Next(100) == 50)
-                        {
-                            c = new Wall(Game, po, cam, sb);
-                        }
-                        else
-                        {
-                            c = new Floor(Game, po, cam, sb);
-                        }
-                    }
-                    else
-                    {
-                        c = new Wall(Game, po, cam, sb);
-                    }
-                    board.Add(c);
-                }
-            }
-        }
-
-        public void InitializeItems(Camera c)
-        {
-            var li = new List<Item>(){
-                new Potion(Game, new Vector2(5, 5), c, sb),
-                new Potion(Game, new Vector2(10, 5), c, sb),
-                new Potion(Game, new Vector2(7, 2), c, sb),
-                new Potion(Game, new Vector2(4, 11), c, sb),
-                new Potion(Game, new Vector2(4, 11), c, sb),
-                new Rod(Game, new Vector2(5, 5), c, sb)};
-            itemsOnBoard.AddRange(li);
-        }
-
-        public LivingBeing InitializeEnnemis(Camera c)
-        {
-            var b = new Bat(Game, new Vector2(1, 1), c, sb,log);
-            livingOnMap.Add(b);
-            b.IsUserControlled = false;
-            return b;
-        }
-
-        public LivingBeing InitializePlayer(Camera c)
-        {
-            var position = board.First(x => x.GetType() == typeof(Floor)).positionCell;
-            var human = new Human(Game, position, c, sb);
-            human.IsUserControlled = true;
-            livingOnMap.Add(human);
-            return human;
-
-        }
+      
 
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = GetPathsToDistanceMax(posLb, being.statistics.FOV);
+            var listCell = GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
             var totalList = new List<MapDrawableComponent>();
             totalList.AddRange(board);
             totalList.AddRange(itemsOnBoard);
@@ -255,7 +197,7 @@ namespace Crawler
 
         public void DropFirstObject(LivingBeing lb)
         {
-            var itemToDrop = lb.Inventory.FirstOrDefault();
+            var itemToDrop = lb.Inventory.FirstOrDefault(x=> !x.IsEquipped);
             if (itemToDrop != null)
             {
                 lb.Inventory.Remove(itemToDrop);

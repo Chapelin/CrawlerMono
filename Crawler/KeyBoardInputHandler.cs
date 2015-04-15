@@ -47,29 +47,6 @@ namespace Crawler
                     HandleKeyboardPlayerMenu(k, lb);
                 }
 
-                if (k.GetPressedKeys().Contains(Keys.Space))
-                {
-                    c.CenterOn(lb.positionCell);
-                }
-
-                if (k.GetPressedKeys().Contains(Keys.A))
-                {
-                    Console.WriteLine("Action dispos : ");
-                    var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
-                    foreach (var actionDoable in listAction)
-                    {
-                        Console.WriteLine(actionDoable.ActionName);
-                    }
-                }
-
-                if (k.GetPressedKeys().Contains(Keys.U))
-                {
-                    Console.WriteLine("Doing first action dispo");
-                    var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
-                    if(listAction.Any())
-                        listAction.First().ActionActivity.Invoke();
-                }
-
             }
         }
 
@@ -92,6 +69,49 @@ namespace Crawler
                 m.DropFirstObject(lb);
                 ResetTimer();
 
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.Space))
+            {
+                c.CenterOn(lb.positionCell);
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.L))
+            {
+                Console.WriteLine("Action dispos : ");
+                var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                foreach (var actionDoable in listAction)
+                {
+                    Console.WriteLine(actionDoable.ActionName);
+                }
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.A))
+            {
+                Console.WriteLine("Doing first action dispo");
+                var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                if (listAction.Any())
+                    listAction.First().ActionActivity.Invoke();
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.E))
+            {
+                Console.WriteLine("Trying to equipe first item");
+                var eq = lb.Inventory.FirstOrDefault(x => x.CanEquip(lb));
+                if (eq != null)
+                {
+                    eq.Equip(lb);
+                }
+            }
+
+            if (k.GetPressedKeys().Contains(Keys.U))
+            {
+                Console.WriteLine("Trying to unequipe first item");
+                var eq = lb.Inventory.FirstOrDefault(x => x.IsEquipped);
+                if (eq != null)
+                {
+                    eq.UnEquip(lb);
+                }
             }
 
         }

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-
-namespace Crawler.Utils
+﻿namespace Crawler.Utils.PathCalculator
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Microsoft.Xna.Framework;
+
     public class SimplePathCalculator : IPathCalculator
     {
         public List<Vector2> FindPath(Vector2 origin, Vector2 target)
@@ -18,7 +19,7 @@ namespace Crawler.Utils
             if (diffVector.X != 0 && diffVector.Y != 0)
             {
                 //diagonal first
-                var vectorDiag = GetDifferentialVector(diffVector);
+                var vectorDiag = this.GetDifferentialVector(diffVector);
                 while (!(currentpo.X == target.X || currentpo.Y == target.Y))
                 {
                     nex = currentpo + vectorDiag;
@@ -29,7 +30,7 @@ namespace Crawler.Utils
 
             // now diag is done, we fill the gap
             diffVector = target - currentpo;
-            var gadDir = GetDifferentialVector(diffVector);
+            var gadDir = this.GetDifferentialVector(diffVector);
 
             while (!(currentpo.X == target.X && currentpo.Y == target.Y))
             {
