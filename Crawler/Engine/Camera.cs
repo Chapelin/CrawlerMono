@@ -61,16 +61,16 @@
             this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
         }
 
-        public Vector2 GetCellPositon(Vector2 pxPosition)
+        public Vector2 GetCellAtPosition(Vector2 pxPosition)
         {
-            var vec =  pxPosition / GameEngine.SpriteSize - this.CameraOffset;
+            var vec = ( pxPosition - this.CameraOffset) / GameEngine.SpriteSize;
             vec += this.Offset;
             return new Vector2((float)Math.Floor(vec.X), (float)Math.Floor(vec.Y));
         }
 
-        public Vector2 GetCellPositon(Point pxCurrentPos)
+        public Vector2 GetCellAtPosition(Point pxCurrentPos)
         {
-            return this.GetCellPositon(new Vector2(pxCurrentPos.X, pxCurrentPos.Y));
+            return this.GetCellAtPosition(new Vector2(pxCurrentPos.X, pxCurrentPos.Y));
         }
     }
 }

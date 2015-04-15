@@ -25,6 +25,7 @@ namespace Crawler.UI
 
         private SpriteBatch sb;
 
+        private Vector2 CurrentCellTargeted;
         private Texture2D tex;
 
         public MouseTargeter(GameEngine game, Camera c, SpriteBatch sb)
@@ -34,7 +35,8 @@ namespace Crawler.UI
             this.pxCurrentPos = Point.Zero;
             this.pxTargetPos = Vector2.Zero;
             this.sb = sb;
-            this.tex = game.Content.Load<Texture2D>("sprites//target");
+            this.CurrentCellTargeted = Vector2.Zero;
+            this.tex = game.Content.Load<Texture2D>("sprite//target");
         }
 
         public override void Update(GameTime gameTime)
@@ -43,10 +45,11 @@ namespace Crawler.UI
             if (pospx != pxCurrentPos)
             {
                 this.pxCurrentPos = pospx;
-                this.toShow = c.IsOnCamera(this.pxCurrentPos);
+                CurrentCellTargeted = c.GetCellAtPosition(this.pxCurrentPos);
+                this.toShow = c.IsOnCamera(CurrentCellTargeted);
                 if (toShow)
                 {
-                    this.pxTargetPos = c.GetPixelPositionOriginOfCell(c.GetCellPositon(this.pxCurrentPos));
+                    this.pxTargetPos = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
                 }
             }
 

@@ -37,6 +37,9 @@ namespace Crawler.Engine
         private LivingBeing beingToPlay;
         private BasicLogPrinter blp;
         private Dongeon donjon;
+
+        private MouseTargeter mt;
+
         public GameEngine()
             : base()
         {
@@ -73,6 +76,8 @@ namespace Crawler.Engine
             base.Initialize();
             this.hd = new KeyBoardInputHandler(this.c, this.m);
             this.m.SetAsActive(true);
+            this.mt = new MouseTargeter(this, this.c, this.sb);
+            this.Components.Add(this.mt);
         }
 
         /// <summary>
