@@ -8,9 +8,8 @@
     public class Rod : Equipable
     {
         public Rod(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb)
+            : base(game, positionCell, c, sb, "sprite\\rod")
         {
-            sprite = game.Content.Load<Texture2D>("sprite\\rod");
         }
 
         public override string Description

@@ -27,7 +27,7 @@
 
         public List<Guid> SeenBy;
 
-        public MapDrawableComponent(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
+        public MapDrawableComponent(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName)
             : base(game)
         {
             this.positionCell = positionCell;
@@ -37,6 +37,7 @@
             this.z = 0.5F;
             this.colorToUse = Color.White;
             this.SeenBy = new List<Guid>();
+            this.sprite = Game.Content.Load<Texture2D>(spriteName);
         }
 
         public override void Draw(GameTime gameTime)

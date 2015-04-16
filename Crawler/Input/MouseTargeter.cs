@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crawler.UI
+﻿namespace Crawler.Input
 {
     using Crawler.Engine;
 
@@ -20,39 +14,40 @@ namespace Crawler.UI
 
         private Point pxCurrentPos;
 
-        private bool toShow;
-        private Vector2 pxTargetPos;
+        private bool showTargetSprite;
+        private Vector2 pxTargetSpriteOrigin;
 
         private SpriteBatch sb;
 
         private Vector2 CurrentCellTargeted;
-        private Texture2D tex;
+        private Texture2D targetTexture;
 
         public MouseTargeter(GameEngine game, Camera c, SpriteBatch sb)
             : base(game)
         {
             this.c = c;
             this.pxCurrentPos = Point.Zero;
-            this.pxTargetPos = Vector2.Zero;
+            this.pxTargetSpriteOrigin = Vector2.Zero;
             this.sb = sb;
             this.CurrentCellTargeted = Vector2.Zero;
-            this.tex = game.Content.Load<Texture2D>("sprite//target");
+            this.targetTexture = game.Content.Load<Texture2D>("sprite//target");
             this.Game = game;
         }
 
         public override void Update(GameTime gameTime)
         {
-            var pospx = Mouse.GetState().Position;
-            if (pospx != pxCurrentPos)
+            var mousePosition = Mouse.GetState().Position;
+            if (mousePosition != this.pxCurrentPos)
             {
-                this.pxCurrentPos = pospx;
-                CurrentCellTargeted = c.GetCellAtPosition(this.pxCurrentPos);
-                this.toShow = c.IsCellOnCamera(CurrentCellTargeted);
-                if (toShow)
+                this.pxCurrentPos = mousePosition;
+                this.CurrentCellTargeted = this.c.GetCellAtPosition(this.pxCurrentPos);
+                this.showTargetSprite = this.c.IsCellOnCamera(this.CurrentCellTargeted);
+                if (this.showTargetSprite)
                 {
-                    this.pxTargetPos = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
+                    this.pxTargetSpriteOrigin = this.c.GetPixelPositionOriginOfCell(this.CurrentCellTargeted);
                 }
-                Game.IsMouseVisible = !toShow;
+
+                this.Game.IsMouseVisible = !this.showTargetSprite;
             }
 
 
@@ -61,10 +56,10 @@ namespace Crawler.UI
 
         public override void Draw(GameTime gameTime)
         {
-            if (toShow)
+            if (this.showTargetSprite)
             {
                 
-                sb.Draw(this.tex, this.pxTargetPos, Color.White);
+                this.sb.Draw(this.targetTexture, this.pxTargetSpriteOrigin, Color.White);
             }
 
 

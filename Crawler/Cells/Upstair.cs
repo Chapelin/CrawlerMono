@@ -10,9 +10,8 @@
     public class Upstair : Cell
     {
         public Upstair(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable())
+            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable(), "sprite//upstair")
         {
-            sprite = game.Content.Load<Texture2D>("sprite//upstair");
         }
     }
 }

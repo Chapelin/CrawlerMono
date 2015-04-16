@@ -25,8 +25,9 @@
 
         public String Name { get; set; }
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb)
+
+        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName)
+            : base(game, positionCell, c, sb, spriteName)
         {
             Inventory = new List<Item>();
             IsUserControlled = false;

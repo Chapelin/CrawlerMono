@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Components;
     using Crawler.Components.Actions;
     using Crawler.Components.Others;
     using Crawler.Engine;
@@ -24,8 +23,8 @@
             return walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac)
-            : base(game, p, c, s)
+        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac, string spriteName)
+            : base(game, p, c, s, spriteName)
         {
             z = 1F;
             walkableComponent = w;

@@ -12,10 +12,9 @@ namespace Crawler.Cells
     public class Wall : Cell
     {
         public Wall(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicWallUnwalkable(), new BasicVoidActivable())
+            : base(game, p, c, sb, new BasicWallUnwalkable(), new BasicVoidActivable(), "sprite\\wall")
         {
-            
-            sprite = game.Content.Load<Texture2D>("sprite\\wall");
+
         }
 
 

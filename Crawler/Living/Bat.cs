@@ -12,9 +12,8 @@
     {
         ILogPrinter log;
         public Bat(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, ILogPrinter printer)
-            : base(game, positionCell, c, sb)
+            : base(game, positionCell, c, sb, "sprite\\bat")
         {
-            sprite = Game.Content.Load<Texture2D>("sprite\\bat");
             statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
             IsUserControlled = false;
             Name = "Bat";

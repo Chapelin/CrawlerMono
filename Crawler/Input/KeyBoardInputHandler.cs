@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System;
     using System.Linq;
 
     using Crawler.Engine;
-
-    using Living;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;

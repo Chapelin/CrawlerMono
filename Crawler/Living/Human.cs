@@ -8,9 +8,8 @@
     public class Human : LivingBeing
     {
         public Human(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb)
+            : base(game, positionCell, c, sb, "sprite//human")
         {
-            this.sprite = game.Content.Load<Texture2D>("sprite//human");
             this.z = 0F;
             this.statistics.BasicStatistics.FOV = 5;
             this.statistics.BasicStatistics.Speed = 10;

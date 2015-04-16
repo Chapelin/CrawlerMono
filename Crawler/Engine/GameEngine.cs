@@ -10,6 +10,7 @@ namespace Crawler.Engine
     using System.Linq;
 
     using Crawler.Helpers;
+    using Crawler.Input;
     using Crawler.Living;
     using Crawler.MapGenerator;
     using Crawler.Scheduling;
