@@ -10,7 +10,7 @@
     public class Water : Cell
     {
         public Water(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicFlyingWalkable(), new BasicVoidActivable(),"sprite//water")
+            : base(game, p, c, sb, new BasicFlyingWalkable(), new BasicVoidActivable(), new InactiveEnterExit(), "sprite//water")
         {
         }
     }

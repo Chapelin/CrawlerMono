@@ -139,7 +139,12 @@ namespace Crawler.Engine
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
             this.c.Move(targetPosition - p.positionCell);
+            var cellTarget = this.m.board.First(x => x.positionCell == targetPosition);
+            var cellGoingout = this.m.board.First(x => x.positionCell == p.positionCell);
+            cellGoingout.OnExit(p);
             p.positionCell = targetPosition;
+            cellTarget.OnEnter(p);
+
             // we have played, so we remove it
             this.scheduler.Played();
             this.beingToPlay = null;

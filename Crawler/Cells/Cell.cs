@@ -13,22 +13,24 @@
 
     public class Cell : MapDrawableComponent
     {
+        private readonly IEnterExitComponent eeComponent;
 
         private readonly IWalkable walkableComponent;
 
         private readonly IActivableComponent ac;
-      
+
         public bool IsWalkable(LivingBeing lv)
         {
             return walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac, string spriteName)
+        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
             : base(game, p, c, s, spriteName)
         {
             z = 1F;
             walkableComponent = w;
             this.ac = ac;
+            this.eeComponent = ee;
 
         }
 
@@ -40,6 +42,16 @@
         public List<ActionDoable> PossibleActions(LivingBeing lb)
         {
             return ac.Activables(lb);
+        }
+
+        public void OnEnter(LivingBeing lb)
+        {
+            this.eeComponent.Entering(lb);
+        }
+
+        public void OnExit(LivingBeing lb)
+        {
+            this.eeComponent.Exiting(lb);
         }
 
     }

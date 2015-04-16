@@ -11,7 +11,7 @@
     {
 
         public Floor(GameEngine game, Vector2 p, Camera c, SpriteBatch sb)
-            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable(), "sprite\\floor")
+            : base(game, p, c, sb, new BasicFloorWalkable(), new BasicVoidActivable(),new InactiveEnterExit(),  "sprite\\floor")
         {
         }
     }
