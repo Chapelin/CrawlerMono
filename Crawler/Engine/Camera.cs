@@ -16,8 +16,9 @@
         // offset in px in the window
         public Vector2 CameraOffset
         {
-            get; set;
-            
+            get;
+            set;
+
         }
 
         public Camera(Vector2 SizeOfView, Vector2 cameraOffset, ILogPrinter log)
@@ -35,17 +36,13 @@
 
         }
 
-        public bool IsOnCamera(Vector2 position)
+        public bool IsCellOnCamera(Vector2 position)
         {
             return !(position.X < this.Offset.X || position.Y < this.Offset.Y || position.X > this.Offset.X + this.SizeOfView.X
                    || position.Y > this.Offset.Y + this.SizeOfView.Y);
 
         }
 
-        public bool IsOnCamera(Point pxCurrentPos)
-        {
-            return this.IsOnCamera(new Vector2(pxCurrentPos.X, pxCurrentPos.Y));
-        }
 
         public Vector2 GetPixelPositionOriginOfCell(Vector2 cellPosition)
         {
@@ -55,7 +52,7 @@
 
         }
 
-        public void CenterOn(Vector2 position)
+        public void CenterOnCell(Vector2 position)
         {
             this.Offset = position - this.SizeOfView / 2;
             this.Offset = new Vector2((float)Math.Floor(this.Offset.X), (float)Math.Floor(this.Offset.Y));
@@ -63,7 +60,7 @@
 
         public Vector2 GetCellAtPosition(Vector2 pxPosition)
         {
-            var vec = ( pxPosition - this.CameraOffset) / GameEngine.SpriteSize;
+            var vec = (pxPosition - this.CameraOffset) / GameEngine.SpriteSize;
             vec += this.Offset;
             return new Vector2((float)Math.Floor(vec.X), (float)Math.Floor(vec.Y));
         }

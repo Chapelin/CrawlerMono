@@ -47,7 +47,7 @@ namespace Crawler.UI
             {
                 this.pxCurrentPos = pospx;
                 CurrentCellTargeted = c.GetCellAtPosition(this.pxCurrentPos);
-                this.toShow = c.IsOnCamera(CurrentCellTargeted);
+                this.toShow = c.IsCellOnCamera(CurrentCellTargeted);
                 if (toShow)
                 {
                     this.pxTargetPos = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);

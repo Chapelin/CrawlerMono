@@ -48,7 +48,7 @@
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;
-            var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.TotalStatistics.FOV);
+            var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.FOV);
             var totalList = new List<MapDrawableComponent>();
             totalList.AddRange(this.board);
             totalList.AddRange(this.itemsOnBoard);

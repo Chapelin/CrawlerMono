@@ -41,7 +41,7 @@
 
         public override void Draw(GameTime gameTime)
         {
-            if (this.camera.IsOnCamera(this.positionCell))
+            if (this.camera.IsCellOnCamera(this.positionCell))
             {
                 this.sb.Draw(this.sprite, this.camera.GetPixelPositionOriginOfCell(this.positionCell), depth: this.z, color: this.colorToUse);
             }

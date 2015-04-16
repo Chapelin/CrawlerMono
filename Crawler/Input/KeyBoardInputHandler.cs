@@ -75,7 +75,7 @@ namespace Crawler
 
             if (k.GetPressedKeys().Contains(Keys.Space))
             {
-                c.CenterOn(lb.positionCell);
+                c.CenterOnCell(lb.positionCell);
             }
 
             if (k.GetPressedKeys().Contains(Keys.L))

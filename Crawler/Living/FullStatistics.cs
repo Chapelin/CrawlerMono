@@ -6,37 +6,39 @@ using System.Threading.Tasks;
 
 namespace Crawler.Living
 {
-    public class FullStatistics
+    public class FullStatistics : Statistics
     {
         public Statistics BasicStatistics { get; set; }
 
         public Statistics AddedStatistics { get; set; }
 
-        public Statistics TotalStatistics
+        public int FOV
         {
             get
             {
-                return ComputeStatistics();
+                return this.BasicStatistics.FOV + this.AddedStatistics.FOV;
             }
         }
 
-        private Statistics ComputeStatistics()
+
+        public int Speed
         {
-            var st = new Statistics();
-            st.FOV = BasicStatistics.FOV + AddedStatistics.FOV;
-            st.Speed = BasicStatistics.Speed + AddedStatistics.Speed;
-            return st;
+            get
+            {
+                return this.BasicStatistics.Speed + this.AddedStatistics.Speed;
+            }
         }
 
-        public FullStatistics()
+
+        public FullStatistics(Statistics baseic)
         {
-            this.BasicStatistics  = new Statistics();
+            this.BasicStatistics = baseic;
             this.AddedStatistics = new Statistics();
         }
 
         public void ApplyBonus(Statistics s)
         {
-            this.AddedStatistics+=s;
+            this.AddedStatistics += s;
         }
 
         public void RemoveBonus(Statistics s)

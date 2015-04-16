@@ -32,7 +32,7 @@
             IsUserControlled = false;
             uniqueIdentifier = Guid.NewGuid();
             VisitedColor = Color.Transparent;
-            this.statistics = new FullStatistics();
+            this.statistics = new FullStatistics(new Statistics());
         }
 
         public virtual void AutoPlay()

@@ -3,9 +3,9 @@
     public class Statistics
     {
 
-        public int Speed;
+        public int Speed { get; set; }
 
-        public int FOV;
+        public int FOV { get; set; }
 
 
         public static Statistics operator +(Statistics s, Statistics s2)
