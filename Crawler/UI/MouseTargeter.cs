@@ -37,6 +37,7 @@ namespace Crawler.UI
             this.sb = sb;
             this.CurrentCellTargeted = Vector2.Zero;
             this.tex = game.Content.Load<Texture2D>("sprite//target");
+            this.Game = game;
         }
 
         public override void Update(GameTime gameTime)
@@ -51,7 +52,9 @@ namespace Crawler.UI
                 {
                     this.pxTargetPos = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
                 }
+                Game.IsMouseVisible = !toShow;
             }
+
 
             base.Update(gameTime);
         }
@@ -60,8 +63,10 @@ namespace Crawler.UI
         {
             if (toShow)
             {
+                
                 sb.Draw(this.tex, this.pxTargetPos, Color.White);
             }
+
 
 
             base.Draw(gameTime);
