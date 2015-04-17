@@ -3,11 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Cells;
-    using Crawler.Engine;
-    using Crawler.Items;
-    using Crawler.Living;
-    using Crawler.UI;
+    using Cells;
+    using Engine;
+    using Items;
+    using Living;
+    using UI;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +15,8 @@
     public static class MapFiller
     {
 
-        public static void InitializeItems(Camera c, Map m, SpriteBatch sb)
+
+        public static void InitializeItems(Camera c, Map m, SpriteBatch sb, ILogPrinter lp)
         {
             var li = new List<Item>(){
                 new Potion(m.Game, new Vector2(5, 5), c, sb),
@@ -39,10 +40,10 @@
             return b;
         }
 
-        public static LivingBeing InitializePlayer(Camera c, Map m, SpriteBatch sb)
+        public static LivingBeing InitializePlayer(Camera c, Map m, SpriteBatch sb, ILogPrinter lp)
         {
             var position = m.board.First(x => x.GetType() == typeof(Floor)).positionCell;
-            var human = new Human(m.Game, position, c, sb);
+            var human = new Human(m.Game, position, c, sb,lp);
             human.IsUserControlled = true;
             m.livingOnMap.Add(human);
             return human;

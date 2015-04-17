@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.Cells
 {
-    using Crawler.Components.Actions.Implementation;
-    using Crawler.Components.Others.Implementation;
-    using Crawler.Engine;
+    using Components.Actions.Implementation;
+    using Components.Others.Implementation;
+    using Engine;
 
     using Living;
 

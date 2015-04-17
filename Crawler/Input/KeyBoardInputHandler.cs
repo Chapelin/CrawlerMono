@@ -3,8 +3,8 @@
     using System;
     using System.Linq;
 
-    using Crawler.Engine;
-    using Crawler.Living;
+    using Engine;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;

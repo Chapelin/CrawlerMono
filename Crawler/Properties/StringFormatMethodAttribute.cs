@@ -24,7 +24,7 @@ namespace Crawler.Properties
         /// </param>
         public StringFormatMethodAttribute(string formatParameterName)
         {
-            this.FormatParameterName = formatParameterName;
+            FormatParameterName = formatParameterName;
         }
 
         public string FormatParameterName { get; private set; }

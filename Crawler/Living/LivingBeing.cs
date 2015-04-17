@@ -1,9 +1,11 @@
-﻿namespace Crawler.Living
+﻿using Crawler.UI;
+
+namespace Crawler.Living
 {
     using System;
     using System.Collections.Generic;
 
-    using Crawler.Engine;
+    using Engine;
 
     using Items;
 
@@ -25,42 +27,44 @@
 
         public String Name { get; set; }
 
+        private ILogPrinter logger;
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName)
+
+        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName, ILogPrinter logprinter)
             : base(game, positionCell, c, sb, spriteName)
         {
             Inventory = new List<Item>();
             IsUserControlled = false;
             uniqueIdentifier = Guid.NewGuid();
             VisitedColor = Color.Transparent;
-            this.statistics = new FullStatistics(new Statistics());
+            statistics = new FullStatistics(new Statistics());
+            this.logger = logprinter;
         }
 
         public virtual void AutoPlay()
         {
-            Console.WriteLine("{0} Autoplayed", Name);
         }
 
         public void DumpInventory()
         {
-            Console.WriteLine("{0} inventory :",Name);
+            this.logger.WriteLine("{0} inventory :",Name);
             foreach (var item in Inventory)
             {
-                Console.WriteLine("\t {0}",item.Description);
+                this.logger.WriteLine("   {0}",item.Description);
             }
 
         }
 
         public void GoMapDown()
         {
-            Console.WriteLine("Going down");
+            this.logger.WriteLine(this.Name + " going down.");
             Game.ChangeMap(this,true);
             
         }
 
         public void GoMapUp()
         {
-            Console.WriteLine("Going up");
+            this.logger.WriteLine(this.Name + " going up.");
             Game.ChangeMap(this, false);
         }
     }

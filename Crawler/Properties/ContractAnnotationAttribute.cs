@@ -52,8 +52,8 @@ namespace Crawler.Properties
 
         public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
         {
-            this.Contract = contract;
-            this.ForceFullStates = forceFullStates;
+            Contract = contract;
+            ForceFullStates = forceFullStates;
         }
 
         public string Contract { get; private set; }

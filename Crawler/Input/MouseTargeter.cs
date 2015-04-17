@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Input
 {
-    using Crawler.Engine;
+    using Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -26,28 +26,28 @@
             : base(game)
         {
             this.c = c;
-            this.pxCurrentPos = Point.Zero;
-            this.pxTargetSpriteOrigin = Vector2.Zero;
+            pxCurrentPos = Point.Zero;
+            pxTargetSpriteOrigin = Vector2.Zero;
             this.sb = sb;
-            this.CurrentCellTargeted = Vector2.Zero;
-            this.targetTexture = game.Content.Load<Texture2D>("sprite//target");
-            this.Game = game;
+            CurrentCellTargeted = Vector2.Zero;
+            targetTexture = game.Content.Load<Texture2D>("sprite//target");
+            Game = game;
         }
 
         public override void Update(GameTime gameTime)
         {
             var mousePosition = Mouse.GetState().Position;
-            if (mousePosition != this.pxCurrentPos)
+            if (mousePosition != pxCurrentPos)
             {
-                this.pxCurrentPos = mousePosition;
-                this.CurrentCellTargeted = this.c.GetCellAtPosition(this.pxCurrentPos);
-                this.showTargetSprite = this.c.IsCellOnCamera(this.CurrentCellTargeted);
-                if (this.showTargetSprite)
+                pxCurrentPos = mousePosition;
+                CurrentCellTargeted = c.GetCellAtPosition(pxCurrentPos);
+                showTargetSprite = c.IsCellOnCamera(CurrentCellTargeted);
+                if (showTargetSprite)
                 {
-                    this.pxTargetSpriteOrigin = this.c.GetPixelPositionOriginOfCell(this.CurrentCellTargeted);
+                    pxTargetSpriteOrigin = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
                 }
 
-                this.Game.IsMouseVisible = !this.showTargetSprite;
+                Game.IsMouseVisible = !showTargetSprite;
             }
 
 
@@ -56,10 +56,10 @@
 
         public override void Draw(GameTime gameTime)
         {
-            if (this.showTargetSprite)
+            if (showTargetSprite)
             {
                 
-                this.sb.Draw(this.targetTexture, this.pxTargetSpriteOrigin, Color.White);
+                sb.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
             }
 
 

@@ -13,7 +13,7 @@ namespace Crawler.Properties
         public PathReferenceAttribute() { }
         public PathReferenceAttribute([PathReference] string basePath)
         {
-            this.BasePath = basePath;
+            BasePath = basePath;
         }
 
         [NotNull] public string BasePath { get; private set; }

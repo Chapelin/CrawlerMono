@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Cells;
-    using Crawler.Engine;
-    using Crawler.Utils;
-    using Crawler.Utils.PathCalculator;
-    using Crawler.Utils.Random;
+    using Cells;
+    using Engine;
+    using Utils;
+    using Utils.PathCalculator;
+    using Utils.Random;
 
     using Microsoft.Xna.Framework;
 
@@ -58,7 +58,6 @@
 
                     if (!listResult.Any(x => x.Setting.Intersects(tentativeRoom.Setting)))
                     {
-                        Console.Write("Room placed");
                         listResult.Add(tentativeRoom);
                         break;
                     }

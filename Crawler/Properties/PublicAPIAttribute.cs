@@ -12,7 +12,7 @@ namespace Crawler.Properties
         public PublicAPIAttribute() { }
         public PublicAPIAttribute([NotNull] string comment)
         {
-            this.Comment = comment;
+            Comment = comment;
         }
 
         [NotNull] public string Comment { get; private set; }

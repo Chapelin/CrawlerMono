@@ -13,7 +13,7 @@ namespace Crawler.Properties
         public AspMvcAreaAttribute() { }
         public AspMvcAreaAttribute([NotNull] string anonymousProperty)
         {
-            this.AnonymousProperty = anonymousProperty;
+            AnonymousProperty = anonymousProperty;
         }
 
         [NotNull] public string AnonymousProperty { get; private set; }

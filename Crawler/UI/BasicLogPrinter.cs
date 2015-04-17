@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Engine;
+    using Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -24,36 +24,36 @@
         {
             this.sb = sb;
             
-            this.Log = new List<string>();
-            this.Log.Add("i'm a test");
-            this.Log.Add("a mother f*cker test");
-            this.Log.Add("yeah baby");
-            this.Log.Add("prout");
-            this.Log.Add("Salut !");
-            this.defaultFont = game.Content.Load<SpriteFont>("defaultFont");
+            Log = new List<string>();
+            Log.Add("i'm a test");
+            Log.Add("a mother f*cker test");
+            Log.Add("yeah baby");
+            Log.Add("prout");
+            Log.Add("Salut !");
+            defaultFont = game.Content.Load<SpriteFont>("defaultFont");
         }
 
 
 
-        public void AddLine(string text)
+        public void WriteLine(string text)
         {
-            this.Log.Add(text);
+            Log.Add(text);
         }
 
-        public void AddLine(string text, params object[] values)
+        public void WriteLine(string text, params object[] values)
         {
-            this.AddLine(string.Format(text, values));
+            WriteLine(string.Format(text, values));
         }
 
 
         public override void Draw(GameTime gameTime)
         {
-            var listToAdd = this.Log.Skip(this.Log.Count - 5);
-            var currentpos = this.PositionPixel;
-            var posToAdd = this.defaultFont.LineSpacing-2;
+            var listToAdd = Log.Skip(Log.Count - 5);
+            var currentpos = PositionPixel;
+            var posToAdd = defaultFont.LineSpacing-2;
             foreach (var text in listToAdd)
             {
-                this.sb.DrawString(this.defaultFont, text, currentpos, Color.White);
+                sb.DrawString(defaultFont, text, currentpos, Color.White);
                 currentpos.Y += posToAdd;
             }
 

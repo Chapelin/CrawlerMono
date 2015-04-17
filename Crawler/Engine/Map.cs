@@ -4,12 +4,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Crawler.Cells;
-    using Crawler.DataStructures;
-    using Crawler.Items;
-    using Crawler.Living;
-    using Crawler.UI;
-    using Crawler.Utils;
+    using Cells;
+    using DataStructures;
+    using Items;
+    using Living;
+    using UI;
+    using Utils;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -33,13 +33,13 @@
         {
             if(size == default(Vector2))
                 size = new Vector2(50,50);
-            this.Game = game;
-            this.log = lp;
+            Game = game;
+            log = lp;
             this.sb = sb;
-            this.itemsOnBoard = new ListGameAware<Item>(game);
-            this.livingOnMap = new ListGameAware<LivingBeing>(game);
-            this.board = new ListGameAware<Cell>(game);
-            this.SizeOfMap = size;
+            itemsOnBoard = new ListGameAware<Item>(game);
+            livingOnMap = new ListGameAware<LivingBeing>(game);
+            board = new ListGameAware<Cell>(game);
+            SizeOfMap = size;
         }
 
 
@@ -50,11 +50,11 @@
             var posLb = being.positionCell;
             var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.FOV);
             var totalList = new List<MapDrawableComponent>();
-            totalList.AddRange(this.board);
-            totalList.AddRange(this.itemsOnBoard);
-            totalList.AddRange(this.livingOnMap);
+            totalList.AddRange(board);
+            totalList.AddRange(itemsOnBoard);
+            totalList.AddRange(livingOnMap);
 
-            this.HandleVisibilityOfList(being, listCell, totalList);
+            HandleVisibilityOfList(being, listCell, totalList);
 
         }
 
@@ -116,36 +116,36 @@
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
-            return this.itemsOnBoard.Where(x => x.positionCell == targetPosition);
+            return itemsOnBoard.Where(x => x.positionCell == targetPosition);
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return this.board.FirstOrDefault(x => x.positionCell == targetposition);
+            return board.FirstOrDefault(x => x.positionCell == targetposition);
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
         {
-            this.livingOnMap.Remove(lb);
+            livingOnMap.Remove(lb);
         }
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
             lb.positionCell = pos;
-            this.livingOnMap.Add(lb);
+            livingOnMap.Add(lb);
 
         }
 
         public void RemoveItems(List<Item> it)
         {
-            this.itemsOnBoard.RemoveList(it);
+            itemsOnBoard.RemoveList(it);
         }
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = this.ItemOnPosition(lb.positionCell).ToList();
+            var listObject = ItemOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
-            this.RemoveItems(listObject);
+            RemoveItems(listObject);
         }
 
         public void ShowInventory(LivingBeing lb)
@@ -160,19 +160,19 @@
             {
                 lb.Inventory.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
-                this.itemsOnBoard.Add(itemToDrop);
+                itemsOnBoard.Add(itemToDrop);
             }
         }
 
         public bool TryMoveLivingBeing(LivingBeing lb, Vector2 position)
         {
             var retour = false;
-            var targetCellObject = this.CellOnPosition(position);
+            var targetCellObject = CellOnPosition(position);
             if (null != targetCellObject)
             {
                 if (targetCellObject.IsWalkable(lb))
                 {
-                    this.Game.MoveBeing(lb, position);
+                    Game.MoveBeing(lb, position);
                     retour = true;
                 }
             }
@@ -181,9 +181,9 @@
 
         public void SetAsActive(bool toActive)
         {
-            this.board.IsActive = toActive;
-            this.livingOnMap.IsActive = toActive;
-            this.itemsOnBoard.IsActive = toActive;
+            board.IsActive = toActive;
+            livingOnMap.IsActive = toActive;
+            itemsOnBoard.IsActive = toActive;
         }
     }
 

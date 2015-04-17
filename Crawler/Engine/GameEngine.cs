@@ -9,12 +9,12 @@ namespace Crawler.Engine
     using System;
     using System.Linq;
 
-    using Crawler.Helpers;
-    using Crawler.Input;
-    using Crawler.Living;
-    using Crawler.MapGenerator;
-    using Crawler.Scheduling;
-    using Crawler.UI;
+    using Helpers;
+    using Input;
+    using Living;
+    using MapGenerator;
+    using Scheduling;
+    using UI;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -45,13 +45,13 @@ namespace Crawler.Engine
             : base()
         {
 
-            this.graphics = new GraphicsDeviceManager(this);
-            this.Content.RootDirectory = "Content";
-            this.IsMouseVisible = true;
-            this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
-            this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+            graphics.PreferredBackBufferHeight = 15 * SpriteSize;
+            graphics.PreferredBackBufferWidth = 25 * SpriteSize;
 
-            this.beingToPlay = null;
+            beingToPlay = null;
         }
 
         /// <summary>
@@ -62,23 +62,23 @@ namespace Crawler.Engine
         /// </summary>
         protected override void Initialize()
         {
-            this.sb = new SpriteBatch(this.GraphicsDevice);
-            this.blp = new BasicLogPrinter(this, this.sb);
-            this.c = new Camera(new Vector2(15, 13), new Vector2(0, 50), this.blp);
-            this.scheduler = new Scheduler();
-            this.blp.PositionPixel = new Vector2(517, 420);
-            this.Components.Add(this.blp);
-            this.donjon = new Dongeon(this, this.c, this.sb, this.blp);
-            this.m = this.donjon.CurrentMap;
+            sb = new SpriteBatch(GraphicsDevice);
+            blp = new BasicLogPrinter(this, sb);
+            c = new Camera(new Vector2(15, 13), new Vector2(0, 50), blp);
+            scheduler = new Scheduler();
+            blp.PositionPixel = new Vector2(517, 420);
+            Components.Add(blp);
+            donjon = new Dongeon(this, c, sb, blp);
+            m = donjon.CurrentMap;
 
-            this.scheduler.AddABeing(MapFiller.InitializePlayer(this.c, this.m, this.sb));
-            MapFiller.InitializeItems(this.c, this.m, this.sb);
-            this.scheduler.AddABeing(MapFiller.InitializeEnnemis(this.c, this.m, this.sb, this.blp));
+            scheduler.AddABeing(MapFiller.InitializePlayer(c, m, sb, this.blp));
+            MapFiller.InitializeItems(c, m, sb, this.blp);
+            scheduler.AddABeing(MapFiller.InitializeEnnemis(c, m, sb, blp));
             base.Initialize();
-            this.hd = new KeyBoardInputHandler(this.c, this.m);
-            this.m.SetAsActive(true);
-            this.mt = new MouseTargeter(this, this.c, this.sb);
-            this.Components.Add(this.mt);
+            hd = new KeyBoardInputHandler(c, m);
+            m.SetAsActive(true);
+            mt = new MouseTargeter(this, c, sb);
+            Components.Add(mt);
         }
 
         /// <summary>
@@ -102,22 +102,22 @@ namespace Crawler.Engine
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
+                Exit();
 
             // if list empty
-            while (this.beingToPlay == null)
+            while (beingToPlay == null)
             {
-                this.beingToPlay = this.scheduler.CurrentPlaying();
-                if (!this.beingToPlay.IsUserControlled)
+                beingToPlay = scheduler.CurrentPlaying();
+                if (!beingToPlay.IsUserControlled)
                 {
-                    this.beingToPlay.AutoPlay();
-                    this.scheduler.Played();
-                    this.beingToPlay = null;
+                    beingToPlay.AutoPlay();
+                    scheduler.Played();
+                    beingToPlay = null;
                 }
             }
 
-            this.m.HandleVisibility(this.beingToPlay);
-            this.hd.HandleInput(this.beingToPlay);
+            m.HandleVisibility(beingToPlay);
+            hd.HandleInput(beingToPlay);
 
             base.Update(gameTime);
         }
@@ -130,39 +130,39 @@ namespace Crawler.Engine
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.Black);
-            this.sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            GraphicsDevice.Clear(Color.Black);
+            sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
-            this.sb.End();
+            sb.End();
         }
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
-            this.c.Move(targetPosition - p.positionCell);
-            var cellTarget = this.m.board.First(x => x.positionCell == targetPosition);
-            var cellGoingout = this.m.board.First(x => x.positionCell == p.positionCell);
+            c.Move(targetPosition - p.positionCell);
+            var cellTarget = m.board.First(x => x.positionCell == targetPosition);
+            var cellGoingout = m.board.First(x => x.positionCell == p.positionCell);
             cellGoingout.OnExit(p);
             p.positionCell = targetPosition;
             cellTarget.OnEnter(p);
 
             // we have played, so we remove it
-            this.scheduler.Played();
-            this.beingToPlay = null;
+            scheduler.Played();
+            beingToPlay = null;
         }
 
         public void ChangeMap(LivingBeing lb, bool goingDown)
         {
-            var nextLVL = this.donjon.CurrentLevel + (goingDown ? 1 : -1);
-            this.m.RemoveLivingBeing(lb);
+            var nextLVL = donjon.CurrentLevel + (goingDown ? 1 : -1);
+            m.RemoveLivingBeing(lb);
             if (!lb.IsUserControlled)
                 throw new Exception("Error");
-            this.m.SetAsActive(false);
-            this.donjon.CurrentLevel = nextLVL;
-            this.m = this.donjon.CurrentMap;
-            var targetpos = this.m.board.First(x => x.IsWalkable(lb)).positionCell;
-            this.m.AddLivingBeing(lb, targetpos);
-            this.m.SetAsActive(true);
-            this.hd = new KeyBoardInputHandler(this.c, this.m);
+            m.SetAsActive(false);
+            donjon.CurrentLevel = nextLVL;
+            m = donjon.CurrentMap;
+            var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
+            m.AddLivingBeing(lb, targetpos);
+            m.SetAsActive(true);
+            hd = new KeyBoardInputHandler(c, m);
         }
     }
 }

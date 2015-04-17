@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Crawler.Living;
+    using Living;
 
     public class MessagingEnterExit : IEnterExitComponent
     {

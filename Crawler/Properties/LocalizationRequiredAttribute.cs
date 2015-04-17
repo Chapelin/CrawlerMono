@@ -17,7 +17,7 @@ namespace Crawler.Properties
         public LocalizationRequiredAttribute() : this(true) { }
         public LocalizationRequiredAttribute(bool required)
         {
-            this.Required = required;
+            Required = required;
         }
 
         public bool Required { get; private set; }

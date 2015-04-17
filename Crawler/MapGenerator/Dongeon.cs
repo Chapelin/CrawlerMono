@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler.MapGenerator
 {
-    using Crawler.Engine;
-    using Crawler.UI;
+    using Engine;
+    using UI;
 
     public class Dongeon
     {
@@ -22,10 +22,10 @@ namespace Crawler.MapGenerator
             set
             {
                 _currentLevel = value;
-                var diff = _currentLevel - this.Levels.Count;
+                var diff = _currentLevel - Levels.Count;
                 while(diff > 0)
                 {
-                    this.AddALevel();
+                    AddALevel();
                     diff--;
                 }
             }

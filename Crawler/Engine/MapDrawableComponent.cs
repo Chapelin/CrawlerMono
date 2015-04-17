@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    using Crawler.Cells;
-    using Crawler.Living;
+    using Cells;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -31,20 +31,20 @@
             : base(game)
         {
             this.positionCell = positionCell;
-            this.camera = c;
+            camera = c;
             this.sb = sb;
-            this.Game = game;
-            this.z = 0.5F;
-            this.colorToUse = Color.White;
-            this.SeenBy = new List<Guid>();
-            this.sprite = Game.Content.Load<Texture2D>(spriteName);
+            Game = game;
+            z = 0.5F;
+            colorToUse = Color.White;
+            SeenBy = new List<Guid>();
+            sprite = Game.Content.Load<Texture2D>(spriteName);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (this.camera.IsCellOnCamera(this.positionCell))
+            if (camera.IsCellOnCamera(positionCell))
             {
-                this.sb.Draw(this.sprite, this.camera.GetPixelPositionOriginOfCell(this.positionCell), depth: this.z, color: this.colorToUse);
+                sb.Draw(sprite, camera.GetPixelPositionOriginOfCell(positionCell), depth: z, color: colorToUse);
             }
 
             base.Draw(gameTime);
@@ -54,15 +54,15 @@
         {
             if (cv == Visibility.Unvisited)
             {
-                this.colorToUse = Color.Black;
+                colorToUse = Color.Black;
             }
             else if (cv == Visibility.Visited)
             {
-                this.colorToUse = this.VisitedColor;
+                colorToUse = VisitedColor;
             }
             else
             {
-                this.colorToUse = Color.White;
+                colorToUse = Color.White;
             }
         }
 

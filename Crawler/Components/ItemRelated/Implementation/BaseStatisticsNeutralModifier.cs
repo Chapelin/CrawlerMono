@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.ItemRelated.Implementation
 {
-    using Crawler.Living;
+    using Living;
 
     public class BaseStatisticsNeutralModifier : IStatisticsModifierComponent
     {
@@ -8,7 +8,7 @@
 
         public BaseStatisticsNeutralModifier()
         {
-            this.StatisticDiffToApply = new Statistics();
+            StatisticDiffToApply = new Statistics();
         }
     }
 }

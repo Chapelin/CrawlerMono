@@ -18,7 +18,7 @@ namespace Crawler.Properties
     {
         public BaseTypeRequiredAttribute([NotNull] Type baseType)
         {
-            this.BaseType = baseType;
+            BaseType = baseType;
         }
 
         [NotNull] public Type BaseType { get; private set; }

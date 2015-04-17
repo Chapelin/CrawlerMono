@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.ItemRelated.Implementation
 {
-    using Crawler.Living;
+    using Living;
 
     public class ConsumableComponant : IConsumableComponent
     {

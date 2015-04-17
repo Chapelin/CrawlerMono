@@ -44,7 +44,7 @@ namespace Crawler.Properties
         public NotifyPropertyChangedInvocatorAttribute() { }
         public NotifyPropertyChangedInvocatorAttribute(string parameterName)
         {
-            this.ParameterName = parameterName;
+            ParameterName = parameterName;
         }
 
         public string ParameterName { get; private set; }

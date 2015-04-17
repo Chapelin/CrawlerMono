@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Crawler.Living;
+    using Living;
 
     public class BasicEquipableItem : IEquipableComponent
     {
@@ -17,39 +17,39 @@
         public BasicEquipableItem(IStatisticsModifierComponent modifier)
         {
             //this.itemTracked = i;
-            this.statisModifier = modifier;
+            statisModifier = modifier;
         }
 
         public bool CanEquip(LivingBeing lb)
         {
-            return this.whoEquipped == null;
+            return whoEquipped == null;
         }
 
         public void Equip(LivingBeing lb)
         {
-            if (!this.CanEquip(lb))
+            if (!CanEquip(lb))
             {
                 throw new Exception("Can't equip");
             }
 
 
-            this._isEquipped = true;
-            this.whoEquipped = lb;
-            lb.statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
+            _isEquipped = true;
+            whoEquipped = lb;
+            lb.statistics.ApplyBonus(statisModifier.StatisticDiffToApply);
             //Console.WriteLine(this.itemTracked.Description + " is equipped by "+ this.whoEquipped.Name);
         }
 
         public void UnEquip(LivingBeing lb)
         {
-            this._isEquipped = false;
-            this.whoEquipped = null;
-            lb.statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
+            _isEquipped = false;
+            whoEquipped = null;
+            lb.statistics.RemoveBonus(statisModifier.StatisticDiffToApply);
            // Console.WriteLine(this.itemTracked.Description + " is desequipped");
         }
 
         public bool IsEquipped()
         {
-            return this._isEquipped;
+            return _isEquipped;
         }
     }
 }

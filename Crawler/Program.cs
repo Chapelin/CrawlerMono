@@ -5,7 +5,7 @@ using System;
 
 namespace Crawler
 {
-    using Crawler.Engine;
+    using Engine;
 
 #if WINDOWS || LINUX
     /// <summary>

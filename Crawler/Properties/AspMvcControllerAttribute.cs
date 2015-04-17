@@ -15,7 +15,7 @@ namespace Crawler.Properties
         public AspMvcControllerAttribute() { }
         public AspMvcControllerAttribute([NotNull] string anonymousProperty)
         {
-            this.AnonymousProperty = anonymousProperty;
+            AnonymousProperty = anonymousProperty;
         }
 
         [NotNull] public string AnonymousProperty { get; private set; }

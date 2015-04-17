@@ -2,11 +2,11 @@
 {
     using System.Linq;
 
-    using Crawler.Components;
-    using Crawler.Components.Actions;
-    using Crawler.Components.ItemRelated;
-    using Crawler.Engine;
-    using Crawler.Living;
+    using Components;
+    using Components.Actions;
+    using Components.ItemRelated;
+    using Engine;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -59,7 +59,7 @@
         {
             get
             {
-                return this.equipableComponent.IsEquipped();
+                return equipableComponent.IsEquipped();
             }
         }
 

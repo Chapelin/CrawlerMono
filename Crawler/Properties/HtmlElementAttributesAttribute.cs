@@ -10,7 +10,7 @@ namespace Crawler.Properties
         public HtmlElementAttributesAttribute() { }
         public HtmlElementAttributesAttribute([NotNull] string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         [NotNull] public string Name { get; private set; }

@@ -2,8 +2,8 @@
 {
     public interface ILogPrinter
     {
-        void AddLine(string text);
+        void WriteLine(string text);
 
-        void AddLine(string text, params object[] values);
+        void WriteLine(string text, params object[] values);
     }
 }

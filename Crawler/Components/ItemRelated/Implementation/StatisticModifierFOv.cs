@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.ItemRelated.Implementation
 {
-    using Crawler.Living;
+    using Living;
 
     public class StatisticModifierFOv : IStatisticsModifierComponent
     {
@@ -8,9 +8,9 @@
 
         public StatisticModifierFOv()
         {
-            this.StatisticDiffToApply = new Statistics();
-            this.StatisticDiffToApply.FOV = 3;
-            this.StatisticDiffToApply.Speed = -5;
+            StatisticDiffToApply = new Statistics();
+            StatisticDiffToApply.FOV = 3;
+            StatisticDiffToApply.Speed = -5;
         }
     }
 }

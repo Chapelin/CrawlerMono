@@ -16,7 +16,7 @@ namespace Crawler.Living
         {
             get
             {
-                return this.BasicStatistics.FOV + this.AddedStatistics.FOV;
+                return BasicStatistics.FOV + AddedStatistics.FOV;
             }
         }
 
@@ -25,25 +25,25 @@ namespace Crawler.Living
         {
             get
             {
-                return this.BasicStatistics.Speed + this.AddedStatistics.Speed;
+                return BasicStatistics.Speed + AddedStatistics.Speed;
             }
         }
 
 
         public FullStatistics(Statistics baseic)
         {
-            this.BasicStatistics = baseic;
-            this.AddedStatistics = new Statistics();
+            BasicStatistics = baseic;
+            AddedStatistics = new Statistics();
         }
 
         public void ApplyBonus(Statistics s)
         {
-            this.AddedStatistics += s;
+            AddedStatistics += s;
         }
 
         public void RemoveBonus(Statistics s)
         {
-            this.AddedStatistics -= s;
+            AddedStatistics -= s;
         }
 
 

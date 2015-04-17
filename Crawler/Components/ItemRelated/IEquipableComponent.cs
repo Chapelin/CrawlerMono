@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.ItemRelated
 {
-    using Crawler.Living;
+    using Living;
 
     public interface IEquipableComponent
     {

@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.Others
 {
-    using Crawler.Living;
+    using Living;
 
     public interface IWalkable
     {

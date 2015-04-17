@@ -22,8 +22,8 @@ namespace Crawler.Properties
         public UsedImplicitlyAttribute(
             ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
         {
-            this.UseKindFlags = useKindFlags;
-            this.TargetFlags = targetFlags;
+            UseKindFlags = useKindFlags;
+            TargetFlags = targetFlags;
         }
 
         public ImplicitUseKindFlags UseKindFlags { get; private set; }

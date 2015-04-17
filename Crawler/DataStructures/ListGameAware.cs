@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using Crawler.Engine;
+    using Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -13,67 +13,67 @@
         private bool _isactive;
         public bool IsActive
         {
-            get { return this._isactive; }
+            get { return _isactive; }
             set
             {
-                if (this._isactive != value)
+                if (_isactive != value)
                 {
                     if (value)
                     {
                         foreach (var elem in this)
                         {
-                            this.Game.Components.Add(elem);
+                            Game.Components.Add(elem);
                         }
                     }
                     else
                     {
                         foreach (var elem in this)
                         {
-                            this.Game.Components.Remove(elem);
+                            Game.Components.Remove(elem);
                         }
                     }
-                    this._isactive = value;
+                    _isactive = value;
                 }
             }
         }
         private GameEngine Game;
         public ListGameAware(GameEngine g)
         {
-            this._isactive = false;
-            this.Game = g;
+            _isactive = false;
+            Game = g;
         }
 
         public void Add(T obj)
         {
             base.Add(obj);
-            if(this._isactive)
-                this.Game.Components.Add(obj);
+            if(_isactive)
+                Game.Components.Add(obj);
         }
 
         public void Remove(T obj)
         {
             base.Remove(obj);
-            if (this._isactive)
-                this.Game.Components.Remove(obj);
+            if (_isactive)
+                Game.Components.Remove(obj);
         }
 
         public void RemoveAt(int index)
         {
             var toRemove = base[index];
             base.RemoveAt(index);
-            if (this._isactive)
-                this.Game.Components.Remove(toRemove);
+            if (_isactive)
+                Game.Components.Remove(toRemove);
         }
 
         public void RemoveAll(Predicate<T> match)
         {
-            var elementToRemove = this.FindAll(match);
+            var elementToRemove = FindAll(match);
             base.RemoveAll(match);
-            if (this._isactive)
+            if (_isactive)
             {
                 foreach (var el in elementToRemove)
                 {
-                    this.Game.Components.Remove(el);
+                    Game.Components.Remove(el);
                 }
             }
         }
@@ -81,11 +81,11 @@
         public void RemoveList(List<T> itemsToRemove)
         {
             base.RemoveAll(itemsToRemove.Contains);
-            if (this._isactive)
+            if (_isactive)
             {
                 foreach (var item in itemsToRemove)
                 {
-                    this.Game.Components.Remove(item);
+                    Game.Components.Remove(item);
 
                 }
             }

@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Components.Actions;
-    using Crawler.Components.Others;
-    using Crawler.Engine;
-    using Crawler.Living;
+    using Components.Actions;
+    using Components.Others;
+    using Engine;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -30,7 +30,7 @@
             z = 1F;
             walkableComponent = w;
             this.ac = ac;
-            this.eeComponent = ee;
+            eeComponent = ee;
 
         }
 
@@ -46,12 +46,12 @@
 
         public void OnEnter(LivingBeing lb)
         {
-            this.eeComponent.Entering(lb);
+            eeComponent.Entering(lb);
         }
 
         public void OnExit(LivingBeing lb)
         {
-            this.eeComponent.Exiting(lb);
+            eeComponent.Exiting(lb);
         }
 
     }
