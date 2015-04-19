@@ -19,7 +19,7 @@
 
         private SpriteBatch sb;
 
-        private Vector2 CurrentCellTargeted;
+        public Vector2 CurrentCellTargeted;
         private Texture2D targetTexture;
 
         public MouseTargeter(GameEngine game, Camera c, SpriteBatch sb)
@@ -40,16 +40,19 @@
             if (mousePosition != pxCurrentPos)
             {
                 pxCurrentPos = mousePosition;
-                CurrentCellTargeted = c.GetCellAtPosition(pxCurrentPos);
-                showTargetSprite = c.IsCellOnCamera(CurrentCellTargeted);
-                if (showTargetSprite)
+                var tempTargetCell = c.GetCellAtPosition(pxCurrentPos);
+                if (CurrentCellTargeted != tempTargetCell)
                 {
-                    pxTargetSpriteOrigin = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
+                    CurrentCellTargeted = tempTargetCell;
+                    showTargetSprite = c.IsCellOnCamera(CurrentCellTargeted);
+                    if (showTargetSprite)
+                    {
+                        pxTargetSpriteOrigin = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
+                    }
+
+                    Game.IsMouseVisible = !showTargetSprite;
                 }
-
-                Game.IsMouseVisible = !showTargetSprite;
             }
-
 
             base.Update(gameTime);
         }
@@ -61,9 +64,6 @@
                 
                 sb.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
             }
-
-
-
             base.Draw(gameTime);
         }
     }
