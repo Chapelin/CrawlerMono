@@ -137,10 +137,6 @@
             }
         }
 
-
-
-
-
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
             return itemsOnBoard.Where(x => x.positionCell == targetPosition);
