@@ -15,11 +15,12 @@
 
     public class Map : DrawableGameComponent
     {
-        public ListGameAware<Cell> board;
+        public ListGameAware<MapDrawableComponent> fullBoard; 
+        //public ListGameAware<Cell> board;
 
-        public ListGameAware<Item> itemsOnBoard;
+        //public ListGameAware<Item> itemsOnBoard;
 
-        public ListGameAware<LivingBeing> livingOnMap;
+        //public ListGameAware<LivingBeing> livingOnMap;
         public new GameEngine Game;
 
         private ILogPrinter log;
@@ -48,9 +49,7 @@
         private void NewCellTarget(Vector2 value)
         {
             var listContenu = new List<MapDrawableComponent>();
-            listContenu.AddRange(this.board.Where(x => x.positionCell == value));
-            listContenu.AddRange(this.itemsOnBoard.Where(x => x.positionCell == value));
-            listContenu.AddRange(this.livingOnMap.Where(x => x.positionCell == value));
+            listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
             //
             log.WriteLine(desc);
@@ -64,9 +63,7 @@
                 size = new Vector2(50, 50);
             Game = game;
             log = lp;
-            itemsOnBoard = new ListGameAware<Item>(game);
-            livingOnMap = new ListGameAware<LivingBeing>(game);
-            board = new ListGameAware<Cell>(game);
+            this.fullBoard = new ListGameAware<MapDrawableComponent>(game);
             SizeOfMap = size;
         }
 
@@ -77,12 +74,7 @@
         {
             var posLb = being.positionCell;
             var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.FOV);
-            var totalList = new List<MapDrawableComponent>();
-            totalList.AddRange(board);
-            totalList.AddRange(itemsOnBoard);
-            totalList.AddRange(livingOnMap);
-
-            HandleVisibilityOfList(being, listCell, totalList);
+            HandleVisibilityOfList(being, listCell, fullBoard);
         }
 
         private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<T> listGameAware) where T : MapDrawableComponent
@@ -139,29 +131,29 @@
 
         public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
         {
-            return itemsOnBoard.Where(x => x.positionCell == targetPosition);
+            return fullBoard.Where(x => x.positionCell == targetPosition).Where(x => x is Item).Cast<Item>();
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return board.FirstOrDefault(x => x.positionCell == targetposition);
+            return (Cell) fullBoard.Where(x => x.positionCell == targetposition).First(x => x is Cell);
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
         {
-            livingOnMap.Remove(lb);
+            fullBoard.Remove(lb);
         }
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
             lb.positionCell = pos;
-            livingOnMap.Add(lb);
+            fullBoard.Add(lb);
 
         }
 
         public void RemoveItems(List<Item> it)
         {
-            itemsOnBoard.RemoveList(it);
+            fullBoard.RemoveList<Item>(it.Cast<MapDrawableComponent>().ToList());
         }
 
         public void Pickup(LivingBeing lb)
@@ -183,7 +175,7 @@
             {
                 lb.Inventory.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
-                itemsOnBoard.Add(itemToDrop);
+                fullBoard.Add(itemToDrop);
             }
         }
 
@@ -204,9 +196,7 @@
 
         public void SetAsActive(bool toActive)
         {
-            board.IsActive = toActive;
-            livingOnMap.IsActive = toActive;
-            itemsOnBoard.IsActive = toActive;
+            fullBoard.IsActive = toActive;
         }
     }
 

@@ -25,28 +25,27 @@
                 new Potion(m.Game, new Vector2(4, 11)),
                 new Rod(m.Game, new Vector2(5, 5))};
 
-            var pos = m.board.Where(x => x.GetType() == typeof(Floor)).Select(y=> y.positionCell).Take(3);
+            var pos = m.fullBoard.Where(x => x is Floor).Select(y=> y.positionCell).Take(3);
             li.Add(new Torso(m.Game,pos.Last()));
                 
-            m.itemsOnBoard.AddRange(li);
+            m.fullBoard.AddRange(li);
         }
 
         public static LivingBeing InitializeEnnemis(Map m,  ILogPrinter log)
         {
             var b = new Bat(m.Game, new Vector2(1, 1), log);
-            m.livingOnMap.Add(b);
+            m.fullBoard.Add(b);
             b.IsUserControlled = false;
             return b;
         }
 
         public static LivingBeing InitializePlayer(Map m,  ILogPrinter lp)
         {
-            var position = m.board.First(x => x.GetType() == typeof(Floor)).positionCell;
+            var position = m.fullBoard.First(x => x is Floor).positionCell;
             var human = new Human(m.Game, position,lp);
             human.IsUserControlled = true;
-            m.livingOnMap.Add(human);
+            m.fullBoard.Add(human);
             return human;
-
         }
     }
 }

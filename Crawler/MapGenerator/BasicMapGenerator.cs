@@ -135,7 +135,7 @@
                     {
                         c = new Wall(mapGenerate.Game, vec);
                     }
-                    mapGenerate.board.Add(c);
+                    mapGenerate.fullBoard.Add(c);
                 }
             }
             // now : the corridors
@@ -145,8 +145,8 @@
                 for (int i = 0; i < path.Item2.Count; i++)
                 {
                     current += path.Item2[i];
-                    mapGenerate.board.RemoveAll(x => x.positionCell == current);
-                    mapGenerate.board.Add(new Floor(mapGenerate.Game, current));
+                    mapGenerate.fullBoard.RemoveAll<Cell>(x => x.positionCell == current);
+                    mapGenerate.fullBoard.Add(new Floor(mapGenerate.Game, current));
                 }
             }
 
@@ -155,13 +155,13 @@
 
         private void PlaceStairs(Map mapGenerate)
         {
-            var firstPoss = mapGenerate.board.Where(x => x.GetType() == typeof(Floor)).Take(2);
+            var firstPoss = mapGenerate.fullBoard.Where(x => x is Floor).Take(2);
 
             var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell);
             var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell);
-            mapGenerate.board.RemoveList(firstPoss.ToList());
-            mapGenerate.board.Add(ds);
-            mapGenerate.board.Add(us);
+            mapGenerate.fullBoard.RemoveList<Cell>(firstPoss.ToList());
+            mapGenerate.fullBoard.Add(ds);
+            mapGenerate.fullBoard.Add(us);
         }
     }
 }

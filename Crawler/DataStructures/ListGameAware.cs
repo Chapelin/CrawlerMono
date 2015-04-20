@@ -1,4 +1,6 @@
-﻿namespace Crawler.DataStructures
+﻿using System.Linq;
+
+namespace Crawler.DataStructures
 {
     using System;
     using System.Collections.Generic;
@@ -65,10 +67,10 @@
                 Game.Components.Remove(toRemove);
         }
 
-        public void RemoveAll(Predicate<T> match)
+        public void RemoveAll<T1>(Predicate<T> match)
         {
-            var elementToRemove = FindAll(match);
-            base.RemoveAll(match);
+            var elementToRemove = FindAll(match).Where(x=> x is T1);
+            base.RemoveAll(elementToRemove.Contains);
             if (_isactive)
             {
                 foreach (var el in elementToRemove)
@@ -78,17 +80,10 @@
             }
         }
 
-        public void RemoveList(List<T> itemsToRemove)
+        public void RemoveList<T1>(List<T> itemsToRemove)
         {
-            base.RemoveAll(itemsToRemove.Contains);
-            if (_isactive)
-            {
-                foreach (var item in itemsToRemove)
-                {
-                    Game.Components.Remove(item);
-
-                }
-            }
+            RemoveAll<T1>(itemsToRemove.Contains);
+           
 
         }
 
