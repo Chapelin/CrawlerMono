@@ -5,7 +5,6 @@
     using Engine;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class Floor : Cell
     {

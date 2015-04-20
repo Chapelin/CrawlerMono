@@ -1,13 +1,11 @@
 ﻿namespace Crawler.Items
 {
-    using Components;
     using Components.Actions.Implementation;
     using Components.ItemRelated;
     using Components.ItemRelated.Implementation;
     using Engine;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class Equipable : Item
     {

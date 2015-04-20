@@ -10,7 +10,6 @@ namespace Crawler.Living
     using Items;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class LivingBeing : MapDrawableComponent
     {

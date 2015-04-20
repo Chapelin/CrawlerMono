@@ -2,14 +2,12 @@
 {
     using System.Linq;
 
-    using Components;
     using Components.Actions;
     using Components.ItemRelated;
     using Engine;
     using Living;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class Item : MapDrawableComponent
     {
