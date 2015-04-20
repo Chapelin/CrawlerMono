@@ -11,6 +11,7 @@
         public Downstair(GameEngine game, Vector2 p)
             : base(game, p,  new BasicFloorWalkable(), new DownstaireActivable(),new MessagingEnterExit(),  "sprite\\downstair")
         {
+            base._description = "A stair going down.";
         }
 
 

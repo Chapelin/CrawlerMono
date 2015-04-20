@@ -25,6 +25,9 @@
 
         internal Color VisitedColor = new Color(125, 125, 125);
 
+        internal string _description;
+        public string Description { get { return _description; } }
+
         public List<Guid> SeenBy;
 
         public MapDrawableComponent(GameEngine game, Vector2 positionCell,  string spriteName)

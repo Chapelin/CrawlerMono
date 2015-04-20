@@ -11,6 +11,7 @@
         public Water(GameEngine game, Vector2 p)
             : base(game, p, new BasicFlyingWalkable(), new BasicVoidActivable(), new InactiveEnterExit(), "sprite//water")
         {
+            _description = "A small pond.";
         }
     }
 }

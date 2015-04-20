@@ -1,7 +1,5 @@
 ﻿namespace Crawler.Input
 {
-    using Crawler.UI;
-
     using Engine;
 
     using Microsoft.Xna.Framework;
@@ -17,7 +15,6 @@
 
         private bool showTargetSprite;
         private Vector2 pxTargetSpriteOrigin;
-
 
         public Vector2 CurrentCellTargeted;
         private Texture2D targetTexture;
@@ -60,7 +57,6 @@
         {
             if (showTargetSprite)
             {
-                
                 BlackBoard.CurrentSpriteBatch.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
             }
             base.Draw(gameTime);

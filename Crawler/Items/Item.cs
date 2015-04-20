@@ -61,8 +61,5 @@
             }
         }
 
-
-        public virtual string Description { get; set; }
-
     }
 }

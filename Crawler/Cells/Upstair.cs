@@ -11,6 +11,7 @@
         public Upstair(GameEngine game, Vector2 p)
             : base(game, p,  new BasicFloorWalkable(), new UpstairActivable(),new MessagingEnterExit(),  "sprite//upstair")
         {
+            this._description = "A stair going up to the sky";
         }
     }
 }

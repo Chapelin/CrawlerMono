@@ -13,7 +13,7 @@ namespace Crawler.Cells
         public Wall(GameEngine game, Vector2 p)
             : base(game, p,  new BasicWallUnwalkable(), new BasicVoidActivable(),new InactiveEnterExit(),  "sprite\\wall")
         {
-
+            _description = "A wall made of rock";
         }
 
 

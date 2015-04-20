@@ -14,14 +14,8 @@
         public Potion(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable(), "sprite\\potion")
         {
+            _description = "A simple potion.";
         }
 
-        public override string Description
-        {
-            get
-            {
-                return "Potion beurk";
-            }
-        }
     }
 }

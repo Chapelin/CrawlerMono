@@ -10,14 +10,8 @@
         public Torso(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, new BasicEquipableItem(new StatisticModifierFOv()), "sprite\\torso")
         {
+            _description = "An armor.";
         }
 
-        public override string Description
-        {
-            get
-            {
-                return "An armor";
-            }
-        }
     }
 }

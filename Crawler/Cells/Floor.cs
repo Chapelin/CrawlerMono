@@ -12,6 +12,7 @@
         public Floor(GameEngine game, Vector2 p )
             : base(game, p, new BasicFloorWalkable(), new BasicVoidActivable(),new InactiveEnterExit(),  "sprite\\floor")
         {
+            this._description = "A simple floor.";
         }
     }
 }

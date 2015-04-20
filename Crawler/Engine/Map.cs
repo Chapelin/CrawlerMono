@@ -5,9 +5,6 @@
     using System.Threading.Tasks;
 
     using Cells;
-
-    using Crawler.Annotations;
-
     using DataStructures;
     using Items;
     using Living;
@@ -41,10 +38,8 @@
             {
                 if (_currentTargetedCell != value)
                 {
-                   
                      _currentTargetedCell = value;
-                    //NewCellTarget(_currentTargetedCell);
-
+                    NewCellTarget(_currentTargetedCell);
                 }
 
             }
@@ -52,6 +47,7 @@
 
         private void NewCellTarget(Vector2 value)
         {
+            var listContenu = new List<MapDrawableComponent>();
             this.log.WriteLine("New targeted : {0}", value);
         }
 
@@ -82,7 +78,6 @@
             totalList.AddRange(livingOnMap);
 
             HandleVisibilityOfList(being, listCell, totalList);
-
         }
 
         private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<T> listGameAware) where T : MapDrawableComponent
