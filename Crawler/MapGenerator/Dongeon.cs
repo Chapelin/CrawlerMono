@@ -19,11 +19,11 @@ namespace Crawler.MapGenerator
             set
             {
                 _currentLevel = value;
-                var diff = _currentLevel - Levels.Count;
-                while(diff > 0)
+                var diff = _currentLevel - Levels.Count-1;
+                while(diff < 0)
                 {
                     AddALevel();
-                    diff--;
+                    diff++;
                 }
             }
         }
