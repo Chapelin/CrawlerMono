@@ -38,7 +38,7 @@
             {
                 if (_currentTargetedCell != value)
                 {
-                     _currentTargetedCell = value;
+                    _currentTargetedCell = value;
                     NewCellTarget(_currentTargetedCell);
                 }
 
@@ -48,7 +48,12 @@
         private void NewCellTarget(Vector2 value)
         {
             var listContenu = new List<MapDrawableComponent>();
-            this.log.WriteLine("New targeted : {0}", value);
+            listContenu.AddRange(this.board.Where(x => x.positionCell == value));
+            listContenu.AddRange(this.itemsOnBoard.Where(x => x.positionCell == value));
+            listContenu.AddRange(this.livingOnMap.Where(x => x.positionCell == value));
+            var desc = string.Join(" ", listContenu.Select(x => x.Description));
+            //
+            log.WriteLine(desc);
         }
 
 

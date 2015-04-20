@@ -14,7 +14,7 @@ namespace Crawler.Living
             z = 0F;
             statistics.BasicStatistics.FOV = 5;
             statistics.BasicStatistics.Speed = 10;
-            Name = "Human";
+            _description = "Human";
             traits = Traits.Walking;
         }
     }

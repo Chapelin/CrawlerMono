@@ -46,7 +46,7 @@ namespace Crawler.Living
 
         public void DumpInventory()
         {
-            this.logger.WriteLine("{0} inventory :",Name);
+            this.logger.WriteLine("{0} inventory :",Description);
             foreach (var item in Inventory)
             {
                 this.logger.WriteLine("   {0}",item.Description);
@@ -56,14 +56,14 @@ namespace Crawler.Living
 
         public void GoMapDown()
         {
-            this.logger.WriteLine(this.Name + " going down.");
+            this.logger.WriteLine(this.Description + " going down.");
             Game.ChangeMap(this,true);
             
         }
 
         public void GoMapUp()
         {
-            this.logger.WriteLine(this.Name + " going up.");
+            this.logger.WriteLine(this.Description + " going up.");
             Game.ChangeMap(this, false);
         }
     }

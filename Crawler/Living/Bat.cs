@@ -15,14 +15,14 @@
         {
             statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
             IsUserControlled = false;
-            Name = "Bat";
+            _description = "Bat";
             traits = Traits.Flying;
             log = printer;
         }
 
         public override void AutoPlay()
         {
-            log.WriteLine("{0} autoplaying", Name);
+            log.WriteLine("{0} autoplaying", Description);
             var Rrnd = new Random();
             var ca = Rrnd.Next(9);
             var dep = new Vector2(0, 0);
