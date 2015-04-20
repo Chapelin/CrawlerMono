@@ -11,8 +11,8 @@
     public class Bat : LivingBeing
     {
         ILogPrinter log;
-        public Bat(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, ILogPrinter printer)
-            : base(game, positionCell, c, sb, "sprite\\bat", printer)
+        public Bat(GameEngine game, Vector2 positionCell,  ILogPrinter printer)
+            : base(game, positionCell, "sprite\\bat", printer)
         {
             statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
             IsUserControlled = false;

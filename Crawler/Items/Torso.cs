@@ -8,8 +8,8 @@
 
     public class Torso : Equipable
     {
-        public Torso(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb, new BasicEquipableItem(new StatisticModifierFOv()), "sprite\\torso")
+        public Torso(GameEngine game, Vector2 positionCell)
+            : base(game, positionCell, new BasicEquipableItem(new StatisticModifierFOv()), "sprite\\torso")
         {
         }
 

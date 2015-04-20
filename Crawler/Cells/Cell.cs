@@ -24,8 +24,8 @@
             return walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p, Camera c, SpriteBatch s, IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
-            : base(game, p, c, s, spriteName)
+        public Cell(GameEngine game, Vector2 p,  IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
+            : base(game, p,  spriteName)
         {
             z = 1F;
             walkableComponent = w;

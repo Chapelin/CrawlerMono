@@ -7,8 +7,8 @@
 
     public class Rod : Equipable
     {
-        public Rod(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb, "sprite\\rod")
+        public Rod(GameEngine game, Vector2 positionCell)
+            : base(game, positionCell,  "sprite\\rod")
         {
         }
 

@@ -12,8 +12,8 @@
     /// </summary>
     public class Potion : Item
     {
-        public Potion(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb)
-            : base(game, positionCell, c, sb, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable(), "sprite\\potion")
+        public Potion(GameEngine game, Vector2 positionCell)
+            : base(game, positionCell, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable(), "sprite\\potion")
         {
         }
 

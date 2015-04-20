@@ -27,12 +27,12 @@
 
         public List<Guid> SeenBy;
 
-        public MapDrawableComponent(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName)
+        public MapDrawableComponent(GameEngine game, Vector2 positionCell,  string spriteName)
             : base(game)
         {
             this.positionCell = positionCell;
-            camera = c;
-            this.sb = sb;
+            camera = BlackBoard.CurrentCamera;
+            this.sb = BlackBoard.CurrentSpriteBatch;
             Game = game;
             z = 0.5F;
             colorToUse = Color.White;

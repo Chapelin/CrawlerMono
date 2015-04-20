@@ -115,7 +115,7 @@
             return listPath;
         }
 
-        public void GenerateBoard(Map mapGenerate, Camera camera)
+        public void GenerateBoard(Map mapGenerate)
         {
             var lr = GenerateRooms();
             lr = GenerateIo(lr);
@@ -129,11 +129,11 @@
                     Cell c;
                     if (isFloor)
                     {
-                        c = new Floor(mapGenerate.Game, vec, camera, mapGenerate.sb);
+                        c = new Floor(mapGenerate.Game, vec);
                     }
                     else
                     {
-                        c = new Wall(mapGenerate.Game, vec, camera, mapGenerate.sb);
+                        c = new Wall(mapGenerate.Game, vec);
                     }
                     mapGenerate.board.Add(c);
                 }
@@ -146,19 +146,19 @@
                 {
                     current += path.Item2[i];
                     mapGenerate.board.RemoveAll(x => x.positionCell == current);
-                    mapGenerate.board.Add(new Floor(mapGenerate.Game, current, camera, mapGenerate.sb));
+                    mapGenerate.board.Add(new Floor(mapGenerate.Game, current));
                 }
             }
 
-            PlaceStairs(mapGenerate, camera);
+            PlaceStairs(mapGenerate);
         }
 
-        private void PlaceStairs(Map mapGenerate, Camera camera)
+        private void PlaceStairs(Map mapGenerate)
         {
             var firstPoss = mapGenerate.board.Where(x => x.GetType() == typeof(Floor)).Take(2);
 
-            var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell, camera, mapGenerate.sb);
-            var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell, camera, mapGenerate.sb);
+            var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell);
+            var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell);
             mapGenerate.board.RemoveList(firstPoss.ToList());
             mapGenerate.board.Add(ds);
             mapGenerate.board.Add(us);

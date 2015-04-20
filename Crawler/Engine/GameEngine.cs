@@ -63,20 +63,23 @@ namespace Crawler.Engine
         protected override void Initialize()
         {
             sb = new SpriteBatch(GraphicsDevice);
+            BlackBoard.CurrentSpriteBatch = sb;
             blp = new BasicLogPrinter(this, sb);
             c = new Camera(new Vector2(15, 13), new Vector2(0, 50), blp);
+            BlackBoard.CurrentCamera = c;
             scheduler = new Scheduler();
             blp.PositionPixel = new Vector2(517, 420);
             Components.Add(blp);
-            donjon = new Dongeon(this, c, sb, blp);
+            donjon = new Dongeon(this, blp);
             m = donjon.CurrentMap;
 
-            scheduler.AddABeing(MapFiller.InitializePlayer(c, m, sb, this.blp));
-            MapFiller.InitializeItems(c, m, sb, this.blp);
-            scheduler.AddABeing(MapFiller.InitializeEnnemis(c, m, sb, blp));
+            scheduler.AddABeing(MapFiller.InitializePlayer(m, this.blp));
+            MapFiller.InitializeItems(m, this.blp);
+            scheduler.AddABeing(MapFiller.InitializeEnnemis(m, blp));
             base.Initialize();
             hd = new KeyBoardInputHandler(c, m);
             m.SetAsActive(true);
+            BlackBoard.CurrentMap = m;
             mt = new MouseTargeter(this, c, sb);
             Components.Add(mt);
         }
@@ -162,6 +165,7 @@ namespace Crawler.Engine
             var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
             m.AddLivingBeing(lb, targetpos);
             m.SetAsActive(true);
+            BlackBoard.CurrentMap = m;
             hd = new KeyBoardInputHandler(c, m);
         }
     }

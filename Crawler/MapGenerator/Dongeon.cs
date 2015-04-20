@@ -11,8 +11,6 @@ namespace Crawler.MapGenerator
     {
         public List<Map> Levels;
         private GameEngine g;
-        private Camera c;
-        private SpriteBatch sb;
         private ILogPrinter printer;
         private int _currentLevel;
 
@@ -31,12 +29,10 @@ namespace Crawler.MapGenerator
             }
         }
 
-        public Dongeon(GameEngine e,Camera c, SpriteBatch sb, ILogPrinter log)
+        public Dongeon(GameEngine e, ILogPrinter log)
         {
             Levels = new List<Map>();
-            this.c = c;
             g = e;
-            this.sb = sb;
             printer = log;
             GenerateLevels();
             _currentLevel = 0;
@@ -52,8 +48,8 @@ namespace Crawler.MapGenerator
         public void AddALevel()
         {
             var bmg = new BasicMapGenerator(8, new Vector2(30, 30), new Vector2(3, 3), new Vector2(5, 5));
-            var map = new Map(g, sb, printer, new Vector2(50, 50));
-            bmg.GenerateBoard(map, c);
+            var map = new Map(g, printer, new Vector2(50, 50));
+            bmg.GenerateBoard(map);
             Levels.Add(map);
         }
 

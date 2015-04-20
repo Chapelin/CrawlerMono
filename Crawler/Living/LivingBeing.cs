@@ -30,8 +30,8 @@ namespace Crawler.Living
         private ILogPrinter logger;
 
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, Camera c, SpriteBatch sb, string spriteName, ILogPrinter logprinter)
-            : base(game, positionCell, c, sb, spriteName)
+        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter)
+            : base(game, positionCell,  spriteName)
         {
             Inventory = new List<Item>();
             IsUserControlled = false;

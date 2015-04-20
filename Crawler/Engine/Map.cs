@@ -12,7 +12,6 @@
     using Utils;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class Map : DrawableGameComponent
     {
@@ -23,19 +22,17 @@
         public ListGameAware<LivingBeing> livingOnMap;
         public  new GameEngine Game;
 
-        internal SpriteBatch sb;
         private ILogPrinter log;
 
         public Vector2 SizeOfMap;
 
-        public Map(GameEngine game, SpriteBatch sb, ILogPrinter lp, Vector2 size = default(Vector2))
+        public Map(GameEngine game,ILogPrinter lp, Vector2 size = default(Vector2))
             : base(game)
         {
             if(size == default(Vector2))
                 size = new Vector2(50,50);
             Game = game;
             log = lp;
-            this.sb = sb;
             itemsOnBoard = new ListGameAware<Item>(game);
             livingOnMap = new ListGameAware<LivingBeing>(game);
             board = new ListGameAware<Cell>(game);

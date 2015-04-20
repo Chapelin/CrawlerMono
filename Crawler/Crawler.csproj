@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ActionDoable.cs" />
+    <Compile Include="BlackBoard.cs" />
     <Compile Include="Components\Others\IEnterExitComponent.cs" />
     <Compile Include="Components\Others\Implementation\InactiveEnterExit.cs" />
     <Compile Include="Components\Others\Implementation\MessagingEnterExit.cs" />
