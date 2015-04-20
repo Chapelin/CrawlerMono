@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
 
-    using Crawler.Engine;
     using Crawler.Living;
 
     using Microsoft.Xna.Framework;
@@ -15,15 +14,11 @@
         private int TimerResetValue = 30;
         private int timer;
 
-        private Camera c;
 
-        private Map m;
 
-        public KeyBoardInputHandler(Camera c, Map m)
+        public KeyBoardInputHandler()
         {
             this.ResetTimer();
-            this.c = c;
-            this.m = m;
         }
 
         private void ResetTimer()
@@ -54,32 +49,32 @@
         {
             if (k.GetPressedKeys().Contains(Keys.P))
             {
-                this.m.Pickup(lb);
+                BlackBoard.CurrentMap.Pickup(lb);
                 this.ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.I))
             {
-               this.m.ShowInventory(lb);
+               BlackBoard.CurrentMap.ShowInventory(lb);
                 this.ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.D))
             {
-                this.m.DropFirstObject(lb);
+                BlackBoard.CurrentMap.DropFirstObject(lb);
                 this.ResetTimer();
 
             }
 
             if (k.GetPressedKeys().Contains(Keys.Space))
             {
-                this.c.CenterOnCell(lb.positionCell);
+                BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
             }
 
             if (k.GetPressedKeys().Contains(Keys.L))
             {
                 Console.WriteLine("Action dispos : ");
-                var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 foreach (var actionDoable in listAction)
                 {
                     Console.WriteLine(actionDoable.ActionName);
@@ -89,7 +84,7 @@
             if (k.GetPressedKeys().Contains(Keys.A))
             {
                 Console.WriteLine("Doing first action dispo");
-                var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 if (listAction.Any())
                     listAction.First().ActionActivity.Invoke();
             }
@@ -153,7 +148,7 @@
             }
             if (targetCell != lb.positionCell)
             {
-                var res = this.m.TryMoveLivingBeing(lb, targetCell);
+                var res = BlackBoard.CurrentMap.TryMoveLivingBeing(lb, targetCell);
                 if (res)
                 {
                     this.ResetTimer();

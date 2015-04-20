@@ -1,5 +1,7 @@
 ﻿namespace Crawler.Input
 {
+    using Crawler.UI;
+
     using Engine;
 
     using Microsoft.Xna.Framework;
@@ -10,25 +12,21 @@
     {
         private new GameEngine Game;
 
-        private Camera c;
 
         private Point pxCurrentPos;
 
         private bool showTargetSprite;
         private Vector2 pxTargetSpriteOrigin;
 
-        private SpriteBatch sb;
 
         public Vector2 CurrentCellTargeted;
         private Texture2D targetTexture;
 
-        public MouseTargeter(GameEngine game, Camera c, SpriteBatch sb)
+        public MouseTargeter(GameEngine game)
             : base(game)
         {
-            this.c = c;
             pxCurrentPos = Point.Zero;
             pxTargetSpriteOrigin = Vector2.Zero;
-            this.sb = sb;
             CurrentCellTargeted = Vector2.Zero;
             targetTexture = game.Content.Load<Texture2D>("sprite//target");
             Game = game;
@@ -40,14 +38,14 @@
             if (mousePosition != pxCurrentPos)
             {
                 pxCurrentPos = mousePosition;
-                var tempTargetCell = c.GetCellAtPosition(pxCurrentPos);
+                var tempTargetCell = BlackBoard.CurrentCamera.GetCellAtPosition(pxCurrentPos);
                 if (CurrentCellTargeted != tempTargetCell)
                 {
                     CurrentCellTargeted = tempTargetCell;
-                    showTargetSprite = c.IsCellOnCamera(CurrentCellTargeted);
+                    showTargetSprite = BlackBoard.CurrentCamera.IsCellOnCamera(CurrentCellTargeted);
                     if (showTargetSprite)
                     {
-                        pxTargetSpriteOrigin = c.GetPixelPositionOriginOfCell(CurrentCellTargeted);
+                        pxTargetSpriteOrigin = BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(CurrentCellTargeted);
                     }
 
                     Game.IsMouseVisible = !showTargetSprite;
@@ -63,7 +61,7 @@
             if (showTargetSprite)
             {
                 
-                sb.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
+                BlackBoard.CurrentSpriteBatch.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
             }
             base.Draw(gameTime);
         }

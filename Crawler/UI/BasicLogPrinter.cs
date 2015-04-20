@@ -17,12 +17,10 @@
         public Vector2 SizePixel { get; set; }
         private SpriteFont defaultFont { get; set; }
 
-        private SpriteBatch sb;
 
-        public BasicLogPrinter(GameEngine game, SpriteBatch sb)
+        public BasicLogPrinter(GameEngine game)
             : base(game)
         {
-            this.sb = sb;
             
             Log = new List<string>();
             Log.Add("i'm a test");
@@ -53,7 +51,7 @@
             var posToAdd = defaultFont.LineSpacing-2;
             foreach (var text in listToAdd)
             {
-                sb.DrawString(defaultFont, text, currentpos, Color.White);
+                BlackBoard.CurrentSpriteBatch.DrawString(defaultFont, text, currentpos, Color.White);
                 currentpos.Y += posToAdd;
             }
 

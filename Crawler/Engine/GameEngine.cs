@@ -29,11 +29,9 @@ namespace Crawler.Engine
 
         public GraphicsDeviceManager graphics;
 
-        private SpriteBatch sb;
         private KeyBoardInputHandler hd;
 
         private Map m;
-        private Camera c;
         private Scheduler scheduler;
         private LivingBeing beingToPlay;
         private BasicLogPrinter blp;
@@ -62,11 +60,9 @@ namespace Crawler.Engine
         /// </summary>
         protected override void Initialize()
         {
-            sb = new SpriteBatch(GraphicsDevice);
-            BlackBoard.CurrentSpriteBatch = sb;
-            blp = new BasicLogPrinter(this, sb);
-            c = new Camera(new Vector2(15, 13), new Vector2(0, 50), blp);
-            BlackBoard.CurrentCamera = c;
+            BlackBoard.CurrentSpriteBatch = new SpriteBatch(GraphicsDevice);
+            blp = new BasicLogPrinter(this);
+            BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50), blp);
             scheduler = new Scheduler();
             blp.PositionPixel = new Vector2(517, 420);
             Components.Add(blp);
@@ -77,10 +73,10 @@ namespace Crawler.Engine
             MapFiller.InitializeItems(m, this.blp);
             scheduler.AddABeing(MapFiller.InitializeEnnemis(m, blp));
             base.Initialize();
-            hd = new KeyBoardInputHandler(c, m);
+            hd = new KeyBoardInputHandler();
             m.SetAsActive(true);
             BlackBoard.CurrentMap = m;
-            mt = new MouseTargeter(this, c, sb);
+            mt = new MouseTargeter(this);
             Components.Add(mt);
         }
 
@@ -134,14 +130,14 @@ namespace Crawler.Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
-            sb.End();
+            BlackBoard.CurrentSpriteBatch.End();
         }
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
-            c.Move(targetPosition - p.positionCell);
+            BlackBoard.CurrentCamera.Move(targetPosition - p.positionCell);
             var cellTarget = m.board.First(x => x.positionCell == targetPosition);
             var cellGoingout = m.board.First(x => x.positionCell == p.positionCell);
             cellGoingout.OnExit(p);
@@ -165,8 +161,8 @@ namespace Crawler.Engine
             var targetpos = m.board.First(x => x.IsWalkable(lb)).positionCell;
             m.AddLivingBeing(lb, targetpos);
             m.SetAsActive(true);
+            BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
             BlackBoard.CurrentMap = m;
-            hd = new KeyBoardInputHandler(c, m);
         }
     }
 }
