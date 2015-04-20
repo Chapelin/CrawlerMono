@@ -13,9 +13,7 @@
     {
         protected Texture2D sprite;
 
-        protected Camera camera;
         protected new GameEngine Game;
-        protected SpriteBatch sb;
         public Vector2 positionCell;
 
         internal Color colorToUse;
@@ -34,8 +32,7 @@
             : base(game)
         {
             this.positionCell = positionCell;
-            camera = BlackBoard.CurrentCamera;
-            this.sb = BlackBoard.CurrentSpriteBatch;
+     
             Game = game;
             z = 0.5F;
             colorToUse = Color.White;
@@ -45,9 +42,9 @@
 
         public override void Draw(GameTime gameTime)
         {
-            if (camera.IsCellOnCamera(positionCell))
+            if (BlackBoard.CurrentCamera.IsCellOnCamera(positionCell))
             {
-                sb.Draw(sprite, camera.GetPixelPositionOriginOfCell(positionCell), depth: z, color: colorToUse);
+                BlackBoard.CurrentSpriteBatch.Draw(sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(positionCell), depth: z, color: colorToUse);
             }
 
             base.Draw(gameTime);

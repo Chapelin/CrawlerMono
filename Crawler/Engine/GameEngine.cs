@@ -132,7 +132,7 @@ namespace Crawler.Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             base.Draw(gameTime);
             BlackBoard.CurrentSpriteBatch.End();
         }
