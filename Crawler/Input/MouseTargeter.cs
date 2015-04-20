@@ -51,6 +51,7 @@
                     }
 
                     Game.IsMouseVisible = !showTargetSprite;
+                    BlackBoard.CurrentMap.CurrentTargetedCell = CurrentCellTargeted;
                 }
             }
 

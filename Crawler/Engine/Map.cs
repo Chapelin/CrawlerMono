@@ -5,6 +5,9 @@
     using System.Threading.Tasks;
 
     using Cells;
+
+    using Crawler.Annotations;
+
     using DataStructures;
     using Items;
     using Living;
@@ -20,17 +23,44 @@
         public ListGameAware<Item> itemsOnBoard;
 
         public ListGameAware<LivingBeing> livingOnMap;
-        public  new GameEngine Game;
+        public new GameEngine Game;
 
         private ILogPrinter log;
 
         public Vector2 SizeOfMap;
 
-        public Map(GameEngine game,ILogPrinter lp, Vector2 size = default(Vector2))
+        private Vector2 _currentTargetedCell;
+
+        public Vector2 CurrentTargetedCell
+        {
+            get
+            {
+                return _currentTargetedCell;
+            }
+            set
+            {
+                if (_currentTargetedCell != value)
+                {
+                   
+                     _currentTargetedCell = value;
+                    //NewCellTarget(_currentTargetedCell);
+
+                }
+
+            }
+        }
+
+        private void NewCellTarget(Vector2 value)
+        {
+            this.log.WriteLine("New targeted : {0}", value);
+        }
+
+
+        public Map(GameEngine game, ILogPrinter lp, Vector2 size = default(Vector2))
             : base(game)
         {
-            if(size == default(Vector2))
-                size = new Vector2(50,50);
+            if (size == default(Vector2))
+                size = new Vector2(50, 50);
             Game = game;
             log = lp;
             itemsOnBoard = new ListGameAware<Item>(game);
@@ -40,7 +70,7 @@
         }
 
 
-      
+
 
         internal void HandleVisibility(LivingBeing being)
         {
@@ -107,7 +137,7 @@
             }
         }
 
-     
+
 
 
 
@@ -152,7 +182,7 @@
 
         public void DropFirstObject(LivingBeing lb)
         {
-            var itemToDrop = lb.Inventory.FirstOrDefault(x=> !x.IsEquipped);
+            var itemToDrop = lb.Inventory.FirstOrDefault(x => !x.IsEquipped);
             if (itemToDrop != null)
             {
                 lb.Inventory.Remove(itemToDrop);
