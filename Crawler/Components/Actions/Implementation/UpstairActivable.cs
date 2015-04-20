@@ -1,6 +1,5 @@
 ﻿namespace Crawler.Components.Actions.Implementation
 {
-    using System;
     using System.Collections.Generic;
 
     using Living;
@@ -15,10 +14,10 @@
                 var ad = new ActionDoable();
                 ad.ActionName = "Going upstair";
                 ad.ActionActivity = delegate { var l = lb; l.GoMapUp(); }; 
+                result.Add(ad);
             }
 
             return result;
-            throw new NotImplementedException();
         }
     }
 }

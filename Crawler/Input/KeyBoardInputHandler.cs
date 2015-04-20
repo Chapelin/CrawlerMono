@@ -1,10 +1,10 @@
-﻿namespace Crawler
+﻿namespace Crawler.Input
 {
     using System;
     using System.Linq;
 
-    using Engine;
-    using Living;
+    using Crawler.Engine;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
@@ -21,30 +21,30 @@
 
         public KeyBoardInputHandler(Camera c, Map m)
         {
-            ResetTimer();
+            this.ResetTimer();
             this.c = c;
             this.m = m;
         }
 
         private void ResetTimer()
         {
-            timer = TimerResetValue;
+            this.timer = this.TimerResetValue;
         }
 
         public void HandleInput(LivingBeing lb)
         {
             var k = Keyboard.GetState();
-            if (timer > 0)
+            if (this.timer > 0)
             {
-                timer--;
+                this.timer--;
             }
             if (k.GetPressedKeys().Any())
             {
-                if (timer == 0)
+                if (this.timer == 0)
                 {
-                    HandleKeyboardPlayerMovement(k, lb);
+                    this.HandleKeyboardPlayerMovement(k, lb);
 
-                    HandleKeyboardPlayerMenu(k, lb);
+                    this.HandleKeyboardPlayerMenu(k, lb);
                 }
 
             }
@@ -54,32 +54,32 @@
         {
             if (k.GetPressedKeys().Contains(Keys.P))
             {
-                m.Pickup(lb);
-                ResetTimer();
+                this.m.Pickup(lb);
+                this.ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.I))
             {
-               m.ShowInventory(lb);
-                ResetTimer();
+               this.m.ShowInventory(lb);
+                this.ResetTimer();
             }
 
             if (k.GetPressedKeys().Contains(Keys.D))
             {
-                m.DropFirstObject(lb);
-                ResetTimer();
+                this.m.DropFirstObject(lb);
+                this.ResetTimer();
 
             }
 
             if (k.GetPressedKeys().Contains(Keys.Space))
             {
-                c.CenterOnCell(lb.positionCell);
+                this.c.CenterOnCell(lb.positionCell);
             }
 
             if (k.GetPressedKeys().Contains(Keys.L))
             {
                 Console.WriteLine("Action dispos : ");
-                var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 foreach (var actionDoable in listAction)
                 {
                     Console.WriteLine(actionDoable.ActionName);
@@ -89,7 +89,7 @@
             if (k.GetPressedKeys().Contains(Keys.A))
             {
                 Console.WriteLine("Doing first action dispo");
-                var listAction = m.CellOnPosition(lb.positionCell).PossibleActions(lb);
+                var listAction = this.m.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 if (listAction.Any())
                     listAction.First().ActionActivity.Invoke();
             }
@@ -153,10 +153,10 @@
             }
             if (targetCell != lb.positionCell)
             {
-                var res = m.TryMoveLivingBeing(lb, targetCell);
+                var res = this.m.TryMoveLivingBeing(lb, targetCell);
                 if (res)
                 {
-                    ResetTimer();
+                    this.ResetTimer();
                 }
             }
         }

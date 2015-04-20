@@ -9,7 +9,7 @@
     public class Upstair : Cell
     {
         public Upstair(GameEngine game, Vector2 p)
-            : base(game, p,  new BasicFloorWalkable(), new BasicVoidActivable(),new MessagingEnterExit(),  "sprite//upstair")
+            : base(game, p,  new BasicFloorWalkable(), new UpstairActivable(),new MessagingEnterExit(),  "sprite//upstair")
         {
         }
     }
