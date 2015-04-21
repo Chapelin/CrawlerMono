@@ -11,7 +11,7 @@
         {
             if (lb.IsUserControlled)
             {
-                Console.WriteLine(lb.Name+ "  as entered.");
+                Console.WriteLine(lb.Description+ "  as entered.");
             }
         }
 
@@ -19,7 +19,7 @@
         {
             if (lb.IsUserControlled)
             {
-                Console.WriteLine(lb.Name + " as left");
+                Console.WriteLine(lb.Description + " as left");
             }
         }
     }

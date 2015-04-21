@@ -15,7 +15,7 @@
     {
 
 
-        public static void InitializeItems( Map m, ILogPrinter lp)
+        public static void InitializeItems(Map m, ILogPrinter lp)
         {
             var li = new List<Item>(){
                 new Potion(m.Game, new Vector2(5, 5)),
@@ -25,13 +25,13 @@
                 new Potion(m.Game, new Vector2(4, 11)),
                 new Rod(m.Game, new Vector2(5, 5))};
 
-            var pos = m.fullBoard.Where(x => x is Floor).Select(y=> y.positionCell).Take(3);
-            li.Add(new Torso(m.Game,pos.Last()));
-                
+            var pos = m.fullBoard.AllOf<Floor>().Select(y => y.positionCell).Take(3);
+            li.Add(new Torso(m.Game, pos.Last()));
+
             m.fullBoard.AddRange(li);
         }
 
-        public static LivingBeing InitializeEnnemis(Map m,  ILogPrinter log)
+        public static LivingBeing InitializeEnnemis(Map m, ILogPrinter log)
         {
             var b = new Bat(m.Game, new Vector2(1, 1), log);
             m.fullBoard.Add(b);
@@ -39,10 +39,10 @@
             return b;
         }
 
-        public static LivingBeing InitializePlayer(Map m,  ILogPrinter lp)
+        public static LivingBeing InitializePlayer(Map m, ILogPrinter lp)
         {
-            var position = m.fullBoard.First(x => x is Floor).positionCell;
-            var human = new Human(m.Game, position,lp);
+            var position = m.fullBoard.First<Floor>().positionCell;
+            var human = new Human(m.Game, position, lp);
             human.IsUserControlled = true;
             m.fullBoard.Add(human);
             return human;

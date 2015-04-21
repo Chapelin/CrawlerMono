@@ -51,7 +51,6 @@
             var listContenu = new List<MapDrawableComponent>();
             listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
-            //
             log.WriteLine(desc);
         }
 
@@ -74,10 +73,10 @@
         {
             var posLb = being.positionCell;
             var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.FOV);
-            HandleVisibilityOfList(being, listCell, fullBoard);
+            HandleVisibilityOfList(being, listCell, fullBoard.FullDump());
         }
 
-        private void HandleVisibilityOfList<T>(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<T> listGameAware) where T : MapDrawableComponent
+        private void HandleVisibilityOfList(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
         {
             //reinit visibility
             Parallel.ForEach(
@@ -129,14 +128,14 @@
             }
         }
 
-        public IEnumerable<Item> ItemOnPosition(Vector2 targetPosition)
+        public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
         {
-            return fullBoard.Where(x => x.positionCell == targetPosition).Where(x => x is Item).Cast<Item>();
+            return fullBoard.Where<Item>(x => x.positionCell == targetPosition);
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return (Cell) fullBoard.Where(x => x.positionCell == targetposition).First(x => x is Cell);
+            return fullBoard.Where<Cell>(x => x.positionCell == targetposition).First();
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
@@ -148,17 +147,16 @@
         {
             lb.positionCell = pos;
             fullBoard.Add(lb);
-
         }
 
         public void RemoveItems(List<Item> it)
         {
-            fullBoard.RemoveList<Item>(it.Cast<MapDrawableComponent>().ToList());
+            fullBoard.RemoveAll<Item>(it.Contains);
         }
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = ItemOnPosition(lb.positionCell).ToList();
+            var listObject = this.ItemsOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
             RemoveItems(listObject);
         }

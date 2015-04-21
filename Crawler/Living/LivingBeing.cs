@@ -13,7 +13,6 @@ namespace Crawler.Living
 
     public class LivingBeing : MapDrawableComponent
     {
-
         public Guid uniqueIdentifier;
 
         public Traits traits { get; set; }
@@ -24,7 +23,6 @@ namespace Crawler.Living
 
         public List<Item> Inventory;
 
-        public String Name { get; set; }
 
         private ILogPrinter logger;
 
@@ -38,6 +36,7 @@ namespace Crawler.Living
             VisitedColor = Color.Transparent;
             statistics = new FullStatistics(new Statistics());
             this.logger = logprinter;
+            this.z = 0.1F;
         }
 
         public virtual void AutoPlay()

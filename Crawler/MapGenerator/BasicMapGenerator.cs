@@ -159,7 +159,7 @@
 
             var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell);
             var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell);
-            mapGenerate.fullBoard.RemoveList<Cell>(firstPoss.ToList());
+            mapGenerate.fullBoard.RemoveAll<Cell>(firstPoss.Contains);
             mapGenerate.fullBoard.Add(ds);
             mapGenerate.fullBoard.Add(us);
         }

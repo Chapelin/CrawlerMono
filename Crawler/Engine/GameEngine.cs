@@ -132,7 +132,7 @@ namespace Crawler.Engine
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
             BlackBoard.CurrentSpriteBatch.End();
         }
@@ -140,8 +140,8 @@ namespace Crawler.Engine
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
             BlackBoard.CurrentCamera.Move(targetPosition - p.positionCell);
-            Cell cellTarget = (Cell) m.fullBoard.Where(x => x.positionCell == targetPosition).First(x=> x is Cell);
-            Cell cellGoingout = (Cell) m.fullBoard.Where(x => x.positionCell == p.positionCell).First(x => x is Cell);
+            Cell cellTarget = (Cell)m.fullBoard.Where(x => x.positionCell == targetPosition).First(x => x is Cell);
+            Cell cellGoingout = (Cell)m.fullBoard.Where(x => x.positionCell == p.positionCell).First(x => x is Cell);
             cellGoingout.OnExit(p);
             p.positionCell = targetPosition;
             cellTarget.OnEnter(p);
@@ -160,7 +160,7 @@ namespace Crawler.Engine
             m.SetAsActive(false);
             donjon.CurrentLevel = nextLVL;
             m = donjon.CurrentMap;
-            var targetpos = m.fullBoard.Where(x=> x is Cell).First(x => ((Cell)x).IsWalkable(lb)).positionCell;
+            var targetpos = m.fullBoard.Where(x => x is Cell).First(x => ((Cell)x).IsWalkable(lb)).positionCell;
             m.AddLivingBeing(lb, targetpos);
             m.SetAsActive(true);
             BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
