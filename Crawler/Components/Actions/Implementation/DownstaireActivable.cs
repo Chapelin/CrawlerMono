@@ -4,6 +4,8 @@
 
     using Living;
 
+    using Microsoft.Xna.Framework.Input;
+
     public class DownstaireActivable : IActivableComponent
     {
         public List<ActionDoable> Activables(LivingBeing lb)
@@ -13,12 +15,13 @@
             {
                 ActionDoable act = new ActionDoable
                                        {
-                                           ActionName = "Go down",
-                                           ActionActivity = delegate
+                                           Name = "Go down",
+                                           Activity = delegate
                                                {
                                                    var currentLb = lb;
                                                    currentLb.GoMapDown();
-                                               }
+                                               },
+                                           Bind = new Keys[]{Keys.LeftShift, Keys.D}
                                        };
                 result.Add(act);
             }

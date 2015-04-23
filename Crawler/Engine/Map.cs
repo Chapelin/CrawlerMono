@@ -63,8 +63,6 @@
         }
 
 
-
-
         internal void HandleVisibility(LivingBeing being)
         {
             var posLb = being.positionCell;

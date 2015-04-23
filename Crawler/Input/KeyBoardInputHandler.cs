@@ -26,72 +26,73 @@
 
         public void HandleInput(LivingBeing lb)
         {
-            var k = Keyboard.GetState();
+            var ks = Keyboard.GetState();
+            var keys = ks.GetPressedKeys();
             if (this.timer > 0)
             {
                 this.timer--;
             }
 
-            if (k.GetPressedKeys().Any())
+            if (keys.Any())
             {
                 if (this.timer == 0)
                 {
-                    this.HandleKeyboardPlayerMovement(k, lb);
+                    this.HandleKeyboardPlayerMovement(ks, lb);
 
-                    this.HandleKeyboardPlayerMenu(k, lb);
+                    this.HandleKeyboardPlayerMenu( lb, keys);
                 }
 
             }
 
         }
 
-        private void HandleKeyboardPlayerMenu(KeyboardState k, LivingBeing lb)
+        private void HandleKeyboardPlayerMenu(LivingBeing lb, Keys[] pressedKeys)
         {
-            if (k.GetPressedKeys().Contains(Keys.P))
+            if (pressedKeys.Contains(Keys.P))
             {
                 BlackBoard.CurrentMap.Pickup(lb);
                 this.ResetTimer();
             }
 
-            if (k.GetPressedKeys().Contains(Keys.I))
+            if (pressedKeys.Contains(Keys.I))
             {
                BlackBoard.CurrentMap.ShowInventory(lb);
                 this.ResetTimer();
             }
 
-            if (k.GetPressedKeys().Contains(Keys.D))
+            if (pressedKeys.Contains(Keys.D))
             {
                 BlackBoard.CurrentMap.DropFirstObject(lb);
                 this.ResetTimer();
 
             }
 
-            if (k.GetPressedKeys().Contains(Keys.Space))
+            if (pressedKeys.Contains(Keys.Space))
             {
                 BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
             }
 
-            if (k.GetPressedKeys().Contains(Keys.L))
+            if (pressedKeys.Contains(Keys.L))
             {
                 Console.WriteLine("Action dispos : ");
                 var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 foreach (var actionDoable in listAction)
                 {
-                    Console.WriteLine(actionDoable.ActionName);
+                    Console.WriteLine(actionDoable.Name + " "+ actionDoable.KeyBinding);
                 }
             }
 
-            if (k.GetPressedKeys().Contains(Keys.A))
+            if (pressedKeys.Contains(Keys.A))
             {
                 Console.WriteLine("Doing first action dispo");
                 var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 if (listAction.Any())
                 {
-                    listAction.First().ActionActivity.Invoke();
+                    listAction.First().Activity.Invoke();
                 }
             }
 
-            if (k.GetPressedKeys().Contains(Keys.E))
+            if (pressedKeys.Contains(Keys.E))
             {
                 Console.WriteLine("Trying to equipe first item");
                 var eq = lb.Inventory.FirstOrDefault(x => x.CanEquip(lb));
@@ -101,7 +102,7 @@
                 }
             }
 
-            if (k.GetPressedKeys().Contains(Keys.U))
+            if (pressedKeys.Contains(Keys.U))
             {
                 Console.WriteLine("Trying to unequipe first item");
                 var eq = lb.Inventory.FirstOrDefault(x => x.IsEquipped);

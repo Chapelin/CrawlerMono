@@ -38,7 +38,6 @@
 
         }
 
-
         public Vector2 GetPixelPositionOriginOfCell(Vector2 cellPosition)
         {
             var vec = -Offset;

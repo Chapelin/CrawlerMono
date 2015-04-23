@@ -1,5 +1,7 @@
 ﻿namespace Crawler.Components.ItemRelated.Implementation
 {
+    using System;
+
     using Living;
 
     public class ConsumableComponant : IConsumableComponent
@@ -11,6 +13,7 @@
 
         public void Consume(LivingBeing lb)
         {
+            Console.WriteLine(lb.Description + " drank.");
             // do some stuff
         }
     }
