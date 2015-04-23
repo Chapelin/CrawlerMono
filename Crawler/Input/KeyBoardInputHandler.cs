@@ -5,7 +5,7 @@ namespace Crawler.Input
     using System;
     using System.Linq;
 
-    using Crawler.Living;
+    using Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Input;
@@ -16,26 +16,18 @@ namespace Crawler.Input
         private KeyboardState currentKeyboardState;
         private List<Keys> newPressed;
 
-        public KeyBoardInputHandler()
-        {
-        }
-
 
         public void HandleInput(LivingBeing lb)
         {
             previousKeyboardState = currentKeyboardState;
-          currentKeyboardState = Keyboard.GetState();
+            currentKeyboardState = Keyboard.GetState();
             newPressed = currentKeyboardState.GetPressedKeys().Except(previousKeyboardState.GetPressedKeys()).ToList();
 
 
             if (newPressed.Any())
             {
-           
-                    this.HandleKeyboardPlayerMovement (lb);
-
-                    this.HandleKeyboardPlayerMenu( lb);
-                
-
+                this.HandleKeyboardPlayerMovement(lb);
+                this.HandleKeyboardPlayerMenu(lb);
             }
 
         }
@@ -105,50 +97,51 @@ namespace Crawler.Input
 
         private void HandleKeyboardPlayerMovement(LivingBeing lb)
         {
-            var targetCell = lb.positionCell;
+            var depVector = Vector2.Zero;
+
             if (newPressed.Contains(Keys.NumPad2))
             {
-                targetCell.Y++;
+                depVector = new Vector2(0, 1);
             }
 
             if (newPressed.Contains(Keys.NumPad4))
             {
-                targetCell.X--;
+                depVector = new Vector2(-1, 0);
             }
 
             if (newPressed.Contains(Keys.NumPad8))
             {
-                targetCell.Y--;
+                depVector = new Vector2(0, -1);
             }
 
             if (newPressed.Contains(Keys.NumPad6))
             {
-                targetCell.X++;
+                depVector = new Vector2(1, 0);
             }
 
             if (newPressed.Contains(Keys.NumPad9))
             {
-                targetCell += new Vector2(1, -1);
+                depVector = new Vector2(1, -1);
             }
 
             if (newPressed.Contains(Keys.NumPad7))
             {
-                targetCell += new Vector2(-1, -1);
+                depVector = new Vector2(-1, -1);
             }
 
             if (newPressed.Contains(Keys.NumPad1))
             {
-                targetCell += new Vector2(-1, 1);
+                depVector = new Vector2(-1, 1);
             }
 
             if (newPressed.Contains(Keys.NumPad3))
             {
-                targetCell += new Vector2(1, 1);
+                depVector = new Vector2(1, 1);
             }
 
-            if (targetCell != lb.positionCell)
+            if (depVector != Vector2.Zero)
             {
-               BlackBoard.CurrentMap.TryMoveLivingBeing(lb, targetCell);
+                BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, depVector);
             }
         }
     }

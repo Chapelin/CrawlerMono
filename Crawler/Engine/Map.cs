@@ -73,19 +73,7 @@
         private void HandleVisibilityOfList(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
         {
             //reinit visibility
-            Parallel.ForEach(
-                listGameAware,
-                element =>
-                {
-                    if (element.SeenBy.Contains(being.uniqueIdentifier))
-                    {
-                        element.SetColorToUse(Visibility.Visited);
-                    }
-                    else
-                    {
-                        element.SetColorToUse(Visibility.Unvisited);
-                    }
-                });
+            ReitinializeVisibility(being, listGameAware);
 
             //handle new visibility
             var currentPosition = being.positionCell;
@@ -99,6 +87,12 @@
                 }
             }
 
+            ProcessVisibilityWithFOV(being, listPathOfVisibility, listGameAware);
+        }
+
+        private static void ProcessVisibilityWithFOV(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
+        {
+            IEnumerable<MapDrawableComponent> listAtPos;
             foreach (var path in listPathOfVisibility)
             {
                 var currentPos = being.positionCell;
@@ -120,6 +114,23 @@
                         break;
                 }
             }
+        }
+
+        private static void ReitinializeVisibility(LivingBeing being, List<MapDrawableComponent> listGameAware)
+        {
+            Parallel.ForEach(
+                listGameAware,
+                element =>
+                {
+                    if (element.SeenBy.Contains(being.uniqueIdentifier))
+                    {
+                        element.SetColorToUse(Visibility.Visited);
+                    }
+                    else
+                    {
+                        element.SetColorToUse(Visibility.Unvisited);
+                    }
+                });
         }
 
         public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
@@ -171,19 +182,24 @@
             }
         }
 
-        public bool TryMoveLivingBeing(LivingBeing lb, Vector2 position)
+        public bool TryMoveLivingBeingToPosition(LivingBeing lb, Vector2 targetPosition)
         {
             var retour = false;
-            var targetCellObject = CellOnPosition(position);
+            var targetCellObject = CellOnPosition(targetPosition);
             if (null != targetCellObject)
             {
                 if (targetCellObject.IsWalkable(lb))
                 {
-                    Game.MoveBeing(lb, position);
+                    Game.MoveBeing(lb, targetPosition);
                     retour = true;
                 }
             }
             return retour;
+        }
+
+        public bool TryMoveLivingBeingOfVector(LivingBeing lb, Vector2 deplacementVector)
+        {
+            return this.TryMoveLivingBeingToPosition(lb,lb.positionCell + deplacementVector);
         }
 
         public void SetAsActive(bool toActive)
