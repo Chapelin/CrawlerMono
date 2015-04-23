@@ -72,6 +72,7 @@
     <Compile Include="Components\ItemRelated\Implementation\UnconsumableComponant.cs" />
     <Compile Include="Components\Actions\Implementation\UpstairActivable.cs" />
     <Compile Include="Components\Others\IWalkable.cs" />
+    <Compile Include="Helpers\VisibilityHandler.cs" />
     <Compile Include="Items\Torso.cs" />
     <Compile Include="Living\FullStatistics.cs" />
     <Compile Include="Helpers\MapFiller.cs" />

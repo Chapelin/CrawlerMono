@@ -1,15 +1,14 @@
-﻿namespace Crawler.Engine
+﻿using Crawler.Helpers;
+
+namespace Crawler.Engine
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
-
-    using Crawler.Cells;
-    using Crawler.DataStructures;
-    using Crawler.Items;
-    using Crawler.Living;
-    using Crawler.UI;
-    using Crawler.Utils;
+    using Cells;
+    using DataStructures;
+    using Items;
+    using Living;
+    using UI;
 
     using Microsoft.Xna.Framework;
 
@@ -38,14 +37,13 @@
                     _currentTargetedCell = value;
                     NewCellTarget(_currentTargetedCell);
                 }
-
             }
         }
 
         private void NewCellTarget(Vector2 value)
         {
             var listContenu = new List<MapDrawableComponent>();
-            listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
+            listContenu.AddRange(fullBoard.Where(x=> x.positionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
             log.WriteLine(desc);
         }
@@ -58,79 +56,13 @@
                 size = new Vector2(50, 50);
             Game = game;
             log = lp;
-            this.fullBoard = new ListGameAware<MapDrawableComponent>(game);
+            fullBoard = new ListGameAware<MapDrawableComponent>(game);
             SizeOfMap = size;
         }
 
-
         internal void HandleVisibility(LivingBeing being)
         {
-            var posLb = being.positionCell;
-            var listCell = Utilitaires.GetPathsToDistanceMax(posLb, being.statistics.FOV);
-            HandleVisibilityOfList(being, listCell, fullBoard.FullDump());
-        }
-
-        private void HandleVisibilityOfList(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
-        {
-            //reinit visibility
-            ReitinializeVisibility(being, listGameAware);
-
-            //handle new visibility
-            var currentPosition = being.positionCell;
-            var listAtPos = listGameAware.Where(x => x.positionCell == currentPosition);
-            foreach (var v in listAtPos)
-            {
-                v.SetColorToUse(Visibility.InView);
-                if (!v.SeenBy.Contains(being.uniqueIdentifier))
-                {
-                    v.SeenBy.Add(being.uniqueIdentifier);
-                }
-            }
-
-            ProcessVisibilityWithFOV(being, listPathOfVisibility, listGameAware);
-        }
-
-        private static void ProcessVisibilityWithFOV(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
-        {
-            IEnumerable<MapDrawableComponent> listAtPos;
-            foreach (var path in listPathOfVisibility)
-            {
-                var currentPos = being.positionCell;
-                foreach (Vector2 t in path)
-                {
-                    currentPos += t;
-                    listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
-                    var stop = false;
-                    foreach (var v in listAtPos)
-                    {
-                        v.SetColorToUse(Visibility.InView);
-                        if (!v.SeenBy.Contains(being.uniqueIdentifier))
-                        {
-                            v.SeenBy.Add(being.uniqueIdentifier);
-                        }
-                        stop |= v.BlockVisibility(being);
-                    }
-                    if (stop)
-                        break;
-                }
-            }
-        }
-
-        private static void ReitinializeVisibility(LivingBeing being, List<MapDrawableComponent> listGameAware)
-        {
-            Parallel.ForEach(
-                listGameAware,
-                element =>
-                {
-                    if (element.SeenBy.Contains(being.uniqueIdentifier))
-                    {
-                        element.SetColorToUse(Visibility.Visited);
-                    }
-                    else
-                    {
-                        element.SetColorToUse(Visibility.Unvisited);
-                    }
-                });
+            VisibilityHandler.HandleVisibilityOfList(being, fullBoard.FullDump());
         }
 
         public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
@@ -161,7 +93,7 @@
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = this.ItemsOnPosition(lb.positionCell).ToList();
+            var listObject = ItemsOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
             RemoveItems(listObject);
         }
@@ -199,7 +131,7 @@
 
         public bool TryMoveLivingBeingOfVector(LivingBeing lb, Vector2 deplacementVector)
         {
-            return this.TryMoveLivingBeingToPosition(lb,lb.positionCell + deplacementVector);
+            return TryMoveLivingBeingToPosition(lb,lb.positionCell + deplacementVector);
         }
 
         public void SetAsActive(bool toActive)
