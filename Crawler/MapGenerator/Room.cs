@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-
-namespace Crawler.MapGenerator
+﻿namespace Crawler.MapGenerator
 {
+    using System.Collections.Generic;
+
+    using Microsoft.Xna.Framework;
+
     public class Room
     {
         public Rectangle Setting;

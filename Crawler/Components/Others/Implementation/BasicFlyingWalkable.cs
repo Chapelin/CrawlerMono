@@ -2,7 +2,7 @@
 {
     using Living;
 
-    class BasicFlyingWalkable : IWalkable
+    public class BasicFlyingWalkable : IWalkable
     {
         public bool IsWalkable(LivingBeing lb)
         {

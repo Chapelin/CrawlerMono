@@ -2,13 +2,10 @@
 {
     using System;
 
-    using UI;
-
     using Microsoft.Xna.Framework;
 
     public class Camera
     {
-        private ILogPrinter log;
         // X/Y beginning
         public Vector2 Offset { get; set; }
         public Vector2 SizeOfView { get; set; }
@@ -18,15 +15,13 @@
         {
             get;
             set;
-
         }
 
-        public Camera(Vector2 SizeOfView, Vector2 cameraOffset, ILogPrinter log)
+        public Camera(Vector2 SizeOfView, Vector2 cameraOffset)
         {
             Offset = Vector2.Zero;
             this.SizeOfView = SizeOfView;
             CameraOffset = cameraOffset;
-            this.log = log;
         }
 
         public void Move(Vector2 v)
@@ -48,8 +43,7 @@
         {
             var vec = -Offset;
             vec += cellPosition;
-            return vec * GameEngine.SpriteSize + CameraOffset;
-
+            return (vec * GameEngine.SpriteSize) + CameraOffset;
         }
 
         public void CenterOnCell(Vector2 position)

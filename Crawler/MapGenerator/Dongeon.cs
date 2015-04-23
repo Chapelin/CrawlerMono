@@ -60,7 +60,5 @@
                 return Levels[_currentLevel];
             }
         }
-
-       
     }
 }

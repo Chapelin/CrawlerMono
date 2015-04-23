@@ -10,7 +10,6 @@
     {
         private new GameEngine Game;
 
-
         private Point pxCurrentPos;
 
         private bool showTargetSprite;
@@ -59,6 +58,7 @@
             {
                 BlackBoard.CurrentSpriteBatch.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
             }
+
             base.Draw(gameTime);
         }
     }

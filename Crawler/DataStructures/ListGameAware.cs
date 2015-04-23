@@ -1,25 +1,20 @@
-﻿using System.Linq;
-
-namespace Crawler.DataStructures
+﻿namespace Crawler.DataStructures
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-    using Crawler.Items;
-
-    using Engine;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
     public class ListGameAware<T>  where T: GameComponent
     {
-
-        private List<T> innerList; 
+        private List<T> innerList;
 
         private bool _isactive;
         public bool IsActive
         {
-            get { return _isactive; }
             set
             {
                 if (_isactive != value)
@@ -42,6 +37,7 @@ namespace Crawler.DataStructures
                 }
             }
         }
+
         private GameEngine Game;
         public ListGameAware(GameEngine g)
         {
@@ -84,7 +80,7 @@ namespace Crawler.DataStructures
                 }
             }
         }
-        
+
         public void AddRange<T1>(IEnumerable<T1> li) where T1 : T
         {
             this.innerList.AddRange(li);
@@ -98,7 +94,6 @@ namespace Crawler.DataStructures
         public IEnumerable<T1> AllOf<T1>() where T1 : T
         {
             return this.innerList.Where(x => x is T1).Cast<T1>();
-
         }
 
         public IEnumerable<T> Where(Func<T, bool> func)

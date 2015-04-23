@@ -42,8 +42,7 @@
         public static LivingBeing InitializePlayer(Map m, ILogPrinter lp)
         {
             var position = m.fullBoard.First<Floor>().positionCell;
-            var human = new Human(m.Game, position, lp);
-            human.IsUserControlled = true;
+            var human = new Human(m.Game, position, lp) { IsUserControlled = true };
             m.fullBoard.Add(human);
             return human;
         }

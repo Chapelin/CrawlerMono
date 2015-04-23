@@ -4,23 +4,19 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Cells;
-    using DataStructures;
-    using Items;
-    using Living;
-    using UI;
-    using Utils;
+    using Crawler.Cells;
+    using Crawler.DataStructures;
+    using Crawler.Items;
+    using Crawler.Living;
+    using Crawler.UI;
+    using Crawler.Utils;
 
     using Microsoft.Xna.Framework;
 
     public class Map : DrawableGameComponent
     {
-        public ListGameAware<MapDrawableComponent> fullBoard; 
-        //public ListGameAware<Cell> board;
+        public ListGameAware<MapDrawableComponent> fullBoard;
 
-        //public ListGameAware<Item> itemsOnBoard;
-
-        //public ListGameAware<LivingBeing> livingOnMap;
         public new GameEngine Game;
 
         private ILogPrinter log;

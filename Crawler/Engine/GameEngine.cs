@@ -1,22 +1,15 @@
-﻿#region Using Statements
-
-using Crawler.Cells;
-
-#endregion
-
-
-
-namespace Crawler.Engine
+﻿namespace Crawler.Engine
 {
     using System;
     using System.Linq;
 
-    using Helpers;
-    using Input;
-    using Living;
-    using MapGenerator;
-    using Scheduling;
-    using UI;
+    using Crawler.Cells;
+    using Crawler.Helpers;
+    using Crawler.Input;
+    using Crawler.Living;
+    using Crawler.MapGenerator;
+    using Crawler.Scheduling;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -44,13 +37,11 @@ namespace Crawler.Engine
         public GameEngine()
             : base()
         {
-
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = 15 * SpriteSize;
             graphics.PreferredBackBufferWidth = 25 * SpriteSize;
-
             beingToPlay = null;
         }
 
@@ -64,7 +55,7 @@ namespace Crawler.Engine
         {
             BlackBoard.CurrentSpriteBatch = new SpriteBatch(GraphicsDevice);
             blp = new BasicLogPrinter(this);
-            BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50), blp);
+            BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50));
             scheduler = new Scheduler();
             blp.PositionPixel = new Vector2(517, 420);
             Components.Add(blp);
@@ -140,8 +131,8 @@ namespace Crawler.Engine
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
             BlackBoard.CurrentCamera.Move(targetPosition - p.positionCell);
-            Cell cellTarget = (Cell)m.fullBoard.Where(x => x.positionCell == targetPosition).First(x => x is Cell);
-            Cell cellGoingout = (Cell)m.fullBoard.Where(x => x.positionCell == p.positionCell).First(x => x is Cell);
+            Cell cellTarget = this.m.fullBoard.Where<Cell>(x => x.positionCell == targetPosition).First();
+            Cell cellGoingout = m.fullBoard.Where<Cell>(x => x.positionCell == p.positionCell).First();
             cellGoingout.OnExit(p);
             p.positionCell = targetPosition;
             cellTarget.OnEnter(p);

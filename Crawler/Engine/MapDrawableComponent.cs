@@ -20,7 +20,6 @@
 
         protected float z;
 
-
         internal Color VisitedColor = new Color(125, 125, 125);
 
         internal string _description;
@@ -32,7 +31,7 @@
             : base(game)
         {
             this.positionCell = positionCell;
-     
+
             Game = game;
             z = 0.5F;
             colorToUse = Color.White;

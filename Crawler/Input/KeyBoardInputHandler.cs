@@ -14,8 +14,6 @@
         private int TimerResetValue = 30;
         private int timer;
 
-
-
         public KeyBoardInputHandler()
         {
             this.ResetTimer();
@@ -33,6 +31,7 @@
             {
                 this.timer--;
             }
+
             if (k.GetPressedKeys().Any())
             {
                 if (this.timer == 0)
@@ -43,6 +42,7 @@
                 }
 
             }
+
         }
 
         private void HandleKeyboardPlayerMenu(KeyboardState k, LivingBeing lb)
@@ -86,7 +86,9 @@
                 Console.WriteLine("Doing first action dispo");
                 var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 if (listAction.Any())
+                {
                     listAction.First().ActionActivity.Invoke();
+                }
             }
 
             if (k.GetPressedKeys().Contains(Keys.E))
@@ -108,7 +110,6 @@
                     eq.UnEquip(lb);
                 }
             }
-
         }
 
         private void HandleKeyboardPlayerMovement(KeyboardState k, LivingBeing lb)
@@ -118,34 +119,42 @@
             {
                 targetCell.Y++;
             }
+
             if (k.IsKeyDown(Keys.NumPad4))
             {
                 targetCell.X--;
             }
+
             if (k.IsKeyDown(Keys.NumPad8))
             {
                 targetCell.Y--;
             }
+
             if (k.IsKeyDown(Keys.NumPad6))
             {
                 targetCell.X++;
             }
+
             if (k.IsKeyDown(Keys.NumPad9))
             {
                 targetCell += new Vector2(1, -1);
             }
+
             if (k.IsKeyDown(Keys.NumPad7))
             {
                 targetCell += new Vector2(-1, -1);
             }
+
             if (k.IsKeyDown(Keys.NumPad1))
             {
                 targetCell += new Vector2(-1, 1);
             }
+
             if (k.IsKeyDown(Keys.NumPad3))
             {
                 targetCell += new Vector2(1, 1);
             }
+
             if (targetCell != lb.positionCell)
             {
                 var res = BlackBoard.CurrentMap.TryMoveLivingBeing(lb, targetCell);

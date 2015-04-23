@@ -11,9 +11,15 @@
             var result = new List<ActionDoable>();
             if (lb.IsUserControlled)
             {
-                var ad = new ActionDoable();
-                ad.ActionName = "Going upstair";
-                ad.ActionActivity = delegate { var l = lb; l.GoMapUp(); }; 
+                var ad = new ActionDoable
+                             {
+                                 ActionName = "Going upstair",
+                                 ActionActivity = delegate
+                                     {
+                                         var l = lb;
+                                         l.GoMapUp();
+                                     }
+                             };
                 result.Add(ad);
             }
 

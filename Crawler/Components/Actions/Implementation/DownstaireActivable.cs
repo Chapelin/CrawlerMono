@@ -11,13 +11,15 @@
             var result = new List<ActionDoable>();
             if (lb.IsUserControlled)
             {
-                ActionDoable act = new ActionDoable();
-                act.ActionName = "Go down";
-                act.ActionActivity = delegate
-                {
-                    var currentLb = lb;
-                    currentLb.GoMapDown();
-                };
+                ActionDoable act = new ActionDoable
+                                       {
+                                           ActionName = "Go down",
+                                           ActionActivity = delegate
+                                               {
+                                                   var currentLb = lb;
+                                                   currentLb.GoMapDown();
+                                               }
+                                       };
                 result.Add(act);
             }
 

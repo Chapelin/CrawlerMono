@@ -6,12 +6,10 @@
     {
         public void Entering(LivingBeing lb)
         {
-            
         }
 
         public void Exiting(LivingBeing lb)
         {
-            
         }
     }
 }
