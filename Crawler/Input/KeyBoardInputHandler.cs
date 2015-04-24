@@ -20,13 +20,17 @@ namespace Crawler.Input
 
         private void InitializeActions()
         {
+            #region general menu actions
+
             actionsBinded.Add(Keys.P, lb => BlackBoard.CurrentMap.Pickup(lb));
             actionsBinded.Add(Keys.I, lb => BlackBoard.CurrentMap.ShowInventory(lb));
             actionsBinded.Add(Keys.D, lb => BlackBoard.CurrentMap.DropFirstObject(lb));
             actionsBinded.Add(Keys.Space, lb => BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell));
-            actionsBinded.Add(Keys.L, lb =>
-            {
-                Console.WriteLine("Action dispos : ");
+            actionsBinded.Add(
+                Keys.L,
+                lb =>
+                    {
+                        Console.WriteLine("Action dispos : ");
                 var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 foreach (var actionDoable in listAction)
                 {
@@ -64,6 +68,19 @@ namespace Crawler.Input
                 }
             });
 
+            #endregion general menu actions
+
+            #region playerMovement
+            actionsBinded.Add(Keys.NumPad2, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(0, 1)));
+            actionsBinded.Add(Keys.NumPad4, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(-1, 0)));
+            actionsBinded.Add(Keys.NumPad8, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(0, -1)));
+            actionsBinded.Add(Keys.NumPad6, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(1, 0)));
+            actionsBinded.Add(Keys.NumPad7, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(-1, -1)));
+            actionsBinded.Add(Keys.NumPad1, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(-1, 1)));
+            actionsBinded.Add(Keys.NumPad3, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(1, 1)));
+            actionsBinded.Add(Keys.NumPad9, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(1, -1)));
+
+            #endregion playerMovement
 
         }
 
@@ -74,71 +91,12 @@ namespace Crawler.Input
             newPressed = currentKeyboardState.GetPressedKeys().Except(previousKeyboardState.GetPressedKeys()).ToList();
 
 
-            if (newPressed.Any())
-            {
-                this.HandleKeyboardPlayerMovement(lb);
-                this.HandleKeyboardPlayerMenu(lb);
-            }
-
-        }
-
-        private void HandleKeyboardPlayerMenu(LivingBeing lb)
-        {
             if (actionsBinded.Any(x => newPressed.Contains(x.Key)))
             {
                 var action = this.actionsBinded.FirstOrDefault(x => newPressed.Contains(x.Key)).Value;
                 action(lb);
             }
-        }
 
-        private void HandleKeyboardPlayerMovement(LivingBeing lb)
-        {
-            var depVector = Vector2.Zero;
-
-            if (newPressed.Contains(Keys.NumPad2))
-            {
-                depVector = new Vector2(0, 1);
-            }
-
-            if (newPressed.Contains(Keys.NumPad4))
-            {
-                depVector = new Vector2(-1, 0);
-            }
-
-            if (newPressed.Contains(Keys.NumPad8))
-            {
-                depVector = new Vector2(0, -1);
-            }
-
-            if (newPressed.Contains(Keys.NumPad6))
-            {
-                depVector = new Vector2(1, 0);
-            }
-
-            if (newPressed.Contains(Keys.NumPad9))
-            {
-                depVector = new Vector2(1, -1);
-            }
-
-            if (newPressed.Contains(Keys.NumPad7))
-            {
-                depVector = new Vector2(-1, -1);
-            }
-
-            if (newPressed.Contains(Keys.NumPad1))
-            {
-                depVector = new Vector2(-1, 1);
-            }
-
-            if (newPressed.Contains(Keys.NumPad3))
-            {
-                depVector = new Vector2(1, 1);
-            }
-
-            if (depVector != Vector2.Zero)
-            {
-                BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, depVector);
-            }
         }
 
         public KeyBoardInputHandler()
