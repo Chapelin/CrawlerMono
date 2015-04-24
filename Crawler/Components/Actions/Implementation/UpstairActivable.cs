@@ -15,13 +15,9 @@
             {
                 var ad = new ActionDoable
                              {
-                                 Name = "Going upstair", 
-                                 Activity = delegate
-                                     {
-                                         var l = lb;
-                                         l.GoMapUp();
-                                     }, 
-                             Bind = new Keys[]{Keys.LeftShift, 
+                                 Name = "Going upstair",
+                                 Activity = (a) => a.GoMapUp(),
+                             Bind = new Keys[]{Keys.LeftShift,
                                  Keys.U}
                              };
                 result.Add(ad);

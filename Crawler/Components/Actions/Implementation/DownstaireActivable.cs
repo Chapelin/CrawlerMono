@@ -15,18 +15,15 @@
             {
                 ActionDoable act = new ActionDoable
                                        {
-                                           Name = "Go down", 
-                                           Activity = delegate
-                                               {
-                                                   var currentLb = lb;
-                                                   currentLb.GoMapDown();
-                                               }, 
-                                           Bind = new Keys[]{Keys.LeftShift, Keys.D}
+                                           Name = "Go down",
+                                           Activity = (a) => a.GoMapDown(),
+                                           Bind = new Keys[] { Keys.LeftShift, Keys.D }
                                        };
                 result.Add(act);
             }
 
             return result;
         }
+
     }
 }

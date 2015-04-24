@@ -34,8 +34,6 @@
             this._isEquipped = true;
             this.whoEquipped = lb;
             lb.statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
-
-            // Console.WriteLine(this.itemTracked.Description + " is equipped by "+ this.whoEquipped.Name);
         }
 
         public void UnEquip(LivingBeing lb)
@@ -43,8 +41,6 @@
             this._isEquipped = false;
             this.whoEquipped = null;
             lb.statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
-
-            // Console.WriteLine(this.itemTracked.Description + " is desequipped");
         }
 
         public bool IsEquipped()

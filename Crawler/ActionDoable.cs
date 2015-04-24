@@ -3,13 +3,15 @@
     using System;
     using System.Text;
 
+    using Crawler.Input;
+
     using Microsoft.Xna.Framework.Input;
 
     public class ActionDoable
     {
         public string Name { get; set; }
 
-        public Action Activity { get; set; }
+        public KeyBoardInputHandler.ActionToDo Activity { get; set; }
 
         public Keys[] Bind { get; set; }
 

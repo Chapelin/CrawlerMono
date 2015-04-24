@@ -1,6 +1,7 @@
 ﻿namespace Crawler
 {
     using Crawler.Engine;
+    using Crawler.Input;
 
     using Microsoft.Xna.Framework.Graphics;
 
@@ -11,6 +12,8 @@
         public static Camera CurrentCamera;
 
         public static SpriteBatch CurrentSpriteBatch;
+
+        public static KeyBoardInputHandler InputHandler;
 
     }
 }

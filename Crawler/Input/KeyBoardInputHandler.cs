@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Crawler.Input
+﻿namespace Crawler.Input
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Crawler.Living;
@@ -12,11 +11,12 @@ namespace Crawler.Input
 
     public class KeyBoardInputHandler
     {
-        private delegate void ActionToDo(LivingBeing lb);
+        public delegate void ActionToDo(LivingBeing lb);
         private KeyboardState previousKeyboardState;
         private KeyboardState currentKeyboardState;
         private List<Keys> newPressed;
         private Dictionary<Keys, ActionToDo> actionsBinded;
+
 
         private void InitializeActions()
         {
@@ -44,7 +44,7 @@ namespace Crawler.Input
                 var listAction = BlackBoard.CurrentMap.CellOnPosition(lb.positionCell).PossibleActions(lb);
                 if (listAction.Any())
                 {
-                    listAction.First().Activity.Invoke();
+                    listAction.First().Activity.Invoke(lb);
                 }
             });
 
@@ -81,7 +81,16 @@ namespace Crawler.Input
             this.actionsBinded.Add(Keys.NumPad9, lb => BlackBoard.CurrentMap.TryMoveLivingBeingOfVector(lb, new Vector2(1, -1)));
 
             #endregion playerMovement
+        }
 
+        public void RegisterAction(Keys k, ActionToDo action)
+        {
+            this.actionsBinded.Add(k,action);
+        }
+
+        public void UnregisterAction(Keys k)
+        {
+            this.actionsBinded.Remove(k);
         }
 
         public void HandleInput(LivingBeing lb)
@@ -90,13 +99,11 @@ namespace Crawler.Input
             this.currentKeyboardState = Keyboard.GetState();
             this.newPressed = this.currentKeyboardState.GetPressedKeys().Except(this.previousKeyboardState.GetPressedKeys()).ToList();
 
-
             if (this.actionsBinded.Any(x => this.newPressed.Contains(x.Key)))
             {
-                var action = this.actionsBinded.FirstOrDefault(x => this.newPressed.Contains(x.Key)).Value;
+                var action = this.actionsBinded.First(x => this.newPressed.Contains(x.Key)).Value;
                 action(lb);
             }
-
         }
 
         public KeyBoardInputHandler()
