@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Living;
+    using Crawler.Living;
 
     public interface IActivableComponent
     {

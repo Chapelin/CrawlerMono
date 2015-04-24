@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Scheduling
 {
-    using Living;
+    using Crawler.Living;
 
     public class BeingScheduled
     {
@@ -11,17 +11,17 @@
         public BeingScheduled(LivingBeing being)
         {
             this.being = being;
-            Score = 0;
+            this.Score = 0;
         }
 
         public void Tick()
         {
-            Score += being.statistics.Speed;
+            this.Score += this.being.statistics.Speed;
         }
 
         public void TakeTurn(int consumption)
         {
-            Score -= consumption;
+            this.Score -= consumption;
         }
     }
 }

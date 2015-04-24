@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Input
 {
-    using Engine;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -21,31 +21,31 @@
         public MouseTargeter(GameEngine game)
             : base(game)
         {
-            pxCurrentPos = Point.Zero;
-            pxTargetSpriteOrigin = Vector2.Zero;
-            CurrentCellTargeted = Vector2.Zero;
-            targetTexture = game.Content.Load<Texture2D>("sprite//target");
-            Game = game;
+            this.pxCurrentPos = Point.Zero;
+            this.pxTargetSpriteOrigin = Vector2.Zero;
+            this.CurrentCellTargeted = Vector2.Zero;
+            this.targetTexture = game.Content.Load<Texture2D>("sprite//target");
+            this.Game = game;
         }
 
         public override void Update(GameTime gameTime)
         {
             var mousePosition = Mouse.GetState().Position;
-            if (mousePosition != pxCurrentPos)
+            if (mousePosition != this.pxCurrentPos)
             {
-                pxCurrentPos = mousePosition;
-                var tempTargetCell = BlackBoard.CurrentCamera.GetCellAtPosition(pxCurrentPos);
-                if (CurrentCellTargeted != tempTargetCell)
+                this.pxCurrentPos = mousePosition;
+                var tempTargetCell = BlackBoard.CurrentCamera.GetCellAtPosition(this.pxCurrentPos);
+                if (this.CurrentCellTargeted != tempTargetCell)
                 {
-                    CurrentCellTargeted = tempTargetCell;
-                    showTargetSprite = BlackBoard.CurrentCamera.IsCellOnCamera(CurrentCellTargeted);
-                    if (showTargetSprite)
+                    this.CurrentCellTargeted = tempTargetCell;
+                    this.showTargetSprite = BlackBoard.CurrentCamera.IsCellOnCamera(this.CurrentCellTargeted);
+                    if (this.showTargetSprite)
                     {
-                        pxTargetSpriteOrigin = BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(CurrentCellTargeted);
+                        this.pxTargetSpriteOrigin = BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(this.CurrentCellTargeted);
                     }
 
-                    Game.IsMouseVisible = !showTargetSprite;
-                    BlackBoard.CurrentMap.CurrentTargetedCell = CurrentCellTargeted;
+                    this.Game.IsMouseVisible = !this.showTargetSprite;
+                    BlackBoard.CurrentMap.CurrentTargetedCell = this.CurrentCellTargeted;
                 }
             }
 
@@ -54,9 +54,9 @@
 
         public override void Draw(GameTime gameTime)
         {
-            if (showTargetSprite)
+            if (this.showTargetSprite)
             {
-                BlackBoard.CurrentSpriteBatch.Draw(targetTexture, pxTargetSpriteOrigin, Color.White);
+                BlackBoard.CurrentSpriteBatch.Draw(this.targetTexture, this.pxTargetSpriteOrigin, Color.White);
             }
 
             base.Draw(gameTime);

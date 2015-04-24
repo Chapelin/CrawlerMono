@@ -1,8 +1,8 @@
 ﻿namespace Crawler.Items
 {
-    using Components.Actions.Implementation;
-    using Components.ItemRelated.Implementation;
-    using Engine;
+    using Crawler.Components.Actions.Implementation;
+    using Crawler.Components.ItemRelated.Implementation;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -14,7 +14,7 @@
         public Potion(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable(), "sprite\\potion")
         {
-            _description = "A simple potion.";
+            this._description = "A simple potion.";
         }
 
     }

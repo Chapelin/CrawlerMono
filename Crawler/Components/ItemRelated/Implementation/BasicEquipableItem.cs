@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Living;
+    using Crawler.Living;
 
     public class BasicEquipableItem : IEquipableComponent
     {
@@ -10,46 +10,46 @@
 
         private LivingBeing whoEquipped;
 
-        //private Item itemTracked;
-
+        // private Item itemTracked;
 
         private IStatisticsModifierComponent statisModifier;
         public BasicEquipableItem(IStatisticsModifierComponent modifier)
         {
-            //this.itemTracked = i;
-            statisModifier = modifier;
+            // this.itemTracked = i;
+            this.statisModifier = modifier;
         }
 
         public bool CanEquip(LivingBeing lb)
         {
-            return whoEquipped == null;
+            return this.whoEquipped == null;
         }
 
         public void Equip(LivingBeing lb)
         {
-            if (!CanEquip(lb))
+            if (!this.CanEquip(lb))
             {
                 throw new Exception("Can't equip");
             }
 
+            this._isEquipped = true;
+            this.whoEquipped = lb;
+            lb.statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
 
-            _isEquipped = true;
-            whoEquipped = lb;
-            lb.statistics.ApplyBonus(statisModifier.StatisticDiffToApply);
-            //Console.WriteLine(this.itemTracked.Description + " is equipped by "+ this.whoEquipped.Name);
+            // Console.WriteLine(this.itemTracked.Description + " is equipped by "+ this.whoEquipped.Name);
         }
 
         public void UnEquip(LivingBeing lb)
         {
-            _isEquipped = false;
-            whoEquipped = null;
-            lb.statistics.RemoveBonus(statisModifier.StatisticDiffToApply);
-           // Console.WriteLine(this.itemTracked.Description + " is desequipped");
+            this._isEquipped = false;
+            this.whoEquipped = null;
+            lb.statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
+
+            // Console.WriteLine(this.itemTracked.Description + " is desequipped");
         }
 
         public bool IsEquipped()
         {
-            return _isEquipped;
+            return this._isEquipped;
         }
     }
 }

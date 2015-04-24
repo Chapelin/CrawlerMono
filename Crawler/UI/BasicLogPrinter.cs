@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Engine;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -22,36 +22,36 @@
             : base(game)
         {
             
-            Log = new List<string>();
-            Log.Add("i'm a test");
-            Log.Add("a mother f*cker test");
-            Log.Add("yeah baby");
-            Log.Add("prout");
-            Log.Add("Salut !");
-            defaultFont = game.Content.Load<SpriteFont>("defaultFont");
+            this.Log = new List<string>();
+            this.Log.Add("i'm a test");
+            this.Log.Add("a mother f*cker test");
+            this.Log.Add("yeah baby");
+            this.Log.Add("prout");
+            this.Log.Add("Salut !");
+            this.defaultFont = game.Content.Load<SpriteFont>("defaultFont");
         }
 
 
 
         public void WriteLine(string text)
         {
-            Log.Add(text);
+            this.Log.Add(text);
         }
 
         public void WriteLine(string text, params object[] values)
         {
-            WriteLine(string.Format(text, values));
+            this.WriteLine(string.Format(text, values));
         }
 
 
         public override void Draw(GameTime gameTime)
         {
-            var listToAdd = Log.Skip(Log.Count - 5);
-            var currentpos = PositionPixel;
-            var posToAdd = defaultFont.LineSpacing-2;
+            var listToAdd = this.Log.Skip(this.Log.Count - 5);
+            var currentpos = this.PositionPixel;
+            var posToAdd = this.defaultFont.LineSpacing-2;
             foreach (var text in listToAdd)
             {
-                BlackBoard.CurrentSpriteBatch.DrawString(defaultFont, text, currentpos, Color.White);
+                BlackBoard.CurrentSpriteBatch.DrawString(this.defaultFont, text, currentpos, Color.White);
                 currentpos.Y += posToAdd;
             }
 

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Living;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework.Input;
 
@@ -15,12 +15,12 @@
             {
                 ActionDoable act = new ActionDoable
                                        {
-                                           Name = "Go down",
+                                           Name = "Go down", 
                                            Activity = delegate
                                                {
                                                    var currentLb = lb;
                                                    currentLb.GoMapDown();
-                                               },
+                                               }, 
                                            Bind = new Keys[]{Keys.LeftShift, Keys.D}
                                        };
                 result.Add(act);

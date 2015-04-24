@@ -1,7 +1,7 @@
 ﻿namespace Crawler.Items
 {
-    using Components.ItemRelated.Implementation;
-    using Engine;
+    using Crawler.Components.ItemRelated.Implementation;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -10,7 +10,7 @@
         public Torso(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, new BasicEquipableItem(new StatisticModifierFOv()), "sprite\\torso")
         {
-            _description = "An armor.";
+            this._description = "An armor.";
         }
 
     }

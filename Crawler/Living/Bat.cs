@@ -2,8 +2,8 @@
 {
     using System;
 
-    using Engine;
-    using UI;
+    using Crawler.Engine;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 
@@ -13,16 +13,16 @@
         public Bat(GameEngine game, Vector2 positionCell,  ILogPrinter printer)
             : base(game, positionCell, "sprite\\bat", printer)
         {
-            statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
-            IsUserControlled = false;
-            _description = "Bat";
-            traits = Traits.Flying;
-            log = printer;
+            this.statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
+            this.IsUserControlled = false;
+            this._description = "Bat";
+            this.traits = Traits.Flying;
+            this.log = printer;
         }
 
         public override void AutoPlay()
         {
-            log.WriteLine("{0} autoplaying", Description);
+            this.log.WriteLine("{0} autoplaying", this.Description);
             var Rrnd = new Random();
             var ca = Rrnd.Next(9);
             var dep = new Vector2(0, 0);
@@ -42,7 +42,8 @@
                     break;
 
             }
-            positionCell += dep;
+
+            this.positionCell += dep;
             base.AutoPlay();
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Items
 {
-    using Engine;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -9,7 +9,7 @@
         public Rod(GameEngine game, Vector2 positionCell)
             : base(game, positionCell,  "sprite\\rod")
         {
-            _description = "A beautiful rod !";
+            this._description = "A beautiful rod !";
         }
 
     }

@@ -2,8 +2,8 @@
 {
     public enum Visibility
     {
-        Unvisited,
-        Visited,
+        Unvisited, 
+        Visited, 
         InView
     }
 }

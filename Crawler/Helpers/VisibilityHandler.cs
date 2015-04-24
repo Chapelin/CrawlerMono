@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using Crawler.Cells;
 using Crawler.Engine;
 using Crawler.Living;
 using Crawler.Utils;
+
 using Microsoft.Xna.Framework;
 
 namespace Crawler.Helpers
@@ -31,8 +33,10 @@ namespace Crawler.Helpers
                         {
                             v.SeenBy.Add(being.uniqueIdentifier);
                         }
+
                         stop |= v.BlockVisibility(being);
                     }
+
                     if (stop)
                         break;
                 }
@@ -42,7 +46,7 @@ namespace Crawler.Helpers
         private static void ReitinializeVisibility(LivingBeing being, List<MapDrawableComponent> listGameAware)
         {
             Parallel.ForEach(
-                listGameAware,
+                listGameAware, 
                 element =>
                 {
                     if (element.SeenBy.Contains(being.uniqueIdentifier))
@@ -60,11 +64,12 @@ namespace Crawler.Helpers
         {
             var currentPosition = being.positionCell;
 
-            //reinit visibility
-           ReitinializeVisibility(being, listGameAware);
+            // reinit visibility
+            ReitinializeVisibility(being, listGameAware);
 
             var listPathOfVisibility = Utilitaires.GetPathsToDistanceMax(currentPosition, being.statistics.FOV);
-            //handle new visibility
+
+            // handle new visibility
             var listAtPos = listGameAware.Where(x => x.positionCell == currentPosition);
             foreach (var v in listAtPos)
             {
@@ -74,6 +79,7 @@ namespace Crawler.Helpers
                     v.SeenBy.Add(being.uniqueIdentifier);
                 }
             }
+
             ProcessVisibilityWithFOV(being, listPathOfVisibility, listGameAware);
         }
     }

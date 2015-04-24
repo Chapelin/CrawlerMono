@@ -1,8 +1,8 @@
 ﻿namespace Crawler.Cells
 {
-    using Components.Actions.Implementation;
-    using Components.Others.Implementation;
-    using Engine;
+    using Crawler.Components.Actions.Implementation;
+    using Crawler.Components.Others.Implementation;
+    using Crawler.Engine;
 
     using Microsoft.Xna.Framework;
 
@@ -10,7 +10,7 @@
     {
 
         public Floor(GameEngine game, Vector2 p )
-            : base(game, p, new BasicFloorWalkable(), new BasicVoidActivable(),new InactiveEnterExit(),  "sprite\\floor")
+            : base(game, p, new BasicFloorWalkable(), new BasicVoidActivable(), new InactiveEnterExit(),  "sprite\\floor")
         {
             this._description = "A simple floor.";
         }

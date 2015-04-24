@@ -11,7 +11,7 @@
 
         public Room()
         {
-            IOs = new List<Exit>();
+            this.IOs = new List<Exit>();
         }
     }
 }

@@ -37,12 +37,12 @@
         public GameEngine()
             : base()
         {
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            graphics.PreferredBackBufferHeight = 15 * SpriteSize;
-            graphics.PreferredBackBufferWidth = 25 * SpriteSize;
-            beingToPlay = null;
+            this.graphics = new GraphicsDeviceManager(this);
+            this.Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
+            this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
+            this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
+            this.beingToPlay = null;
         }
 
         /// <summary>
@@ -53,24 +53,24 @@
         /// </summary>
         protected override void Initialize()
         {
-            BlackBoard.CurrentSpriteBatch = new SpriteBatch(GraphicsDevice);
-            blp = new BasicLogPrinter(this);
+            BlackBoard.CurrentSpriteBatch = new SpriteBatch(this.GraphicsDevice);
+            this.blp = new BasicLogPrinter(this);
             BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50));
-            scheduler = new Scheduler();
-            blp.PositionPixel = new Vector2(517, 420);
-            Components.Add(blp);
-            donjon = new Dongeon(this, blp);
-            m = donjon.CurrentMap;
+            this.scheduler = new Scheduler();
+            this.blp.PositionPixel = new Vector2(517, 420);
+            this.Components.Add(this.blp);
+            this.donjon = new Dongeon(this, this.blp);
+            this.m = this.donjon.CurrentMap;
 
-            scheduler.AddABeing(MapFiller.InitializePlayer(m, this.blp));
-            MapFiller.InitializeItems(m, this.blp);
-            scheduler.AddABeing(MapFiller.InitializeEnnemis(m, blp));
+            this.scheduler.AddABeing(MapFiller.InitializePlayer(this.m, this.blp));
+            MapFiller.InitializeItems(this.m, this.blp);
+            this.scheduler.AddABeing(MapFiller.InitializeEnnemis(this.m, this.blp));
             base.Initialize();
-            hd = new KeyBoardInputHandler();
-            m.SetAsActive(true);
-            BlackBoard.CurrentMap = m;
-            mt = new MouseTargeter(this);
-            Components.Add(mt);
+            this.hd = new KeyBoardInputHandler();
+            this.m.SetAsActive(true);
+            BlackBoard.CurrentMap = this.m;
+            this.mt = new MouseTargeter(this);
+            this.Components.Add(this.mt);
         }
 
         /// <summary>
@@ -94,22 +94,22 @@
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+                this.Exit();
 
             // if list empty
-            while (beingToPlay == null)
+            while (this.beingToPlay == null)
             {
-                beingToPlay = scheduler.CurrentPlaying();
-                if (!beingToPlay.IsUserControlled)
+                this.beingToPlay = this.scheduler.CurrentPlaying();
+                if (!this.beingToPlay.IsUserControlled)
                 {
-                    beingToPlay.AutoPlay();
-                    scheduler.Played();
-                    beingToPlay = null;
+                    this.beingToPlay.AutoPlay();
+                    this.scheduler.Played();
+                    this.beingToPlay = null;
                 }
             }
 
-            m.HandleVisibility(beingToPlay);
-            hd.HandleInput(beingToPlay);
+            this.m.HandleVisibility(this.beingToPlay);
+            this.hd.HandleInput(this.beingToPlay);
 
             base.Update(gameTime);
         }
@@ -122,7 +122,7 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.Black);
             BlackBoard.CurrentSpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             base.Draw(gameTime);
             BlackBoard.CurrentSpriteBatch.End();
@@ -132,30 +132,30 @@
         {
             BlackBoard.CurrentCamera.Move(targetPosition - p.positionCell);
             Cell cellTarget = this.m.fullBoard.Where<Cell>(x => x.positionCell == targetPosition).First();
-            Cell cellGoingout = m.fullBoard.Where<Cell>(x => x.positionCell == p.positionCell).First();
+            Cell cellGoingout = this.m.fullBoard.Where<Cell>(x => x.positionCell == p.positionCell).First();
             cellGoingout.OnExit(p);
             p.positionCell = targetPosition;
             cellTarget.OnEnter(p);
 
             // we have played, so we remove it
-            scheduler.Played();
-            beingToPlay = null;
+            this.scheduler.Played();
+            this.beingToPlay = null;
         }
 
         public void ChangeMap(LivingBeing lb, bool goingDown)
         {
-            var nextLVL = donjon.CurrentLevel + (goingDown ? 1 : -1);
-            m.RemoveLivingBeing(lb);
+            var nextLVL = this.donjon.CurrentLevel + (goingDown ? 1 : -1);
+            this.m.RemoveLivingBeing(lb);
             if (!lb.IsUserControlled)
                 throw new Exception("Error");
-            m.SetAsActive(false);
-            donjon.CurrentLevel = nextLVL;
-            m = donjon.CurrentMap;
-            var targetpos = m.fullBoard.Where(x => x is Cell).First(x => ((Cell)x).IsWalkable(lb)).positionCell;
-            m.AddLivingBeing(lb, targetpos);
-            m.SetAsActive(true);
+            this.m.SetAsActive(false);
+            this.donjon.CurrentLevel = nextLVL;
+            this.m = this.donjon.CurrentMap;
+            var targetpos = this.m.fullBoard.Where(x => x is Cell).First(x => ((Cell)x).IsWalkable(lb)).positionCell;
+            this.m.AddLivingBeing(lb, targetpos);
+            this.m.SetAsActive(true);
             BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
-            BlackBoard.CurrentMap = m;
+            BlackBoard.CurrentMap = this.m;
         }
     }
 }

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Living;
+    using Crawler.Living;
 
     public class Scheduler
     {
@@ -17,45 +17,48 @@
 
         public LivingBeing CurrentPlaying()
         {
-            if (!playing.Any())
+            if (!this.playing.Any())
             {
-                playing = NextPlaying();
+                this.playing = this.NextPlaying();
             }
-            return playing.First();
+
+            return this.playing.First();
 
         }
 
         public void Played()
         {
-            playing.RemoveAt(0);
+            this.playing.RemoveAt(0);
         }
 
 
         public Scheduler()
         {
-            listOfBeing = new List<BeingScheduled>();
-            CurrentTurn = 0;
-            playing = new List<LivingBeing>();
+            this.listOfBeing = new List<BeingScheduled>();
+            this.CurrentTurn = 0;
+            this.playing = new List<LivingBeing>();
         }
 
         public void AddABeing(LivingBeing b)
         {
-            listOfBeing.Add(new BeingScheduled(b));
+            this.listOfBeing.Add(new BeingScheduled(b));
         }
 
         protected List<LivingBeing> NextPlaying()
         {
-            var listPlayable = GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+            var listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
             if (!listPlayable.Any())
             {
-                CurrentTurn++;
-                TickList();
-                listPlayable = GetListOfPlayable(listOfBeing, TURN_TREESHOLD);
+                this.CurrentTurn++;
+                this.TickList();
+                listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
             }
+
             foreach (var beingScheduled in listPlayable)
             {
                 beingScheduled.TakeTurn(TURN_TREESHOLD);
             }
+
             return listPlayable.Select(x => x.being).ToList();
 
         }
@@ -67,7 +70,7 @@
 
         public void TickList()
         {
-            listOfBeing.ForEach(x => x.Tick());
+            this.listOfBeing.ForEach(x => x.Tick());
         }
 
 

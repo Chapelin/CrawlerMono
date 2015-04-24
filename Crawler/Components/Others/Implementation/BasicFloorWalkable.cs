@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.Others.Implementation
 {
-    using Living;
+    using Crawler.Living;
 
     public class BasicFloorWalkable : IWalkable
     {

@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Living;
+    using Crawler.Living;
 
     public class BasicUnequipable : IEquipableComponent
     {

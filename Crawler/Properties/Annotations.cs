@@ -8,7 +8,6 @@
 // ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
-
 namespace Crawler.Annotations
 {
   /// <summary>
@@ -55,7 +54,7 @@ namespace Crawler.Annotations
   /// }
   /// </code></example>
   [AttributeUsage(
-    AttributeTargets.Constructor | AttributeTargets.Method,
+    AttributeTargets.Constructor | AttributeTargets.Method, 
     AllowMultiple = false, Inherited = true)]
   public sealed class StringFormatMethodAttribute : Attribute
   {
@@ -64,7 +63,7 @@ namespace Crawler.Annotations
     /// </param>
     public StringFormatMethodAttribute(string formatParameterName)
     {
-      FormatParameterName = formatParameterName;
+      this.FormatParameterName = formatParameterName;
     }
 
     public string FormatParameterName { get; private set; }
@@ -126,7 +125,7 @@ namespace Crawler.Annotations
     public NotifyPropertyChangedInvocatorAttribute() { }
     public NotifyPropertyChangedInvocatorAttribute(string parameterName)
     {
-      ParameterName = parameterName;
+      this.ParameterName = parameterName;
     }
 
     public string ParameterName { get; private set; }
@@ -182,8 +181,8 @@ namespace Crawler.Annotations
 
     public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
     {
-      Contract = contract;
-      ForceFullStates = forceFullStates;
+      this.Contract = contract;
+      this.ForceFullStates = forceFullStates;
     }
 
     public string Contract { get; private set; }
@@ -205,7 +204,7 @@ namespace Crawler.Annotations
     public LocalizationRequiredAttribute() : this(true) { }
     public LocalizationRequiredAttribute(bool required)
     {
-      Required = required;
+      this.Required = required;
     }
 
     public bool Required { get; private set; }
@@ -251,7 +250,7 @@ namespace Crawler.Annotations
   {
     public BaseTypeRequiredAttribute([NotNull] Type baseType)
     {
-      BaseType = baseType;
+      this.BaseType = baseType;
     }
 
     [NotNull] public Type BaseType { get; private set; }
@@ -277,8 +276,8 @@ namespace Crawler.Annotations
     public UsedImplicitlyAttribute(
       ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+      this.UseKindFlags = useKindFlags;
+      this.TargetFlags = targetFlags;
     }
 
     public ImplicitUseKindFlags UseKindFlags { get; private set; }
@@ -305,8 +304,8 @@ namespace Crawler.Annotations
     public MeansImplicitUseAttribute(
       ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-      UseKindFlags = useKindFlags;
-      TargetFlags = targetFlags;
+      this.UseKindFlags = useKindFlags;
+      this.TargetFlags = targetFlags;
     }
 
     [UsedImplicitly] public ImplicitUseKindFlags UseKindFlags { get; private set; }
@@ -316,18 +315,22 @@ namespace Crawler.Annotations
   [Flags]
   public enum ImplicitUseKindFlags
   {
-    Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
+    Default = Access | Assign | InstantiatedWithFixedConstructorSignature, 
+
     /// <summary>Only entity marked with attribute considered used</summary>
-    Access = 1,
+    Access = 1, 
+
     /// <summary>Indicates implicit assignment to a member</summary>
-    Assign = 2,
+    Assign = 2, 
+
     /// <summary>
     /// Indicates implicit instantiation of a type with fixed constructor signature.
     /// That means any unused constructor parameters won't be reported as such.
     /// </summary>
-    InstantiatedWithFixedConstructorSignature = 4,
+    InstantiatedWithFixedConstructorSignature = 4, 
+
     /// <summary>Indicates implicit instantiation of a type</summary>
-    InstantiatedNoFixedConstructorSignature = 8,
+    InstantiatedNoFixedConstructorSignature = 8, 
   }
 
   /// <summary>
@@ -338,10 +341,12 @@ namespace Crawler.Annotations
   [Flags]
   public enum ImplicitUseTargetFlags
   {
-    Default = Itself,
-    Itself = 1,
+    Default = Itself, 
+    Itself = 1, 
+
     /// <summary>Members of entity marked with attribute are considered used</summary>
-    Members = 2,
+    Members = 2, 
+
     /// <summary>Entity marked with attribute and all its members considered used</summary>
     WithMembers = Itself | Members
   }
@@ -356,7 +361,7 @@ namespace Crawler.Annotations
     public PublicAPIAttribute() { }
     public PublicAPIAttribute([NotNull] string comment)
     {
-      Comment = comment;
+      this.Comment = comment;
     }
 
     [NotNull] public string Comment { get; private set; }
@@ -397,14 +402,13 @@ namespace Crawler.Annotations
     public PathReferenceAttribute() { }
     public PathReferenceAttribute([PathReference] string basePath)
     {
-      BasePath = basePath;
+      this.BasePath = basePath;
     }
 
     [NotNull] public string BasePath { get; private set; }
   }
 
   // ASP.NET MVC attributes
-
   [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
   public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
   {
@@ -441,6 +445,7 @@ namespace Crawler.Annotations
     public AspMvcViewLocationFormatAttribute(string format) { }
   }
   
+
   /// <summary>
   /// ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
   /// is an MVC action. If applied to a method, the MVC action name is calculated
@@ -453,7 +458,7 @@ namespace Crawler.Annotations
     public AspMvcActionAttribute() { }
     public AspMvcActionAttribute([NotNull] string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
     [NotNull] public string AnonymousProperty { get; private set; }
@@ -470,7 +475,7 @@ namespace Crawler.Annotations
     public AspMvcAreaAttribute() { }
     public AspMvcAreaAttribute([NotNull] string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
     [NotNull] public string AnonymousProperty { get; private set; }
@@ -489,7 +494,7 @@ namespace Crawler.Annotations
     public AspMvcControllerAttribute() { }
     public AspMvcControllerAttribute([NotNull] string anonymousProperty)
     {
-      AnonymousProperty = anonymousProperty;
+      this.AnonymousProperty = anonymousProperty;
     }
 
     [NotNull] public string AnonymousProperty { get; private set; }
@@ -583,7 +588,7 @@ namespace Crawler.Annotations
     public HtmlElementAttributesAttribute() { }
     public HtmlElementAttributesAttribute([NotNull] string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
     [NotNull] public string Name { get; private set; }
@@ -596,7 +601,7 @@ namespace Crawler.Annotations
   {
     public HtmlAttributeValueAttribute([NotNull] string name)
     {
-      Name = name;
+      this.Name = name;
     }
 
     [NotNull] public string Name { get; private set; }

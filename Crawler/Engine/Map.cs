@@ -4,11 +4,12 @@ namespace Crawler.Engine
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Cells;
-    using DataStructures;
-    using Items;
-    using Living;
-    using UI;
+
+    using Crawler.Cells;
+    using Crawler.DataStructures;
+    using Crawler.Items;
+    using Crawler.Living;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 
@@ -28,14 +29,15 @@ namespace Crawler.Engine
         {
             get
             {
-                return _currentTargetedCell;
+                return this._currentTargetedCell;
             }
+
             set
             {
-                if (_currentTargetedCell != value)
+                if (this._currentTargetedCell != value)
                 {
-                    _currentTargetedCell = value;
-                    NewCellTarget(_currentTargetedCell);
+                    this._currentTargetedCell = value;
+                    this.NewCellTarget(this._currentTargetedCell);
                 }
             }
         }
@@ -43,9 +45,9 @@ namespace Crawler.Engine
         private void NewCellTarget(Vector2 value)
         {
             var listContenu = new List<MapDrawableComponent>();
-            listContenu.AddRange(fullBoard.Where(x=> x.positionCell == value));
+            listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
-            log.WriteLine(desc);
+            this.log.WriteLine(desc);
         }
 
 
@@ -54,48 +56,48 @@ namespace Crawler.Engine
         {
             if (size == default(Vector2))
                 size = new Vector2(50, 50);
-            Game = game;
-            log = lp;
-            fullBoard = new ListGameAware<MapDrawableComponent>(game);
-            SizeOfMap = size;
+            this.Game = game;
+            this.log = lp;
+            this.fullBoard = new ListGameAware<MapDrawableComponent>(game);
+            this.SizeOfMap = size;
         }
 
         internal void HandleVisibility(LivingBeing being)
         {
-            VisibilityHandler.HandleVisibilityOfList(being, fullBoard.FullDump());
+            VisibilityHandler.HandleVisibilityOfList(being, this.fullBoard.FullDump());
         }
 
         public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
         {
-            return fullBoard.Where<Item>(x => x.positionCell == targetPosition);
+            return this.fullBoard.Where<Item>(x => x.positionCell == targetPosition);
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return fullBoard.Where<Cell>(x => x.positionCell == targetposition).First();
+            return this.fullBoard.Where<Cell>(x => x.positionCell == targetposition).First();
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
         {
-            fullBoard.Remove(lb);
+            this.fullBoard.Remove(lb);
         }
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
             lb.positionCell = pos;
-            fullBoard.Add(lb);
+            this.fullBoard.Add(lb);
         }
 
         public void RemoveItems(List<Item> it)
         {
-            fullBoard.RemoveAll<Item>(it.Contains);
+            this.fullBoard.RemoveAll<Item>(it.Contains);
         }
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = ItemsOnPosition(lb.positionCell).ToList();
+            var listObject = this.ItemsOnPosition(lb.positionCell).ToList();
             lb.Inventory.AddRange(listObject);
-            RemoveItems(listObject);
+            this.RemoveItems(listObject);
         }
 
         public void ShowInventory(LivingBeing lb)
@@ -110,33 +112,34 @@ namespace Crawler.Engine
             {
                 lb.Inventory.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
-                fullBoard.Add(itemToDrop);
+                this.fullBoard.Add(itemToDrop);
             }
         }
 
         public bool TryMoveLivingBeingToPosition(LivingBeing lb, Vector2 targetPosition)
         {
             var retour = false;
-            var targetCellObject = CellOnPosition(targetPosition);
+            var targetCellObject = this.CellOnPosition(targetPosition);
             if (null != targetCellObject)
             {
                 if (targetCellObject.IsWalkable(lb))
                 {
-                    Game.MoveBeing(lb, targetPosition);
+                    this.Game.MoveBeing(lb, targetPosition);
                     retour = true;
                 }
             }
+
             return retour;
         }
 
         public bool TryMoveLivingBeingOfVector(LivingBeing lb, Vector2 deplacementVector)
         {
-            return TryMoveLivingBeingToPosition(lb,lb.positionCell + deplacementVector);
+            return this.TryMoveLivingBeingToPosition(lb, lb.positionCell + deplacementVector);
         }
 
         public void SetAsActive(bool toActive)
         {
-            fullBoard.IsActive = toActive;
+            this.fullBoard.IsActive = toActive;
         }
     }
 

@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    using Cells;
-    using Living;
+    using Crawler.Cells;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +23,7 @@
         internal Color VisitedColor = new Color(125, 125, 125);
 
         internal string _description;
-        public string Description { get { return _description; } }
+        public string Description { get { return this._description; } }
 
         public List<Guid> SeenBy;
 
@@ -32,18 +32,18 @@
         {
             this.positionCell = positionCell;
 
-            Game = game;
-            z = 0.5F;
-            colorToUse = Color.White;
-            SeenBy = new List<Guid>();
-            sprite = Game.Content.Load<Texture2D>(spriteName);
+            this.Game = game;
+            this.z = 0.5F;
+            this.colorToUse = Color.White;
+            this.SeenBy = new List<Guid>();
+            this.sprite = this.Game.Content.Load<Texture2D>(spriteName);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (BlackBoard.CurrentCamera.IsCellOnCamera(positionCell))
+            if (BlackBoard.CurrentCamera.IsCellOnCamera(this.positionCell))
             {
-                BlackBoard.CurrentSpriteBatch.Draw(sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(positionCell), depth: z, color: colorToUse);
+                BlackBoard.CurrentSpriteBatch.Draw(this.sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(this.positionCell), depth: this.z, color: this.colorToUse);
             }
 
             base.Draw(gameTime);
@@ -53,15 +53,15 @@
         {
             if (cv == Visibility.Unvisited)
             {
-                colorToUse = Color.Black;
+                this.colorToUse = Color.Black;
             }
             else if (cv == Visibility.Visited)
             {
-                colorToUse = VisitedColor;
+                this.colorToUse = this.VisitedColor;
             }
             else
             {
-                colorToUse = Color.White;
+                this.colorToUse = Color.White;
             }
         }
 

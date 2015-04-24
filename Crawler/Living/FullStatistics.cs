@@ -10,7 +10,7 @@
         {
             get
             {
-                return BasicStatistics.FOV + AddedStatistics.FOV;
+                return this.BasicStatistics.FOV + this.AddedStatistics.FOV;
             }
         }
 
@@ -19,25 +19,25 @@
         {
             get
             {
-                return BasicStatistics.Speed + AddedStatistics.Speed;
+                return this.BasicStatistics.Speed + this.AddedStatistics.Speed;
             }
         }
 
 
         public FullStatistics(Statistics baseic)
         {
-            BasicStatistics = baseic;
-            AddedStatistics = new Statistics();
+            this.BasicStatistics = baseic;
+            this.AddedStatistics = new Statistics();
         }
 
         public void ApplyBonus(Statistics s)
         {
-            AddedStatistics += s;
+            this.AddedStatistics += s;
         }
 
         public void RemoveBonus(Statistics s)
         {
-            AddedStatistics -= s;
+            this.AddedStatistics -= s;
         }
 
 

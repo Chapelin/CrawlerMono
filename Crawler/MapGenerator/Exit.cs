@@ -2,7 +2,7 @@
 {
     using Microsoft.Xna.Framework;
 
-public class Exit
+    public class Exit
 {
     public Vector2 Position;
 
@@ -10,7 +10,7 @@ public class Exit
 
     public Exit()
     {
-        IsUsed = false;
+        this.IsUsed = false;
     }
 }
 }

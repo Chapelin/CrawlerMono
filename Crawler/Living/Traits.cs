@@ -5,7 +5,7 @@ namespace Crawler.Living
     [Flags]
     public enum Traits
     {
-        Flying,
-        Walking,
+        Flying, 
+        Walking, 
     }
 }

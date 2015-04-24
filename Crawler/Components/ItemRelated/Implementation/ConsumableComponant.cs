@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Living;
+    using Crawler.Living;
 
     public class ConsumableComponant : IConsumableComponent
     {
@@ -14,6 +14,7 @@
         public void Consume(LivingBeing lb)
         {
             Console.WriteLine(lb.Description + " drank.");
+
             // do some stuff
         }
     }

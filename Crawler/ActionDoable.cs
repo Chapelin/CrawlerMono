@@ -18,10 +18,11 @@
             get
             {
                 var str = new StringBuilder();
-                foreach (var keyse in Bind)
+                foreach (var keyse in this.Bind)
                 {
                     str.Append(Enum.GetName(typeof(Keys), keyse)).Append(" ");
                 }
+
                 return str.ToString();
             }
         }

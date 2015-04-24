@@ -2,10 +2,10 @@
 {
     using System.Linq;
 
-    using Components.Actions;
-    using Components.ItemRelated;
-    using Engine;
-    using Living;
+    using Crawler.Components.Actions;
+    using Crawler.Components.ItemRelated;
+    using Crawler.Engine;
+    using Crawler.Living;
 
     using Microsoft.Xna.Framework;
 
@@ -17,47 +17,47 @@
         public Item(GameEngine game, Vector2 positionCell,  IEquipableComponent ec, IConsumableComponent cc, IActivableComponent ac, string spriteName)
             : base(game, positionCell, spriteName)
         {
-            VisitedColor = new Color(125, 125, 125);
-            equipableComponent = ec;
+            this.VisitedColor = new Color(125, 125, 125);
+            this.equipableComponent = ec;
             this.cc = cc;
             this.ac = ac;
         }
 
         public bool CanEquip(LivingBeing lb)
         {
-            return equipableComponent.CanEquip(lb);
+            return this.equipableComponent.CanEquip(lb);
         }
 
         public void Equip(LivingBeing lb)
         {
-            equipableComponent.Equip(lb);
+            this.equipableComponent.Equip(lb);
         }
 
         public void UnEquip(LivingBeing lb)
         {
-            equipableComponent.UnEquip(lb);
+            this.equipableComponent.UnEquip(lb);
         }
 
         public bool CanConsume(LivingBeing lb)
         {
-            return cc.CanConsume(lb);
+            return this.cc.CanConsume(lb);
         }
 
         public void Consume(LivingBeing lb)
         {
-            cc.Consume(lb);
+            this.cc.Consume(lb);
         }
 
         public bool CanUse(LivingBeing lb)
         {
-            return ac.Activables(lb).Any();
+            return this.ac.Activables(lb).Any();
         }
 
         public bool IsEquipped
         {
             get
             {
-                return equipableComponent.IsEquipped();
+                return this.equipableComponent.IsEquipped();
             }
         }
 

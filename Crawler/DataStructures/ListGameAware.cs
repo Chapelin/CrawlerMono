@@ -17,23 +17,24 @@
         {
             set
             {
-                if (_isactive != value)
+                if (this._isactive != value)
                 {
                     if (value)
                     {
                         foreach (var elem in this.innerList)
                         {
-                            Game.Components.Add(elem);
+                            this.Game.Components.Add(elem);
                         }
                     }
                     else
                     {
                         foreach (var elem in this.innerList)
                         {
-                            Game.Components.Remove(elem);
+                            this.Game.Components.Remove(elem);
                         }
                     }
-                    _isactive = value;
+
+                    this._isactive = value;
                 }
             }
         }
@@ -41,42 +42,42 @@
         private GameEngine Game;
         public ListGameAware(GameEngine g)
         {
-            _isactive = false;
-            Game = g;
+            this._isactive = false;
+            this.Game = g;
             this.innerList = new List<T>();
         }
 
         public void Add(T obj)
         {
             this.innerList.Add(obj);
-            if(_isactive)
-                Game.Components.Add(obj);
+            if(this._isactive)
+                this.Game.Components.Add(obj);
         }
 
         public void Remove(T obj)
         {
             this.innerList.Remove(obj);
-            if (_isactive)
-                Game.Components.Remove(obj);
+            if (this._isactive)
+                this.Game.Components.Remove(obj);
         }
 
         public void RemoveAt(int index)
         {
             var toRemove = this.innerList[index];
             this.innerList.RemoveAt(index);
-            if (_isactive)
-                Game.Components.Remove(toRemove);
+            if (this._isactive)
+                this.Game.Components.Remove(toRemove);
         }
 
         public void RemoveAll<T1>(Predicate<T> match)
         {
             var elementToRemove = this.innerList.FindAll(match).Where(x => x is T1);
             this.innerList.RemoveAll(elementToRemove.Contains);
-            if (_isactive)
+            if (this._isactive)
             {
                 foreach (var el in elementToRemove)
                 {
-                    Game.Components.Remove(el);
+                    this.Game.Components.Remove(el);
                 }
             }
         }

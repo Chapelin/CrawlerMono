@@ -5,9 +5,8 @@ namespace Crawler.Living
     using System;
     using System.Collections.Generic;
 
-    using Engine;
-
-    using Items;
+    using Crawler.Engine;
+    using Crawler.Items;
 
     using Microsoft.Xna.Framework;
 
@@ -30,11 +29,11 @@ namespace Crawler.Living
         public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter)
             : base(game, positionCell,  spriteName)
         {
-            Inventory = new List<Item>();
-            IsUserControlled = false;
-            uniqueIdentifier = Guid.NewGuid();
-            VisitedColor = Color.Transparent;
-            statistics = new FullStatistics(new Statistics());
+            this.Inventory = new List<Item>();
+            this.IsUserControlled = false;
+            this.uniqueIdentifier = Guid.NewGuid();
+            this.VisitedColor = Color.Transparent;
+            this.statistics = new FullStatistics(new Statistics());
             this.logger = logprinter;
             this.z = 0.1F;
         }
@@ -45,10 +44,10 @@ namespace Crawler.Living
 
         public void DumpInventory()
         {
-            this.logger.WriteLine("{0} inventory :",Description);
-            foreach (var item in Inventory)
+            this.logger.WriteLine("{0} inventory :", this.Description);
+            foreach (var item in this.Inventory)
             {
-                this.logger.WriteLine("   {0}",item.Description);
+                this.logger.WriteLine("   {0}", item.Description);
             }
 
         }
@@ -56,14 +55,14 @@ namespace Crawler.Living
         public void GoMapDown()
         {
             this.logger.WriteLine(this.Description + " going down.");
-            Game.ChangeMap(this,true);
+            this.Game.ChangeMap(this, true);
             
         }
 
         public void GoMapUp()
         {
             this.logger.WriteLine(this.Description + " going up.");
-            Game.ChangeMap(this, false);
+            this.Game.ChangeMap(this, false);
         }
     }
 }

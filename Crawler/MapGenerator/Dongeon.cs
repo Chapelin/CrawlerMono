@@ -16,14 +16,14 @@
 
         public int CurrentLevel
         {
-            get { return _currentLevel; }
+            get { return this._currentLevel; }
             set
             {
-                _currentLevel = value;
-                var diff = _currentLevel - Levels.Count-1;
+                this._currentLevel = value;
+                var diff = this._currentLevel - this.Levels.Count-1;
                 while(diff < 0)
                 {
-                    AddALevel();
+                    this.AddALevel();
                     diff++;
                 }
             }
@@ -31,33 +31,33 @@
 
         public Dongeon(GameEngine e, ILogPrinter log)
         {
-            Levels = new List<Map>();
-            g = e;
-            printer = log;
-            GenerateLevels();
-            _currentLevel = 0;
+            this.Levels = new List<Map>();
+            this.g = e;
+            this.printer = log;
+            this.GenerateLevels();
+            this._currentLevel = 0;
         }
 
         private void GenerateLevels()
         {
-            AddALevel();
-            AddALevel();
-            AddALevel();
+            this.AddALevel();
+            this.AddALevel();
+            this.AddALevel();
         }
 
         public void AddALevel()
         {
             var bmg = new BasicMapGenerator(8, new Vector2(30, 30), new Vector2(3, 3), new Vector2(5, 5));
-            var map = new Map(g, printer, new Vector2(50, 50));
+            var map = new Map(this.g, this.printer, new Vector2(50, 50));
             bmg.GenerateBoard(map);
-            Levels.Add(map);
+            this.Levels.Add(map);
         }
 
         public Map CurrentMap
         {
             get
             {
-                return Levels[_currentLevel];
+                return this.Levels[this._currentLevel];
             }
         }
     }
