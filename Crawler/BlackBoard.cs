@@ -15,5 +15,7 @@
 
         public static KeyBoardInputHandler InputHandler;
 
+        public static ActionsPool Pool;
+
     }
 }

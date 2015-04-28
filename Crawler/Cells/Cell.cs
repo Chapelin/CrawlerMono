@@ -23,14 +23,13 @@
             return this.walkableComponent.IsWalkable(lv);
         }
 
-        public Cell(GameEngine game, Vector2 p,  IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
-            : base(game, p,  spriteName)
+        public Cell(GameEngine game, Vector2 p, IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
+            : base(game, p, spriteName)
         {
             this.z = 1F;
             this.walkableComponent = w;
             this.ac = ac;
             this.eeComponent = ee;
-
         }
 
         public bool IsActivable(LivingBeing lb)
@@ -46,12 +45,25 @@
         public void OnEnter(LivingBeing lb)
         {
             this.eeComponent.Entering(lb);
+            this.Register(lb);
+        }
+
+        private void Register(LivingBeing lb)
+        {
+            if (this.IsActivable(lb))
+                BlackBoard.Pool.Register(lb, this.PossibleActions(lb));
         }
 
         public void OnExit(LivingBeing lb)
         {
             this.eeComponent.Exiting(lb);
+            this.UnRegister(lb);
         }
 
+        private void UnRegister(LivingBeing lb)
+        {
+            if(this.IsActivable(lb))
+                BlackBoard.Pool.UnRegister(lb,this.PossibleActions(lb));
+        }
     }
 }

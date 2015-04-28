@@ -1,17 +1,16 @@
-﻿namespace Crawler
+﻿using Crawler.Living;
+
+namespace Crawler
 {
     using System;
     using System.Text;
-
-    using Crawler.Input;
-
     using Microsoft.Xna.Framework.Input;
 
     public class ActionDoable
     {
         public string Name { get; set; }
 
-        public KeyBoardInputHandler.ActionToDo Activity { get; set; }
+        public ActionToDo Activity { get; set; }
 
         public Keys[] Bind { get; set; }
 
@@ -29,4 +28,7 @@
             }
         }
     }
+
+    public delegate void ActionToDo(LivingBeing lb);
+
 }

@@ -1,4 +1,6 @@
-﻿namespace Crawler.Engine
+﻿using System.Collections.Generic;
+
+namespace Crawler.Engine
 {
     using System;
     using System.Linq;
@@ -32,6 +34,8 @@
         private BasicLogPrinter logger;
         private Dongeon donjon;
 
+        private ActionsPool poolOfAction;
+
         private MouseTargeter mt;
 
         public GameEngine()
@@ -43,6 +47,8 @@
             this.graphics.PreferredBackBufferHeight = 15 * SpriteSize;
             this.graphics.PreferredBackBufferWidth = 25 * SpriteSize;
             this.beingToPlay = null;
+            this.poolOfAction = new ActionsPool();
+            BlackBoard.Pool = this.poolOfAction;
         }
 
         /// <summary>
@@ -100,16 +106,18 @@
             while (this.beingToPlay == null)
             {
                 this.beingToPlay = this.scheduler.CurrentPlaying();
+
                 if (!this.beingToPlay.IsUserControlled)
                 {
                     this.beingToPlay.AutoPlay();
                     this.scheduler.Played();
                     this.beingToPlay = null;
                 }
+
             }
 
             this.map.HandleVisibility(this.beingToPlay);
-            this.keyBoardInputHandler.HandleInput(this.beingToPlay);
+            this.keyBoardInputHandler.HandleInput(this.beingToPlay, this.poolOfAction);
 
             base.Update(gameTime);
         }
