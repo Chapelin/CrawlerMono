@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Crawler.Living;
-using Microsoft.Xna.Framework.Input;
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Crawler.Living;
+
+    using Microsoft.Xna.Framework.Input;
+
     public class ActionsPool
     {
         private Dictionary<Guid, List<ActionDoable>> possibleActions { get; set; }
@@ -19,8 +21,9 @@ namespace Crawler
         {
             if (!possibleActions.ContainsKey(lb.uniqueIdentifier))
             {
-                possibleActions.Add(lb.uniqueIdentifier, new List<ActionDoable>());   
+                possibleActions.Add(lb.uniqueIdentifier, new List<ActionDoable>());
             }
+
             possibleActions[lb.uniqueIdentifier].Add(action);
         }
 
@@ -30,6 +33,7 @@ namespace Crawler
             {
                 possibleActions.Add(lb.uniqueIdentifier, new List<ActionDoable>());
             }
+
             possibleActions[lb.uniqueIdentifier].AddRange(action);
         }
 
@@ -52,6 +56,11 @@ namespace Crawler
         public void UnRegister(LivingBeing lb, IEnumerable<ActionDoable> action)
         {
             possibleActions[lb.uniqueIdentifier].RemoveAll(action.Contains);
+        }
+
+        public IEnumerable<ActionDoable> GetListOfAction(LivingBeing lb)
+        {
+            return possibleActions[lb.uniqueIdentifier];
         }
     }
 }

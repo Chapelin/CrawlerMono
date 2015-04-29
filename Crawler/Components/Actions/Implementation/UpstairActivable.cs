@@ -17,8 +17,7 @@
                              {
                                  Name = "Going upstair",
                                  Activity = (a) => a.GoMapUp(),
-                             Bind = new Keys[]{Keys.LeftShift,
-                                 Keys.U}
+                                 Bind = new Keys[] { Keys.LeftShift, Keys.U }
                              };
                 result.Add(ad);
             }
