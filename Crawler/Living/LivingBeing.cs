@@ -1,12 +1,12 @@
-﻿using Crawler.UI;
-
-namespace Crawler.Living
+﻿namespace Crawler.Living
 {
     using System;
     using System.Collections.Generic;
 
+    using Crawler.Components.IA;
     using Crawler.Engine;
     using Crawler.Items;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 
@@ -18,28 +18,38 @@ namespace Crawler.Living
 
         public FullStatistics statistics;
 
-        public bool IsUserControlled { get; set; }
+        public bool IsUserControlled {
+            get
+            {
+                return this.ic.IsUserControlled;
+            }
+            set
+            {
+                this.ic.IsUserControlled = value;
+            }
+        }
 
         public List<Item> Inventory;
 
-
+        private IIntelligenceComponant ic;
         private ILogPrinter logger;
 
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter)
+        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter, IIntelligenceComponant ic)
             : base(game, positionCell,  spriteName)
         {
             this.Inventory = new List<Item>();
-            this.IsUserControlled = false;
             this.uniqueIdentifier = Guid.NewGuid();
             this.VisitedColor = Color.Transparent;
             this.statistics = new FullStatistics(new Statistics());
             this.logger = logprinter;
             this.z = 0.1F;
+            this.ic = ic;
         }
 
-        public virtual void AutoPlay()
+        public void AutoPlay()
         {
+            this.ic.AutoPlay(this);
         }
 
         public void DumpInventory()
@@ -56,7 +66,7 @@ namespace Crawler.Living
         {
             this.logger.WriteLine(this.Description + " going down.");
             this.Game.ChangeMap(this, true);
-            
+
         }
 
         public void GoMapUp()

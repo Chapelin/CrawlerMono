@@ -113,7 +113,6 @@ namespace Crawler.Engine
                     this.scheduler.Played();
                     this.beingToPlay = null;
                 }
-
             }
 
             this.map.HandleVisibility(this.beingToPlay);
