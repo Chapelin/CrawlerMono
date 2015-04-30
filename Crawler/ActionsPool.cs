@@ -50,7 +50,7 @@
 
         public ActionDoable GetAction(LivingBeing lb, IEnumerable<Keys> keys)
         {
-            return this.possibleActions[lb.uniqueIdentifier].First(x=> x.Bind.All(keys.Contains));
+            return this.possibleActions[lb.uniqueIdentifier].Where(x=> x.Bind.All(keys.Contains)).OrderByDescending(x=> x.Bind.Length).First();
         }
 
         public void UnRegister(LivingBeing lb, IEnumerable<ActionDoable> action)

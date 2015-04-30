@@ -1,10 +1,11 @@
-﻿using Crawler.Living;
-
-namespace Crawler
+﻿namespace Crawler
 {
     using System;
     using System.Linq;
     using System.Text;
+
+    using Crawler.Living;
+
     using Microsoft.Xna.Framework.Input;
 
     public class ActionDoable : IComparable

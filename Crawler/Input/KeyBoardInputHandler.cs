@@ -16,16 +16,16 @@
         {
             this.previousKeyboardState = this.currentKeyboardState;
             this.currentKeyboardState = Keyboard.GetState();
-            this.newPressed = this.currentKeyboardState.GetPressedKeys().Except(this.previousKeyboardState.GetPressedKeys()).ToList();
-            if (newPressed.Any())
+            var pressedKeys = this.currentKeyboardState.GetPressedKeys();
+            if (pressedKeys.Except(this.previousKeyboardState.GetPressedKeys()).Any())
             {
-                if (poolOfAction.ContainsAnActionFor(lb, this.newPressed))
+                if (poolOfAction.ContainsAnActionFor(lb, pressedKeys))
                 {
-                    var action = poolOfAction.GetAction(lb, this.newPressed).Activity;
+                    var action = poolOfAction.GetAction(lb, pressedKeys).Activity;
                     action(lb);
                 }
             }
         }
-       
+
     }
 }
