@@ -1,4 +1,6 @@
-﻿namespace Crawler.Scheduling
+﻿using Crawler.Components.Scheduling;
+
+namespace Crawler.Scheduling
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,7 +11,7 @@
     {
         public int CurrentTurn { get; set; }
 
-        private List<BeingScheduled> listOfBeing;
+        private List<ISchedulable> listOfBeing;
 
         public const int TURN_TREESHOLD = 10;
 
@@ -34,14 +36,14 @@
 
         public Scheduler()
         {
-            this.listOfBeing = new List<BeingScheduled>();
+            this.listOfBeing = new List<ISchedulable>();
             this.CurrentTurn = 0;
             this.playing = new List<LivingBeing>();
         }
 
-        public void AddABeing(LivingBeing b)
+        public void AddABeing(ISchedulable sc)
         {
-            this.listOfBeing.Add(new BeingScheduled(b));
+            this.listOfBeing.Add(sc);
         }
 
         protected List<LivingBeing> NextPlaying()
@@ -63,7 +65,7 @@
 
         }
 
-        private List<BeingScheduled> GetListOfPlayable(List<BeingScheduled> listPlayable, int turnTreeshold)
+        private List<ISchedulable> GetListOfPlayable(List<ISchedulable> listPlayable, int turnTreeshold)
         {
             return listPlayable.Where(x => x.Score >= turnTreeshold).ToList();
         }

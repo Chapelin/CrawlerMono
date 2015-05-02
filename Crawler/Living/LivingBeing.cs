@@ -1,4 +1,6 @@
-﻿namespace Crawler.Living
+﻿using Crawler.Components.Scheduling;
+
+namespace Crawler.Living
 {
     using System;
     using System.Collections.Generic;
@@ -34,8 +36,9 @@
         private IIntelligenceComponant ic;
         private ILogPrinter logger;
 
+        private ISchedulable sc;
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter, IIntelligenceComponant ic)
+        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter, IIntelligenceComponant ic, ISchedulable sc)
             : base(game, positionCell,  spriteName)
         {
             this.Inventory = new List<Item>();
@@ -45,11 +48,14 @@
             this.logger = logprinter;
             this.z = 0.1F;
             this.ic = ic;
+            this.sc = sc;
+            sc.AddToSchedule(this);
         }
 
         public void AutoPlay()
         {
             this.ic.AutoPlay(this);
+            Console.WriteLine(this.Description + " autoplayed");
         }
 
         public void DumpInventory()

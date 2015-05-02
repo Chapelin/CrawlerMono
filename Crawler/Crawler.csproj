@@ -52,6 +52,8 @@
     <Compile Include="Components\Others\IEnterExitComponent.cs" />
     <Compile Include="Components\Others\Implementation\InactiveEnterExit.cs" />
     <Compile Include="Components\Others\Implementation\MessagingEnterExit.cs" />
+    <Compile Include="Components\Scheduling\Implementation\SchedulableComponant.cs" />
+    <Compile Include="Components\Scheduling\ISchedulable.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Cells\Cell.cs" />
     <Compile Include="Cells\Downstair.cs" />
@@ -105,7 +107,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cells\Wall.cs" />
-    <Compile Include="Scheduling\BeingScheduled.cs" />
     <Compile Include="Scheduling\Scheduler.cs" />
     <Compile Include="Input\MouseTargeter.cs" />
   </ItemGroup>

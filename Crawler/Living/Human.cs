@@ -1,4 +1,6 @@
-﻿namespace Crawler.Living
+﻿using Crawler.Components.Scheduling.Implementation;
+
+namespace Crawler.Living
 {
     using Crawler.Components.IA.Implementations;
     using Crawler.Engine;
@@ -9,7 +11,7 @@
     public class Human : LivingBeing
     {
         public Human(GameEngine game, Vector2 positionCell, ILogPrinter lp)
-            : base(game, positionCell, "sprite//human", lp, new HumanPlayerIntelligence())
+            : base(game, positionCell, "sprite//human", lp, new HumanPlayerIntelligence(), new SchedulableComponant())
         {
             this.statistics.BasicStatistics.FOV = 5;
             this.statistics.BasicStatistics.Speed = 10;

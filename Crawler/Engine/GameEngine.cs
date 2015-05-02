@@ -29,7 +29,7 @@ namespace Crawler.Engine
         private KeyBoardInputHandler keyBoardInputHandler;
 
         private Map map;
-        private Scheduler scheduler;
+
         private LivingBeing beingToPlay;
         private BasicLogPrinter logger;
         private Dongeon donjon;
@@ -62,15 +62,15 @@ namespace Crawler.Engine
             BlackBoard.CurrentSpriteBatch = new SpriteBatch(this.GraphicsDevice);
             this.logger = new BasicLogPrinter(this);
             BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50));
-            this.scheduler = new Scheduler();
+            BlackBoard.Scheduler = new Scheduler();
             this.logger.PositionPixel = new Vector2(517, 420);
             this.Components.Add(this.logger);
             this.donjon = new Dongeon(this, this.logger);
             this.map = this.donjon.CurrentMap;
 
-            this.scheduler.AddABeing(MapFiller.InitializePlayer(this.map, this.logger));
+            MapFiller.InitializePlayer(this.map, this.logger);
             MapFiller.InitializeItems(this.map, this.logger);
-            this.scheduler.AddABeing(MapFiller.InitializeEnnemis(this.map, this.logger));
+            MapFiller.InitializeEnnemis(this.map, this.logger);
             base.Initialize();
             this.keyBoardInputHandler = new KeyBoardInputHandler();
             BlackBoard.InputHandler = this.keyBoardInputHandler;
@@ -105,12 +105,12 @@ namespace Crawler.Engine
             // if list empty
             while (this.beingToPlay == null)
             {
-                this.beingToPlay = this.scheduler.CurrentPlaying();
+                this.beingToPlay = BlackBoard.Scheduler.CurrentPlaying();
 
                 if (!this.beingToPlay.IsUserControlled)
                 {
                     this.beingToPlay.AutoPlay();
-                    this.scheduler.Played();
+                    BlackBoard.Scheduler.Played();
                     this.beingToPlay = null;
                 }
             }
@@ -145,7 +145,7 @@ namespace Crawler.Engine
             cellTarget.OnEnter(p);
 
             // we have played, so we remove it
-            this.scheduler.Played();
+            BlackBoard.Scheduler.Played();
             this.beingToPlay = null;
         }
 

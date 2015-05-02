@@ -1,4 +1,6 @@
-﻿namespace Crawler
+﻿using Crawler.Scheduling;
+
+namespace Crawler
 {
     using Crawler.Engine;
     using Crawler.Input;
@@ -16,6 +18,8 @@
         public static KeyBoardInputHandler InputHandler;
 
         public static ActionsPool Pool;
+
+        public static Scheduler Scheduler;
 
     }
 }

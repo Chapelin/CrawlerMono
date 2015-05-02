@@ -1,4 +1,6 @@
-﻿namespace Crawler.Living
+﻿using Crawler.Components.Scheduling.Implementation;
+
+namespace Crawler.Living
 {
     using Crawler.Components.IA.Implementations;
     using Crawler.Engine;
@@ -10,7 +12,7 @@
     {
         ILogPrinter log;
         public Bat(GameEngine game, Vector2 positionCell,  ILogPrinter printer)
-            : base(game, positionCell, "sprite\\bat", printer, new BatAutoIntelligence())
+            : base(game, positionCell, "sprite\\bat", printer, new BatAutoIntelligence(), new SchedulableComponant())
         {
             this.statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
             this._description = "Bat";
