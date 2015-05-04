@@ -1,10 +1,10 @@
-﻿using Crawler.Scheduling;
-using Crawler.UI;
-
+﻿
 namespace Crawler
 {
     using Crawler.Engine;
     using Crawler.Input;
+    using Crawler.Scheduling;
+    using Crawler.UI;
 
     using Microsoft.Xna.Framework.Graphics;
 

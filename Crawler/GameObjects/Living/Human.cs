@@ -16,6 +16,9 @@
             this.Statistics.BasicStatistics.Speed = 10;
             this._description = "Human";
             this.Traits = Traits.Walking;
+            this.Statistics.BasicStatistics.Intelligence = 4;
+            this.Statistics.BasicStatistics.PV = 10;
+            this.Statistics.BasicStatistics.Force = 4;
         }
     }
 }

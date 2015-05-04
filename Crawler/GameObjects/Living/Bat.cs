@@ -15,6 +15,9 @@
             this.Statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
             this._description = "Bat";
             this.Traits = Traits.Flying;
+            this.Statistics.BasicStatistics.Intelligence = 2;
+            this.Statistics.BasicStatistics.PV = 5;
+            this.Statistics.BasicStatistics.Force = 3;
         }
 
     }

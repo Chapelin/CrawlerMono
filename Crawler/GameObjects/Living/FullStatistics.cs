@@ -2,9 +2,12 @@
 {
     public class FullStatistics : Statistics
     {
+
         public Statistics BasicStatistics { get; set; }
 
         public Statistics AddedStatistics { get; set; }
+
+
 
         public int FOV
         {
@@ -23,6 +26,20 @@
             }
         }
 
+        public int PV
+        {
+            get { return this.BasicStatistics.PV + this.AddedStatistics.PV; }
+        }
+
+        public int Intelligence
+        {
+            get { return this.BasicStatistics.Intelligence + this.AddedStatistics.Intelligence; }
+        }
+
+        public int Force
+        {
+            get { return this.BasicStatistics.Force + this.AddedStatistics.Force; }
+        }
 
         public FullStatistics(Statistics baseic)
         {

@@ -1,22 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MapFiller.cs" company="">
-//
-// </copyright>
-// <summary>
-//   The map filler.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-
-
-using System;
-
-using Microsoft.Xna.Framework.Input;
-
+﻿
 namespace Crawler.Helpers
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System;
+
+    using Microsoft.Xna.Framework.Input;
 
     using Crawler.Cells;
     using Crawler.Engine;
@@ -88,7 +77,6 @@ namespace Crawler.Helpers
         /// </param>
         private static void RegisterActions(LivingBeing b)
         {
-
             #region movement
             var l = new List<ActionDoable>
                         {

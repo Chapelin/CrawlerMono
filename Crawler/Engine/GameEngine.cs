@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Crawler.Engine
+﻿namespace Crawler.Engine
 {
     using System;
     using System.Linq;
