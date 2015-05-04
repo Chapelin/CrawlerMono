@@ -150,11 +150,56 @@ namespace Crawler.Helpers
                                 }
                         };
             #endregion movement
-            BlackBoard.Pool.Register(b, l);
 
+            #region Camera
+            l.AddRange(new List<ActionDoable>
+            {
+               new ActionDoable
+                                 {
+                                     Activity =
+                                         lb =>
+                                         BlackBoard.CurrentCamera.CenterOnCell(
+                                             lb.positionCell),
+                                     Bind = new[] { Keys.Space },
+                                     Name = "Center view"
+                                 },
+                        new ActionDoable
+                                 {
+                                     Activity =
+                                         lb =>
+                                         BlackBoard.CurrentCamera.Move(new Vector2(-1,0)),
+                                     Bind = new[] { Keys.Left },
+                                     Name = "Move camera left"
+                                 },
+                                   new ActionDoable
+                                 {
+                                     Activity =
+                                         lb =>
+                                         BlackBoard.CurrentCamera.Move(new Vector2(1,0)),
+                                     Bind = new[] { Keys.Right },
+                                     Name = "Move camera right"
+                                 }, 
+                                 new ActionDoable
+                                 {
+                                     Activity =
+                                         lb =>
+                                         BlackBoard.CurrentCamera.Move(new Vector2(0,-1)),
+                                     Bind = new[] { Keys.U },
+                                     Name = "Move camera up"
+                                 },  
+                                 new ActionDoable
+                                 {
+                                     Activity =
+                                         lb =>
+                                         BlackBoard.CurrentCamera.Move(new Vector2(0,1)),
+                                     Bind = new[] { Keys.Down },
+                                     Name = "Move camera down"
+                                 },
+            });
+            #endregion Camera
 
             #region  misc
-            var la = new List<ActionDoable>
+            l.AddRange(new List<ActionDoable>
                          {
                              new ActionDoable
                                  {
@@ -176,15 +221,7 @@ namespace Crawler.Helpers
                                      Bind = new[] { Keys.D },
                                      Name = "Drop object"
                                  },
-                             new ActionDoable
-                                 {
-                                     Activity =
-                                         lb =>
-                                         BlackBoard.CurrentCamera.CenterOnCell(
-                                             lb.positionCell),
-                                     Bind = new[] { Keys.Space },
-                                     Name = "Center view"
-                                 },
+                            
                              new ActionDoable
                                  {
                                      Activity = lb =>
@@ -200,13 +237,12 @@ namespace Crawler.Helpers
                                      Bind = new[] { Keys.L },
                                      Name = "Action list"
                                  }
-                         };
+                         });
             #endregion  misc
-            BlackBoard.Pool.Register(b, la);
 
             #region debug
 
-            var lm = new List<ActionDoable>()
+            l.AddRange(new List<ActionDoable>()
                          {
                              new ActionDoable
                                  {
@@ -261,11 +297,11 @@ namespace Crawler.Helpers
                                      Name = "List effects"
                                  },
 
-                         };
+                         });
 
             #endregion debug
+            BlackBoard.Pool.Register(b, l);
 
-            BlackBoard.Pool.Register(b, lm);
         }
 
         /// <summary>
