@@ -1,7 +1,7 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components.Scheduling.Implementation
+﻿namespace Crawler.Components.Scheduling.Implementation
 {
+    using Crawler.GameObjects.Living;
+
     public class SchedulableComponant : ISchedulable
     {
 

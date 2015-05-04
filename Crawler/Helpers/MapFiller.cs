@@ -20,8 +20,8 @@ namespace Crawler.Helpers
 
     using Crawler.Cells;
     using Crawler.Engine;
-    using Crawler.Items;
-    using Crawler.Living;
+    using Crawler.GameObjects.Items;
+    using Crawler.GameObjects.Living;
     using Crawler.UI;
 
     using Microsoft.Xna.Framework;

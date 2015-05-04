@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.Others.Implementation
 {
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     public class InactiveEnterExit : IEnterExitComponent
     {

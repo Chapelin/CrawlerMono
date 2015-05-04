@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Crawler.Living
+﻿namespace Crawler.GameObjects.Living
 {
+    using System;
+
     [Flags]
     public enum Traits
     {

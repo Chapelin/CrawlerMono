@@ -1,11 +1,11 @@
-﻿namespace Crawler.Items
+﻿namespace Crawler.GameObjects.Items
 {
     using System.Linq;
 
     using Crawler.Components.Actions;
     using Crawler.Components.ItemRelated;
     using Crawler.Engine;
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
 

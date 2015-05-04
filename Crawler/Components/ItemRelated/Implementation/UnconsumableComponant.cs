@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     public class UnconsumableComponant : IConsumableComponent
     {

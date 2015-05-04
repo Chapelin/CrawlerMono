@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework.Input;
 

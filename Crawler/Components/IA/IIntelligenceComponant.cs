@@ -1,6 +1,6 @@
 ﻿namespace Crawler.Components.IA
 {
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     public interface IIntelligenceComponant
     {

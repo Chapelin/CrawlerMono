@@ -4,7 +4,7 @@
     using System.Collections.Generic;
 
     using Crawler.Cells;
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;

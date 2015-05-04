@@ -6,7 +6,7 @@
     using Crawler.Components.Actions;
     using Crawler.Components.Others;
     using Crawler.Engine;
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
 

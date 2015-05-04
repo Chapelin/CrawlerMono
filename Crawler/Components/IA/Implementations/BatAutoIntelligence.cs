@@ -2,7 +2,7 @@
 
 namespace Crawler.Components.IA.Implementations
 {
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
 

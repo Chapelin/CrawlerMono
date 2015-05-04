@@ -5,7 +5,7 @@ namespace Crawler.Scheduling
     using System.Collections.Generic;
     using System.Linq;
 
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     public class Scheduler
     {

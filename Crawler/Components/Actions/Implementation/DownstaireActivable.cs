@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework.Input;
 

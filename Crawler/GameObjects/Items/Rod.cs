@@ -1,4 +1,4 @@
-﻿namespace Crawler.Items
+﻿namespace Crawler.GameObjects.Items
 {
     using Crawler.Engine;
 

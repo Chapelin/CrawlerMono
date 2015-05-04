@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 using Crawler.Cells;
 using Crawler.Engine;
-using Crawler.Living;
 using Crawler.Utils;
 
 using Microsoft.Xna.Framework;
 
 namespace Crawler.Helpers
 {
+    using Crawler.GameObjects.Living;
+
     public static class VisibilityHandler
     {
         private static void ProcessVisibilityWithFOV(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)

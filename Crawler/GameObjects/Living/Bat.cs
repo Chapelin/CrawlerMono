@@ -1,8 +1,7 @@
-﻿using Crawler.Components.Scheduling.Implementation;
-
-namespace Crawler.Living
+﻿namespace Crawler.GameObjects.Living
 {
     using Crawler.Components.IA.Implementations;
+    using Crawler.Components.Scheduling.Implementation;
     using Crawler.Engine;
     using Crawler.UI;
 

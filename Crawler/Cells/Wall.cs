@@ -3,7 +3,7 @@
     using Crawler.Components.Actions.Implementation;
     using Crawler.Components.Others.Implementation;
     using Crawler.Engine;
-    using Crawler.Living;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
 

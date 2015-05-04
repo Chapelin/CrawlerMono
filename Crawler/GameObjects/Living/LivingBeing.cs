@@ -1,13 +1,12 @@
-﻿using Crawler.Components.Scheduling;
-
-namespace Crawler.Living
+﻿namespace Crawler.GameObjects.Living
 {
     using System;
     using System.Collections.Generic;
 
     using Crawler.Components.IA;
+    using Crawler.Components.Scheduling;
     using Crawler.Engine;
-    using Crawler.Items;
+    using Crawler.GameObjects.Items;
     using Crawler.UI;
 
     using Microsoft.Xna.Framework;

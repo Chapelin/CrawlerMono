@@ -1,4 +1,4 @@
-﻿namespace Crawler.Living
+﻿namespace Crawler.GameObjects.Living
 {
     public class Statistics
     {

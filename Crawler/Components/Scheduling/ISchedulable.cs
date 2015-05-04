@@ -1,7 +1,7 @@
-﻿using Crawler.Living;
-
-namespace Crawler.Components.Scheduling
+﻿namespace Crawler.Components.Scheduling
 {
+    using Crawler.GameObjects.Living;
+
     public interface ISchedulable
     {
         int Score { get; set; }
