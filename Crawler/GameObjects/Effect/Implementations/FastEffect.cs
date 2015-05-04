@@ -18,12 +18,12 @@
 
         public void Apply(LivingBeing lb)
         {
-            lb.statistics.AddedStatistics.Speed += 5;
+            lb.Statistics.AddedStatistics.Speed += 5;
         }
 
         public void UnApply(LivingBeing lb)
         {
-            lb.statistics.AddedStatistics.Speed -= 5;
+            lb.Statistics.AddedStatistics.Speed -= 5;
         }
 
         public string Description

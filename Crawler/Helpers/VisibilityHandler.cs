@@ -30,9 +30,9 @@ namespace Crawler.Helpers
                     foreach (var v in listAtPos)
                     {
                         v.SetColorToUse(Visibility.InView);
-                        if (!v.SeenBy.Contains(being.uniqueIdentifier))
+                        if (!v.SeenBy.Contains(being.UniqueIdentifier))
                         {
-                            v.SeenBy.Add(being.uniqueIdentifier);
+                            v.SeenBy.Add(being.UniqueIdentifier);
                         }
 
                         stop |= v.BlockVisibility(being);
@@ -50,7 +50,7 @@ namespace Crawler.Helpers
                 listGameAware, 
                 element =>
                 {
-                    if (element.SeenBy.Contains(being.uniqueIdentifier))
+                    if (element.SeenBy.Contains(being.UniqueIdentifier))
                     {
                         element.SetColorToUse(Visibility.Visited);
                     }
@@ -68,16 +68,16 @@ namespace Crawler.Helpers
             // reinit visibility
             ReitinializeVisibility(being, listGameAware);
 
-            var listPathOfVisibility = Utilitaires.GetPathsToDistanceMax(currentPosition, being.statistics.FOV);
+            var listPathOfVisibility = Utilitaires.GetPathsToDistanceMax(currentPosition, being.Statistics.FOV);
 
             // handle new visibility
             var listAtPos = listGameAware.Where(x => x.positionCell == currentPosition);
             foreach (var v in listAtPos)
             {
                 v.SetColorToUse(Visibility.InView);
-                if (!v.SeenBy.Contains(being.uniqueIdentifier))
+                if (!v.SeenBy.Contains(being.UniqueIdentifier))
                 {
-                    v.SeenBy.Add(being.uniqueIdentifier);
+                    v.SeenBy.Add(being.UniqueIdentifier);
                 }
             }
 

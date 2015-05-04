@@ -1,4 +1,5 @@
 ﻿using Crawler.Scheduling;
+using Crawler.UI;
 
 namespace Crawler
 {
@@ -20,6 +21,8 @@ namespace Crawler
         public static ActionsPool Pool;
 
         public static Scheduler Scheduler;
+
+        public static BasicLogPrinter LogPrinter;
 
     }
 }

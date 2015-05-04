@@ -20,12 +20,12 @@
 
         public void Apply(LivingBeing lb)
         {
-            lb.statistics.AddedStatistics.FOV += 5;
+            lb.Statistics.AddedStatistics.FOV += 5;
         }
 
         public void UnApply(LivingBeing lb)
         {
-            lb.statistics.AddedStatistics.FOV -= 5;
+            lb.Statistics.AddedStatistics.FOV -= 5;
             Console.WriteLine("Light effect finished");
         }
 

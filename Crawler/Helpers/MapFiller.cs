@@ -41,7 +41,7 @@ namespace Crawler.Helpers
         /// <param name="lp">
         /// The lp.
         /// </param>
-        public static void InitializeItems(Map m, ILogPrinter lp)
+        public static void InitializeItems(Map m)
         {
             var li = new List<Item> {
                 new Potion(m.Game, new Vector2(5, 5)),
@@ -69,9 +69,9 @@ namespace Crawler.Helpers
         /// <returns>
         /// The <see cref="LivingBeing"/>.
         /// </returns>
-        public static LivingBeing InitializeEnnemis(Map m, ILogPrinter log)
+        public static LivingBeing InitializeEnnemis(Map m)
         {
-            var b = new Bat(m.Game, new Vector2(1, 1), log);
+            var b = new Bat(m.Game, new Vector2(1, 1));
 
             RegisterActions(b);
 
@@ -316,10 +316,10 @@ namespace Crawler.Helpers
         /// <returns>
         /// The <see cref="LivingBeing"/>.
         /// </returns>
-        public static LivingBeing InitializePlayer(Map m, ILogPrinter lp)
+        public static LivingBeing InitializePlayer(Map m)
         {
             var position = m.fullBoard.First<Floor>().positionCell;
-            var human = new Human(m.Game, position, lp) { IsUserControlled = true };
+            var human = new Human(m.Game, position) { IsUserControlled = true };
             RegisterActions(human);
             m.fullBoard.Add(human);
             return human;

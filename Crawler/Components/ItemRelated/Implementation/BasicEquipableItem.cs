@@ -33,14 +33,14 @@
 
             this._isEquipped = true;
             this.whoEquipped = lb;
-            lb.statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
+            lb.Statistics.ApplyBonus(this.statisModifier.StatisticDiffToApply);
         }
 
         public void UnEquip(LivingBeing lb)
         {
             this._isEquipped = false;
             this.whoEquipped = null;
-            lb.statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
+            lb.Statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);
         }
 
         public bool IsEquipped()

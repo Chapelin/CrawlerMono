@@ -14,11 +14,11 @@
 
     public class LivingBeing : MapDrawableComponent
     {
-        public Guid uniqueIdentifier;
+        public Guid UniqueIdentifier;
 
-        public Traits traits { get; set; }
+        public Traits Traits { get; set; }
 
-        public FullStatistics statistics;
+        public FullStatistics Statistics;
 
         public bool IsUserControlled {
             get
@@ -34,24 +34,22 @@
         public List<Item> Inventory;
 
         private IIntelligenceComponant ic;
-        private ILogPrinter logger;
 
         private ISchedulable sc;
 
-        private List<IEffect<LivingBeing>> currentEffect;
+        private readonly List<IEffect<LivingBeing>> _currentEffect;
 
-        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter, IIntelligenceComponant ic, ISchedulable sc)
+        public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName,IIntelligenceComponant ic, ISchedulable sc)
             : base(game, positionCell,  spriteName)
         {
             this.Inventory = new List<Item>();
-            this.uniqueIdentifier = Guid.NewGuid();
+            this.UniqueIdentifier = Guid.NewGuid();
             this.VisitedColor = Color.Transparent;
-            this.statistics = new FullStatistics(new Statistics());
-            this.logger = logprinter;
+            this.Statistics = new FullStatistics(new Statistics());
             this.z = 0.1F;
             this.ic = ic;
             this.sc = sc;
-            this.currentEffect  = new List<IEffect<LivingBeing>>();
+            this._currentEffect  = new List<IEffect<LivingBeing>>();
             sc.AddToSchedule(this);
         }
 
@@ -63,24 +61,24 @@
 
         public void DumpInventory()
         {
-            this.logger.WriteLine("{0} inventory :", this.Description);
+            BlackBoard.LogPrinter.WriteLine("{0} inventory :", this.Description);
             foreach (var item in this.Inventory)
             {
-                this.logger.WriteLine("   {0}", item.Description);
+                BlackBoard.LogPrinter.WriteLine("   {0}", item.Description);
             }
 
         }
 
         public void GoMapDown()
         {
-            this.logger.WriteLine(this.Description + " going down.");
+            BlackBoard.LogPrinter.WriteLine(this.Description + " going down.");
             this.Game.ChangeMap(this, true);
 
         }
 
         public void GoMapUp()
         {
-            this.logger.WriteLine(this.Description + " going up.");
+            BlackBoard.LogPrinter.WriteLine(this.Description + " going up.");
             this.Game.ChangeMap(this, false);
         }
 
@@ -88,14 +86,14 @@
         {
             if (eff.CanApply(this))
             {
-                this.currentEffect.Add(eff);
+                this._currentEffect.Add(eff);
                 eff.Apply(this);
             }
         }
 
         public void TickEffects()
         {
-            foreach (var effect in this.currentEffect)
+            foreach (var effect in this._currentEffect)
             {
                 effect.TurnToEnd--;
                 if (effect.TurnToEnd <= 0)
@@ -104,14 +102,14 @@
                 }
             }
 
-            this.currentEffect.RemoveAll(x => x.TurnToEnd <= 0);
+            this._currentEffect.RemoveAll(x => x.TurnToEnd <= 0);
         }
 
         public List<IEffect<LivingBeing>> CurrentEffect
         {
             get
             {
-                return this.currentEffect;
+                return this._currentEffect;
             }
         }
     }

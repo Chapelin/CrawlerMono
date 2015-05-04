@@ -6,7 +6,7 @@
     {
         public bool IsWalkable(LivingBeing lb)
         {
-            return lb.traits.HasFlag(Traits.Flying);
+            return lb.Traits.HasFlag(Traits.Flying);
         }
     }
 }

@@ -29,11 +29,10 @@
             }
         }
 
-        public Dongeon(GameEngine e, ILogPrinter log)
+        public Dongeon(GameEngine e)
         {
             this.Levels = new List<Map>();
             this.g = e;
-            this.printer = log;
             this.GenerateLevels();
             this._currentLevel = 0;
         }

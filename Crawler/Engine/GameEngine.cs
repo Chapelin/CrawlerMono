@@ -31,7 +31,6 @@ namespace Crawler.Engine
         private Map map;
 
         private LivingBeing beingToPlay;
-        private BasicLogPrinter logger;
         private Dongeon donjon;
 
         private ActionsPool poolOfAction;
@@ -60,17 +59,17 @@ namespace Crawler.Engine
         protected override void Initialize()
         {
             BlackBoard.CurrentSpriteBatch = new SpriteBatch(this.GraphicsDevice);
-            this.logger = new BasicLogPrinter(this);
+            BlackBoard.LogPrinter = new BasicLogPrinter(this);
             BlackBoard.CurrentCamera = new Camera(new Vector2(15, 11), new Vector2(0, 50));
             BlackBoard.Scheduler = new Scheduler();
-            this.logger.PositionPixel = new Vector2(517, 420);
-            this.Components.Add(this.logger);
-            this.donjon = new Dongeon(this, this.logger);
+            BlackBoard.LogPrinter.PositionPixel = new Vector2(517, 420);
+            this.Components.Add(BlackBoard.LogPrinter);
+            this.donjon = new Dongeon(this);
             this.map = this.donjon.CurrentMap;
 
-            MapFiller.InitializePlayer(this.map, this.logger);
-            MapFiller.InitializeItems(this.map, this.logger);
-            MapFiller.InitializeEnnemis(this.map, this.logger);
+            MapFiller.InitializePlayer(this.map);
+            MapFiller.InitializeItems(this.map);
+            MapFiller.InitializeEnnemis(this.map);
             base.Initialize();
             this.keyBoardInputHandler = new KeyBoardInputHandler();
             BlackBoard.InputHandler = this.keyBoardInputHandler;

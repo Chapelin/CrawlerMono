@@ -9,13 +9,13 @@
 
     public class Human : LivingBeing
     {
-        public Human(GameEngine game, Vector2 positionCell, ILogPrinter lp)
-            : base(game, positionCell, "sprite//human", lp, new HumanPlayerIntelligence(), new SchedulableComponant())
+        public Human(GameEngine game, Vector2 positionCell)
+            : base(game, positionCell, "sprite//human",  new HumanPlayerIntelligence(), new SchedulableComponant())
         {
-            this.statistics.BasicStatistics.FOV = 5;
-            this.statistics.BasicStatistics.Speed = 10;
+            this.Statistics.BasicStatistics.FOV = 5;
+            this.Statistics.BasicStatistics.Speed = 10;
             this._description = "Human";
-            this.traits = Traits.Walking;
+            this.Traits = Traits.Walking;
         }
     }
 }

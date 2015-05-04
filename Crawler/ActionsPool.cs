@@ -10,57 +10,57 @@
 
     public class ActionsPool
     {
-        private Dictionary<Guid, List<ActionDoable>> possibleActions { get; set; }
+        private Dictionary<Guid, List<ActionDoable>> PossibleActions { get; set; }
 
         public ActionsPool()
         {
-            this.possibleActions = new Dictionary<Guid, List<ActionDoable>>();
+            this.PossibleActions = new Dictionary<Guid, List<ActionDoable>>();
         }
 
         public void Register(LivingBeing lb, ActionDoable action)
         {
-            if (!possibleActions.ContainsKey(lb.uniqueIdentifier))
+            if (!PossibleActions.ContainsKey(lb.UniqueIdentifier))
             {
-                possibleActions.Add(lb.uniqueIdentifier, new List<ActionDoable>());
+                PossibleActions.Add(lb.UniqueIdentifier, new List<ActionDoable>());
             }
 
-            possibleActions[lb.uniqueIdentifier].Add(action);
+            PossibleActions[lb.UniqueIdentifier].Add(action);
         }
 
         public void Register(LivingBeing lb, IEnumerable<ActionDoable> action)
         {
-            if (!possibleActions.ContainsKey(lb.uniqueIdentifier))
+            if (!PossibleActions.ContainsKey(lb.UniqueIdentifier))
             {
-                possibleActions.Add(lb.uniqueIdentifier, new List<ActionDoable>());
+                PossibleActions.Add(lb.UniqueIdentifier, new List<ActionDoable>());
             }
 
-            possibleActions[lb.uniqueIdentifier].AddRange(action);
+            PossibleActions[lb.UniqueIdentifier].AddRange(action);
         }
 
         public void UnRegister(LivingBeing lb, ActionDoable action)
         {
-            possibleActions[lb.uniqueIdentifier].Remove(action);
+            PossibleActions[lb.UniqueIdentifier].Remove(action);
         }
 
         public bool ContainsAnActionFor(LivingBeing lb,IEnumerable<Keys> keys)
         {
-            return this.possibleActions.ContainsKey(lb.uniqueIdentifier) &&
-                   this.possibleActions[lb.uniqueIdentifier].Any(x=> x.Bind.All(keys.Contains) );
+            return this.PossibleActions.ContainsKey(lb.UniqueIdentifier) &&
+                   this.PossibleActions[lb.UniqueIdentifier].Any(x=> x.Bind.All(keys.Contains) );
         }
 
         public ActionDoable GetAction(LivingBeing lb, IEnumerable<Keys> keys)
         {
-            return this.possibleActions[lb.uniqueIdentifier].Where(x=> x.Bind.All(keys.Contains)).OrderByDescending(x=> x.Bind.Length).First();
+            return this.PossibleActions[lb.UniqueIdentifier].Where(x=> x.Bind.All(keys.Contains)).OrderByDescending(x=> x.Bind.Length).First();
         }
 
         public void UnRegister(LivingBeing lb, IEnumerable<ActionDoable> action)
         {
-            possibleActions[lb.uniqueIdentifier].RemoveAll(action.Contains);
+            PossibleActions[lb.UniqueIdentifier].RemoveAll(action.Contains);
         }
 
         public IEnumerable<ActionDoable> GetListOfAction(LivingBeing lb)
         {
-            return possibleActions[lb.uniqueIdentifier];
+            return PossibleActions[lb.UniqueIdentifier];
         }
     }
 }
