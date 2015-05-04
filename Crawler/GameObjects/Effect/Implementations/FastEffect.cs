@@ -25,5 +25,13 @@
         {
             lb.statistics.AddedStatistics.Speed -= 5;
         }
+
+        public string Description
+        {
+            get
+            {
+                return string.Format("Fast : speed +5 for {0} turns", this.TurnToEnd);
+            }
+        }
     }
 }

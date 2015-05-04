@@ -28,5 +28,13 @@
             lb.statistics.AddedStatistics.FOV -= 5;
             Console.WriteLine("Light effect finished");
         }
+
+        public string Description
+        {
+            get
+            {
+                return string.Format("Light : fov +5 for {0} turns",this.TurnToEnd);
+            }
+        }
     }
 }

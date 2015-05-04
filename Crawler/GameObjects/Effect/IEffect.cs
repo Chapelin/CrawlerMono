@@ -10,5 +10,7 @@
         void Apply(T lb);
 
         void UnApply(T lb);
+
+        string Description { get; }
     }
 }

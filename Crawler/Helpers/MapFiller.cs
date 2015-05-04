@@ -247,6 +247,19 @@ namespace Crawler.Helpers
                                      Bind = new[] { Keys.S },
                                      Name = "Light"
                                  },
+                             new ActionDoable
+                                 {
+                                     Activity = lb =>
+                                         {
+                                             Console.WriteLine("current effect on player");
+                                             foreach (var eff in lb.CurrentEffect)
+                                             {
+                                                 Console.WriteLine("\t{0}",eff.Description);
+                                             }
+                                         },
+                                     Bind = new[] { Keys.S, Keys.LeftShift },
+                                     Name = "List effects"
+                                 },
 
                          };
 

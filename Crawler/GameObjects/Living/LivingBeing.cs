@@ -106,5 +106,13 @@
 
             this.currentEffect.RemoveAll(x => x.TurnToEnd <= 0);
         }
+
+        public List<IEffect<LivingBeing>> CurrentEffect
+        {
+            get
+            {
+                return this.currentEffect;
+            }
+        }
     }
 }
