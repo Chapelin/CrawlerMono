@@ -12,13 +12,10 @@
         public Human(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, "sprite//human",  new HumanPlayerIntelligence(), new SchedulableComponant())
         {
-            this.Statistics.BasicStatistics.FOV = 5;
-            this.Statistics.BasicStatistics.Speed = 10;
+            this.Statistics =
+                new FullStatistics(new Statistics() {FOV = 5, Speed = 10, Intelligence = 4, PV = 10, Force = 4});
             this._description = "Human";
             this.Traits = Traits.Walking;
-            this.Statistics.BasicStatistics.Intelligence = 4;
-            this.Statistics.BasicStatistics.PV = 10;
-            this.Statistics.BasicStatistics.Force = 4;
         }
     }
 }

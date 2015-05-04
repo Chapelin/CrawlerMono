@@ -12,12 +12,9 @@
         public Bat(GameEngine game, Vector2 positionCell)
             : base(game, positionCell, "sprite\\bat", new BatAutoIntelligence(), new SchedulableComponant())
         {
-            this.Statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10 });
+            this.Statistics = new FullStatistics(new Statistics() { FOV = 2, Speed = 10, Intelligence = 2,PV = 5,Force = 3 });
             this._description = "Bat";
             this.Traits = Traits.Flying;
-            this.Statistics.BasicStatistics.Intelligence = 2;
-            this.Statistics.BasicStatistics.PV = 5;
-            this.Statistics.BasicStatistics.Force = 3;
         }
 
     }

@@ -12,7 +12,6 @@ namespace Crawler.Helpers
     using Crawler.GameObjects.Effect.Implementations;
     using Crawler.GameObjects.Items;
     using Crawler.GameObjects.Living;
-    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 
@@ -58,9 +57,15 @@ namespace Crawler.Helpers
         /// <returns>
         /// The <see cref="LivingBeing"/>.
         /// </returns>
-        public static LivingBeing InitializeEnnemis(Map m)
+        public static void InitializeEnnemis(Map m)
         {
-            var b = new Bat(m.Game, new Vector2(1, 1));
+           InitializeBat(m,new Vector2(1,1));
+          InitializeBat(m,new Vector2(4,5));
+        }
+
+        public static LivingBeing InitializeBat(Map m, Vector2 v)
+        {
+            var b = new Bat(m.Game,v);
 
             RegisterActions(b);
 
@@ -283,11 +288,22 @@ namespace Crawler.Helpers
                                          },
                                      Bind = new[] { Keys.S, Keys.LeftShift },
                                      Name = "List effects"
+                                 }, 
+                                 new ActionDoable
+                                 {
+                                     Activity = lb =>
+                                         {
+                                             Console.WriteLine("add a bat");
+                                             MapFiller.InitializeBat(BlackBoard.CurrentMap, lb.positionCell+ (new Vector2(1,0)));
+                                         },
+                                     Bind = new[] { Keys.B },
+                                     Name = "Bat spawn"
                                  },
 
                          });
 
             #endregion debug
+
             BlackBoard.Pool.Register(b, l);
 
         }

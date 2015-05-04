@@ -1,4 +1,5 @@
 ﻿using Crawler.Helpers;
+using Crawler.Input;
 
 namespace Crawler.Engine
 {
@@ -19,7 +20,6 @@ namespace Crawler.Engine
 
         public new GameEngine Game;
 
-        private ILogPrinter log;
 
         public Vector2 SizeOfMap;
 
@@ -47,7 +47,7 @@ namespace Crawler.Engine
             var listContenu = new List<MapDrawableComponent>();
             listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
-            this.log.WriteLine(desc);
+            BlackBoard.LogPrinter.WriteLine(desc);
         }
 
 
@@ -57,7 +57,6 @@ namespace Crawler.Engine
             if (size == default(Vector2))
                 size = new Vector2(50, 50);
             this.Game = game;
-            this.log = lp;
             this.fullBoard = new ListGameAware<MapDrawableComponent>(game);
             this.SizeOfMap = size;
         }
@@ -70,6 +69,11 @@ namespace Crawler.Engine
         public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
         {
             return this.fullBoard.Where<Item>(x => x.positionCell == targetPosition);
+        }
+
+        public LivingBeing LivingAtPosition(Vector2 targetPosition)
+        {
+            return this.fullBoard.Where<LivingBeing>(x => x.positionCell == targetPosition).FirstOrDefault();
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
@@ -122,10 +126,20 @@ namespace Crawler.Engine
             var targetCellObject = this.CellOnPosition(targetPosition);
             if (null != targetCellObject)
             {
-                if (targetCellObject.IsWalkable(lb))
+                var obstacle = this.LivingAtPosition(targetPosition);
+                if (obstacle != null)
                 {
-                    this.Game.MoveBeing(lb, targetPosition);
-                    retour = true;
+                    //check politic
+                    lb.Attack(obstacle);
+                }
+                else
+                {
+
+                    if (targetCellObject.IsWalkable(lb))
+                    {
+                        this.Game.MoveBeing(lb, targetPosition);
+                        retour = true;
+                    }
                 }
             }
 

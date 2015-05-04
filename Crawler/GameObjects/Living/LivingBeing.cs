@@ -31,6 +31,11 @@
             }
         }
 
+        public bool IsDead
+        {
+            get { return this.Statistics.CurrentPv <= 0; }
+        }
+
         public List<Item> Inventory;
 
         private IIntelligenceComponant ic;
@@ -111,6 +116,25 @@
             {
                 return this._currentEffect;
             }
+        }
+
+        public void Attack(LivingBeing obstacle)
+        {
+            var degats = this.Statistics.Force;
+            BlackBoard.LogPrinter.WriteLine("{0} attack {1} : {2}",this.Description, obstacle.Description, degats);
+            obstacle.Statistics.RemovePv(degats);
+            if (obstacle.IsDead)
+            {
+                obstacle.Kill();
+            }
+
+        }
+
+        private void Kill()
+        {
+            Console.WriteLine("{0} is dead.", this.Description);
+            this.Game.Components.Remove(this);
+            BlackBoard.CurrentMap.RemoveLivingBeing(this);
         }
     }
 }
