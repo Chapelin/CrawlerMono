@@ -5,6 +5,7 @@
         int TurnToEnd { get; set; }
 
 
+
         bool CanApply(T lb);
         void Apply(T lb);
 

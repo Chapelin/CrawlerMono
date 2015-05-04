@@ -81,6 +81,7 @@
     <Compile Include="Components\Others\IWalkable.cs" />
     <Compile Include="GameObjects\Effect\IEffect.cs" />
     <Compile Include="GameObjects\Effect\Implementations\FastEffect.cs" />
+    <Compile Include="GameObjects\Effect\Implementations\LightEffect.cs" />
     <Compile Include="Helpers\VisibilityHandler.cs" />
     <Compile Include="GameObjects\Items\Torso.cs" />
     <Compile Include="GameObjects\Living\FullStatistics.cs" />

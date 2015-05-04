@@ -20,6 +20,7 @@ namespace Crawler.Helpers
 
     using Crawler.Cells;
     using Crawler.Engine;
+    using Crawler.GameObjects.Effect.Implementations;
     using Crawler.GameObjects.Items;
     using Crawler.GameObjects.Living;
     using Crawler.UI;
@@ -87,6 +88,8 @@ namespace Crawler.Helpers
         /// </param>
         private static void RegisterActions(LivingBeing b)
         {
+
+            #region movement
             var l = new List<ActionDoable>
                         {
                             new ActionDoable
@@ -146,9 +149,11 @@ namespace Crawler.Helpers
                                     Bind = new[] { Keys.NumPad9 }
                                 }
                         };
-
+            #endregion movement
             BlackBoard.Pool.Register(b, l);
 
+
+            #region  misc
             var la = new List<ActionDoable>
                          {
                              new ActionDoable
@@ -194,7 +199,15 @@ namespace Crawler.Helpers
                                          },
                                      Bind = new[] { Keys.L },
                                      Name = "Action list"
-                                 },
+                                 }
+                         };
+            #endregion  misc
+            BlackBoard.Pool.Register(b, la);
+
+            #region debug
+
+            var lm = new List<ActionDoable>()
+                         {
                              new ActionDoable
                                  {
                                      Activity = lb =>
@@ -223,8 +236,23 @@ namespace Crawler.Helpers
                                      Bind = new[] { Keys.U },
                                      Name = "UnEquip"
                                  },
+
+                            new ActionDoable
+                                 {
+                                     Activity = lb =>
+                                         {
+                                             Console.WriteLine("Apply light magic");
+                                             lb.AddEffect(new LightEffect(2));
+                                         },
+                                     Bind = new[] { Keys.S },
+                                     Name = "Light"
+                                 },
+
                          };
-            BlackBoard.Pool.Register(b, la);
+
+            #endregion debug
+
+            BlackBoard.Pool.Register(b, lm);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace Crawler.Scheduling
     {
         public int CurrentTurn { get; set; }
 
-        private List<ISchedulable> listOfBeing;
+        private List<ISchedulable> listOfsSchedulables;
 
         public const int TURN_TREESHOLD = 10;
 
@@ -36,24 +36,24 @@ namespace Crawler.Scheduling
 
         public Scheduler()
         {
-            this.listOfBeing = new List<ISchedulable>();
+            this.listOfsSchedulables = new List<ISchedulable>();
             this.CurrentTurn = 0;
             this.playing = new List<LivingBeing>();
         }
 
         public void AddABeing(ISchedulable sc)
         {
-            this.listOfBeing.Add(sc);
+            this.listOfsSchedulables.Add(sc);
         }
 
         protected List<LivingBeing> NextPlaying()
         {
-            var listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
+            var listPlayable = this.GetListOfPlayable(this.listOfsSchedulables, TURN_TREESHOLD);
             if (!listPlayable.Any())
             {
                 this.CurrentTurn++;
                 this.TickList();
-                listPlayable = this.GetListOfPlayable(this.listOfBeing, TURN_TREESHOLD);
+                listPlayable = this.GetListOfPlayable(this.listOfsSchedulables, TURN_TREESHOLD);
             }
 
             foreach (var beingScheduled in listPlayable)
@@ -72,7 +72,7 @@ namespace Crawler.Scheduling
 
         public void TickList()
         {
-            this.listOfBeing.ForEach(x => x.Tick());
+            this.listOfsSchedulables.ForEach(x => x.Tick());
         }
 
 

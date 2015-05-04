@@ -27,6 +27,7 @@
         public void TakeTurn(int consumption)
         {
             this.Score -= consumption;
+            this.being.TickEffects();
         }
     }
 }

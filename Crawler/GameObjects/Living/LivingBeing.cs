@@ -6,6 +6,7 @@
     using Crawler.Components.IA;
     using Crawler.Components.Scheduling;
     using Crawler.Engine;
+    using Crawler.GameObjects.Effect;
     using Crawler.GameObjects.Items;
     using Crawler.UI;
 
@@ -37,6 +38,8 @@
 
         private ISchedulable sc;
 
+        private List<IEffect<LivingBeing>> currentEffect;
+
         public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName, ILogPrinter logprinter, IIntelligenceComponant ic, ISchedulable sc)
             : base(game, positionCell,  spriteName)
         {
@@ -48,6 +51,7 @@
             this.z = 0.1F;
             this.ic = ic;
             this.sc = sc;
+            this.currentEffect  = new List<IEffect<LivingBeing>>();
             sc.AddToSchedule(this);
         }
 
@@ -78,6 +82,29 @@
         {
             this.logger.WriteLine(this.Description + " going up.");
             this.Game.ChangeMap(this, false);
+        }
+
+        public void AddEffect(IEffect<LivingBeing> eff)
+        {
+            if (eff.CanApply(this))
+            {
+                this.currentEffect.Add(eff);
+                eff.Apply(this);
+            }
+        }
+
+        public void TickEffects()
+        {
+            foreach (var effect in this.currentEffect)
+            {
+                effect.TurnToEnd--;
+                if (effect.TurnToEnd <= 0)
+                {
+                    effect.UnApply(this);
+                }
+            }
+
+            this.currentEffect.RemoveAll(x => x.TurnToEnd <= 0);
         }
     }
 }
