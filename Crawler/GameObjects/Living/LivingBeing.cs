@@ -8,8 +8,6 @@
     using Crawler.Engine;
     using Crawler.GameObjects.Effect;
     using Crawler.GameObjects.Items;
-    using Crawler.UI;
-
     using Microsoft.Xna.Framework;
 
     public class LivingBeing : MapDrawableComponent
@@ -36,7 +34,7 @@
             get { return this.Statistics.CurrentPv <= 0; }
         }
 
-        public List<Item> Inventory;
+        public Inventory Inventory;
 
         private IIntelligenceComponant ic;
 
@@ -47,7 +45,7 @@
         public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName,IIntelligenceComponant ic, ISchedulable sc)
             : base(game, positionCell,  spriteName)
         {
-            this.Inventory = new List<Item>();
+            this.Inventory = new Inventory();
             this.UniqueIdentifier = Guid.NewGuid();
             this.VisitedColor = Color.Transparent;
             this.Statistics = new FullStatistics(new Statistics());
@@ -67,18 +65,16 @@
         public void DumpInventory()
         {
             BlackBoard.LogPrinter.WriteLine("{0} inventory :", this.Description);
-            foreach (var item in this.Inventory)
+            foreach (var item in this.Inventory.Poutch)
             {
                 BlackBoard.LogPrinter.WriteLine("   {0}", item.Description);
             }
-
         }
 
         public void GoMapDown()
         {
             BlackBoard.LogPrinter.WriteLine(this.Description + " going down.");
             this.Game.ChangeMap(this, true);
-
         }
 
         public void GoMapUp()

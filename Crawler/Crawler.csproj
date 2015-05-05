@@ -86,6 +86,7 @@
     <Compile Include="GameObjects\Items\Torso.cs" />
     <Compile Include="GameObjects\Living\FullStatistics.cs" />
     <Compile Include="Helpers\MapFiller.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="MapGenerator\Dongeon.cs" />
     <Compile Include="Engine\GameEngine.cs" />
     <Compile Include="MapGenerator\BasicMapGenerator.cs" />

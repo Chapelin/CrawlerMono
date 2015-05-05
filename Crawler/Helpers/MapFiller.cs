@@ -177,7 +177,7 @@ namespace Crawler.Helpers
                                      Activity =
                                          lb =>
                                          BlackBoard.CurrentCamera.Move(new Vector2(0,-1)),
-                                     Bind = new[] { Keys.U },
+                                     Bind = new[] { Keys.Up },
                                      Name = "Move camera up"
                                  },  
                                  new ActionDoable
@@ -242,7 +242,7 @@ namespace Crawler.Helpers
                                      Activity = lb =>
                                          {
                                              Console.WriteLine("Trying to equipe first item");
-                                             var eq = lb.Inventory.FirstOrDefault(x => x.CanEquip(lb));
+                                             var eq = lb.Inventory.Poutch.FirstOrDefault(x => x.CanEquip(lb));
                                              if (eq != null)
                                              {
                                                  eq.Equip(lb);
@@ -256,7 +256,7 @@ namespace Crawler.Helpers
                                      Activity = lb =>
                                          {
                                              Console.WriteLine("Trying to unequipe first item");
-                                             var eq = lb.Inventory.FirstOrDefault(x => x.IsEquipped);
+                                             var eq = lb.Inventory.Poutch.FirstOrDefault(x => x.IsEquipped);
                                              if (eq != null)
                                              {
                                                  eq.UnEquip(lb);

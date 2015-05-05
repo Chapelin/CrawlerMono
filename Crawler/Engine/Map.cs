@@ -100,7 +100,7 @@ namespace Crawler.Engine
         public void Pickup(LivingBeing lb)
         {
             var listObject = this.ItemsOnPosition(lb.positionCell).ToList();
-            lb.Inventory.AddRange(listObject);
+            lb.Inventory.Poutch.AddRange(listObject);
             this.RemoveItems(listObject);
         }
 
@@ -111,10 +111,10 @@ namespace Crawler.Engine
 
         public void DropFirstObject(LivingBeing lb)
         {
-            var itemToDrop = lb.Inventory.FirstOrDefault(x => !x.IsEquipped);
+            var itemToDrop = lb.Inventory.Poutch.FirstOrDefault(x => !x.IsEquipped);
             if (itemToDrop != null)
             {
-                lb.Inventory.Remove(itemToDrop);
+                lb.Inventory.Poutch.Remove(itemToDrop);
                 itemToDrop.positionCell = lb.positionCell;
                 this.fullBoard.Add(itemToDrop);
             }
