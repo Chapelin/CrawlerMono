@@ -116,7 +116,7 @@
 
         public void Attack(LivingBeing obstacle)
         {
-            var degats = this.Statistics.Force;
+            var degats = this.Inventory.LeftHandSlot.CalculateOutputDamage(this);
             BlackBoard.LogPrinter.WriteLine("{0} attack {1} : {2}",this.Description, obstacle.Description, degats);
             obstacle.Statistics.RemovePv(degats);
             if (obstacle.IsDead)

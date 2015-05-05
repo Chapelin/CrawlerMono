@@ -7,26 +7,80 @@ namespace Crawler
     {
         public List<Item> Poutch;
 
-        public Item Head;
+        private Item _head;
 
-        public Item Torso;
+        private Item _torso;
 
-        public Item Foot;
+        private Item _foot;
 
-        public Item Legs;
+        private Item _legs;
 
-        public Item Ring;
+        private Item _ring;
 
-        public Item Necklace;
+        private Item _necklace;
 
-        public Item LeftHandSlot;
+        private Weapon _leftHandSlot;
 
-        public Item RightHandSlot;
+        private Weapon _rightHandSlot;
 
         public Inventory()
         {
             this.Poutch = new List<Item>();
+            
         }
 
+        #region properties
+        public Weapon LeftHandSlot
+        {
+            get
+            {
+                return _leftHandSlot;
+            }
+            set { _leftHandSlot = value; }
+        }
+
+        public Weapon RightHandSlot
+        {
+            get { return _rightHandSlot; }
+            set { _rightHandSlot = value; }
+        }
+
+        public Item Necklace
+        {
+            get { return _necklace; }
+            set { _necklace = value; }
+        }
+
+        public Item Ring
+        {
+            get { return _ring; }
+            set { _ring = value; }
+        }
+
+        public Item Legs
+        {
+            get { return _legs; }
+            set { _legs = value; }
+        }
+
+        public Item Foot
+        {
+            get { return _foot; }
+            set { _foot = value; }
+        }
+
+        public Item Torso
+        {
+            get { return _torso; }
+            set { _torso = value; }
+        }
+
+        public Item Head
+        {
+            get { return _head; }
+            set { _head = value; }
+        }
+
+        #endregion properties
     }
 }
