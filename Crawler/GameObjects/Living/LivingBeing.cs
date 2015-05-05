@@ -49,7 +49,7 @@
             this.UniqueIdentifier = Guid.NewGuid();
             this.VisitedColor = Color.Transparent;
             this.Statistics = new FullStatistics(new Statistics());
-            this.z = 0.1F;
+            this.drawing.Z = 0.1F;
             this.ic = ic;
             this.sc = sc;
             this._currentEffect  = new List<IEffect<LivingBeing>>();

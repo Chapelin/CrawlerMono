@@ -54,6 +54,7 @@
     <Compile Include="Components\Others\Implementation\MessagingEnterExit.cs" />
     <Compile Include="Components\Scheduling\Implementation\SchedulableComponant.cs" />
     <Compile Include="Components\Scheduling\ISchedulable.cs" />
+    <Compile Include="DrawingComponant.cs" />
     <Compile Include="Engine\Camera.cs" />
     <Compile Include="Cells\Cell.cs" />
     <Compile Include="Cells\Downstair.cs" />

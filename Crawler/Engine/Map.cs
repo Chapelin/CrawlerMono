@@ -78,7 +78,7 @@ namespace Crawler.Engine
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return this.fullBoard.Where<Cell>(x => x.positionCell == targetposition).First();
+            return this.fullBoard.Where<Cell>(x => x.positionCell == targetposition).FirstOrDefault();
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
@@ -131,6 +131,7 @@ namespace Crawler.Engine
                 {
                     //check politic
                     lb.Attack(obstacle);
+                    retour = true;
                 }
                 else
                 {

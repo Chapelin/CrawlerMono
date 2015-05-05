@@ -26,7 +26,7 @@
         public Cell(GameEngine game, Vector2 p, IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
             : base(game, p, spriteName)
         {
-            this.z = 1F;
+            this.drawing.Z = 1F;
             this.walkableComponent = w;
             this.ac = ac;
             this.eeComponent = ee;

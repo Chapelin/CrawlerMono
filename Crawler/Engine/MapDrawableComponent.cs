@@ -7,18 +7,13 @@
     using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
 
     public class MapDrawableComponent : DrawableGameComponent
     {
-        protected Texture2D sprite;
 
+        protected DrawingComponant drawing;
         protected new GameEngine Game;
         public Vector2 positionCell;
-
-        internal Color colorToUse;
-
-        protected float z;
 
         internal Color VisitedColor = new Color(125, 125, 125);
 
@@ -27,25 +22,18 @@
 
         public List<Guid> SeenBy;
 
-        public MapDrawableComponent(GameEngine game, Vector2 positionCell,  string spriteName)
+        public MapDrawableComponent(GameEngine game, Vector2 positionCell, string spriteName)
             : base(game)
         {
             this.positionCell = positionCell;
-
+            this.drawing = new DrawingComponant(game, spriteName, 0.5F);
             this.Game = game;
-            this.z = 0.5F;
-            this.colorToUse = Color.White;
             this.SeenBy = new List<Guid>();
-            this.sprite = this.Game.Content.Load<Texture2D>(spriteName);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (BlackBoard.CurrentCamera.IsCellOnCamera(this.positionCell))
-            {
-                BlackBoard.CurrentSpriteBatch.Draw(this.sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(this.positionCell), depth: this.z, color: this.colorToUse);
-            }
-
+            this.drawing.Draw(this.positionCell);
             base.Draw(gameTime);
         }
 
@@ -53,15 +41,15 @@
         {
             if (cv == Visibility.Unvisited)
             {
-                this.colorToUse = Color.Black;
+                this.drawing.ColorToUse = Color.Black;
             }
             else if (cv == Visibility.Visited)
             {
-                this.colorToUse = this.VisitedColor;
+                this.drawing.ColorToUse = this.VisitedColor;
             }
             else
             {
-                this.colorToUse = Color.White;
+                this.drawing.ColorToUse = Color.White;
             }
         }
 
