@@ -16,7 +16,7 @@ namespace Crawler.Engine
 
     public class Map : DrawableGameComponent
     {
-        public ListGameAware<MapDrawableComponent> fullBoard;
+        public ListGameAware<MapComponent> fullBoard;
 
         public new GameEngine Game;
 
@@ -44,8 +44,8 @@ namespace Crawler.Engine
 
         private void NewCellTarget(Vector2 value)
         {
-            var listContenu = new List<MapDrawableComponent>();
-            listContenu.AddRange(this.fullBoard.Where(x=> x.positionCell == value));
+            var listContenu = new List<MapComponent>();
+            listContenu.AddRange(this.fullBoard.Where(x=> x.PositionCell == value));
             var desc = string.Join(" ", listContenu.Select(x => x.Description));
             BlackBoard.LogPrinter.WriteLine(desc);
         }
@@ -57,7 +57,7 @@ namespace Crawler.Engine
             if (size == default(Vector2))
                 size = new Vector2(50, 50);
             this.Game = game;
-            this.fullBoard = new ListGameAware<MapDrawableComponent>(game);
+            this.fullBoard = new ListGameAware<MapComponent>(game);
             this.SizeOfMap = size;
         }
 
@@ -68,17 +68,17 @@ namespace Crawler.Engine
 
         public IEnumerable<Item> ItemsOnPosition(Vector2 targetPosition)
         {
-            return this.fullBoard.Where<Item>(x => x.positionCell == targetPosition);
+            return this.fullBoard.Where<Item>(x => x.PositionCell == targetPosition);
         }
 
         public LivingBeing LivingAtPosition(Vector2 targetPosition)
         {
-            return this.fullBoard.Where<LivingBeing>(x => x.positionCell == targetPosition).FirstOrDefault();
+            return this.fullBoard.Where<LivingBeing>(x => x.PositionCell == targetPosition).FirstOrDefault();
         }
 
         public Cell CellOnPosition(Vector2 targetposition)
         {
-            return this.fullBoard.Where<Cell>(x => x.positionCell == targetposition).FirstOrDefault();
+            return this.fullBoard.Where<Cell>(x => x.PositionCell == targetposition).FirstOrDefault();
         }
 
         public void RemoveLivingBeing(LivingBeing lb)
@@ -88,7 +88,7 @@ namespace Crawler.Engine
 
         public void AddLivingBeing(LivingBeing lb, Vector2 pos)
         {
-            lb.positionCell = pos;
+            lb.PositionCell = pos;
             this.fullBoard.Add(lb);
         }
 
@@ -99,7 +99,7 @@ namespace Crawler.Engine
 
         public void Pickup(LivingBeing lb)
         {
-            var listObject = this.ItemsOnPosition(lb.positionCell).ToList();
+            var listObject = this.ItemsOnPosition(lb.PositionCell).ToList();
             lb.Inventory.Poutch.AddRange(listObject);
             this.RemoveItems(listObject);
         }
@@ -115,7 +115,7 @@ namespace Crawler.Engine
             if (itemToDrop != null)
             {
                 lb.Inventory.Poutch.Remove(itemToDrop);
-                itemToDrop.positionCell = lb.positionCell;
+                itemToDrop.PositionCell = lb.PositionCell;
                 this.fullBoard.Add(itemToDrop);
             }
         }
@@ -149,7 +149,7 @@ namespace Crawler.Engine
 
         public bool TryMoveLivingBeingOfVector(LivingBeing lb, Vector2 deplacementVector)
         {
-            return this.TryMoveLivingBeingToPosition(lb, lb.positionCell + deplacementVector);
+            return this.TryMoveLivingBeingToPosition(lb, lb.PositionCell + deplacementVector);
         }
 
         public void SetAsActive(bool toActive)

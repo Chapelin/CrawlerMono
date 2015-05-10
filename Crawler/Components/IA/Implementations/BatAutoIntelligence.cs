@@ -16,8 +16,8 @@ namespace Crawler.Components.IA.Implementations
 
         public void AutoPlay(LivingBeing lb)
         {
-            var Rrnd = new Random();
-            var ca = Rrnd.Next(9);
+            var rnd = new Random();
+            var ca = rnd.Next(9);
             var dep = new Vector2(0, 0);
             switch (ca)
             {
@@ -36,7 +36,7 @@ namespace Crawler.Components.IA.Implementations
 
             }
 
-            lb.positionCell += dep;
+            lb.PositionCell += dep;
         }
 
         public bool IsUserControlled { get; set; }

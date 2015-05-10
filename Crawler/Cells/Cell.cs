@@ -10,7 +10,7 @@
 
     using Microsoft.Xna.Framework;
 
-    public class Cell : MapDrawableComponent
+    public class Cell : MapComponent
     {
         private readonly IEnterExitComponent eeComponent;
 
@@ -24,12 +24,13 @@
         }
 
         public Cell(GameEngine game, Vector2 p, IWalkable w, IActivableComponent ac, IEnterExitComponent ee, string spriteName)
-            : base(game, p, spriteName)
+            : base(p)
         {
-            this.drawing.Z = 1F;
             this.walkableComponent = w;
             this.ac = ac;
             this.eeComponent = ee;
+            this.AttachDrawingComponant(game,spriteName,1F);
+
         }
 
         public bool IsActivable(LivingBeing lb)

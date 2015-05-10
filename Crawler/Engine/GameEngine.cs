@@ -46,6 +46,7 @@
             this.beingToPlay = null;
             this.poolOfAction = new ActionsPool();
             BlackBoard.Pool = this.poolOfAction;
+            BlackBoard.Game = this;
         }
 
         /// <summary>
@@ -134,11 +135,11 @@
 
         public void MoveBeing(LivingBeing p, Vector2 targetPosition)
         {
-            BlackBoard.CurrentCamera.Move(targetPosition - p.positionCell);
-            Cell cellTarget = this.map.fullBoard.Where<Cell>(x => x.positionCell == targetPosition).First();
-            Cell cellGoingout = this.map.fullBoard.Where<Cell>(x => x.positionCell == p.positionCell).First();
+            BlackBoard.CurrentCamera.Move(targetPosition - p.PositionCell);
+            Cell cellTarget = this.map.fullBoard.Where<Cell>(x => x.PositionCell == targetPosition).First();
+            Cell cellGoingout = this.map.fullBoard.Where<Cell>(x => x.PositionCell == p.PositionCell).First();
             cellGoingout.OnExit(p);
-            p.positionCell = targetPosition;
+            p.PositionCell = targetPosition;
             cellTarget.OnEnter(p);
 
             // we have played, so we remove it
@@ -155,10 +156,10 @@
             this.map.SetAsActive(false);
             this.donjon.CurrentLevel = nextLVL;
             this.map = this.donjon.CurrentMap;
-            var targetpos = this.map.fullBoard.Where(x => x is Cell).First(x => ((Cell)x).IsWalkable(lb)).positionCell;
+            var targetpos = this.map.fullBoard.Where(x => x is Cell).First(x => ((Cell)x).IsWalkable(lb)).PositionCell;
             this.map.AddLivingBeing(lb, targetpos);
             this.map.SetAsActive(true);
-            BlackBoard.CurrentCamera.CenterOnCell(lb.positionCell);
+            BlackBoard.CurrentCamera.CenterOnCell(lb.PositionCell);
             BlackBoard.CurrentMap = this.map;
         }
     }

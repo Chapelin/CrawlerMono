@@ -16,16 +16,16 @@ namespace Crawler.Helpers
 
     public static class VisibilityHandler
     {
-        private static void ProcessVisibilityWithFOV(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapDrawableComponent> listGameAware)
+        private static void ProcessVisibilityWithFOV(LivingBeing being, List<List<Vector2>> listPathOfVisibility, List<MapComponent> listGameAware)
         {
-            IEnumerable<MapDrawableComponent> listAtPos;
+            IEnumerable<MapComponent> listAtPos;
             foreach (var path in listPathOfVisibility)
             {
-                var currentPos = being.positionCell;
+                var currentPos = being.PositionCell;
                 foreach (Vector2 t in path)
                 {
                     currentPos += t;
-                    listAtPos = listGameAware.Where(x => x.positionCell == currentPos);
+                    listAtPos = listGameAware.Where(x => x.PositionCell == currentPos);
                     var stop = false;
                     foreach (var v in listAtPos)
                     {
@@ -44,7 +44,7 @@ namespace Crawler.Helpers
             }
         }
 
-        private static void ReitinializeVisibility(LivingBeing being, List<MapDrawableComponent> listGameAware)
+        private static void ReitinializeVisibility(LivingBeing being, List<MapComponent> listGameAware)
         {
             Parallel.ForEach(
                 listGameAware, 
@@ -61,9 +61,9 @@ namespace Crawler.Helpers
                 });
         }
 
-        public  static void HandleVisibilityOfList(LivingBeing being, List<MapDrawableComponent> listGameAware)
+        public  static void HandleVisibilityOfList(LivingBeing being, List<MapComponent> listGameAware)
         {
-            var currentPosition = being.positionCell;
+            var currentPosition = being.PositionCell;
 
             // reinit visibility
             ReitinializeVisibility(being, listGameAware);
@@ -71,7 +71,7 @@ namespace Crawler.Helpers
             var listPathOfVisibility = Utilitaires.GetPathsToDistanceMax(currentPosition, being.Statistics.FOV);
 
             // handle new visibility
-            var listAtPos = listGameAware.Where(x => x.positionCell == currentPosition);
+            var listAtPos = listGameAware.Where(x => x.PositionCell == currentPosition);
             foreach (var v in listAtPos)
             {
                 v.SetColorToUse(Visibility.InView);

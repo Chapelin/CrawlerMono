@@ -39,7 +39,7 @@ namespace Crawler.Helpers
                 new Potion(m.Game, new Vector2(4, 11)),
                 new Rod(m.Game, new Vector2(5, 5))};
 
-            var pos = m.fullBoard.AllOf<Floor>().Select(y => y.positionCell).Take(3);
+            var pos = m.fullBoard.AllOf<Floor>().Select(y => y.PositionCell).Take(3);
             li.Add(new Torso(m.Game, pos.Last()));
 
             m.fullBoard.AddRange(li);
@@ -152,7 +152,7 @@ namespace Crawler.Helpers
                                      Activity =
                                          lb =>
                                          BlackBoard.CurrentCamera.CenterOnCell(
-                                             lb.positionCell),
+                                             lb.PositionCell),
                                      Bind = new[] { Keys.Space },
                                      Name = "Center view"
                                  },
@@ -294,7 +294,7 @@ namespace Crawler.Helpers
                                      Activity = lb =>
                                          {
                                              Console.WriteLine("add a bat");
-                                             MapFiller.InitializeBat(BlackBoard.CurrentMap, lb.positionCell+ (new Vector2(1,0)));
+                                             MapFiller.InitializeBat(BlackBoard.CurrentMap, lb.PositionCell+ (new Vector2(1,0)));
                                          },
                                      Bind = new[] { Keys.B },
                                      Name = "Bat spawn"
@@ -322,7 +322,7 @@ namespace Crawler.Helpers
         /// </returns>
         public static LivingBeing InitializePlayer(Map m)
         {
-            var position = m.fullBoard.First<Floor>().positionCell;
+            var position = m.fullBoard.First<Floor>().PositionCell;
             var human = new Human(m.Game, position) { IsUserControlled = true };
             RegisterActions(human);
             m.fullBoard.Add(human);

@@ -10,7 +10,7 @@
     using Crawler.GameObjects.Items;
     using Microsoft.Xna.Framework;
 
-    public class LivingBeing : MapDrawableComponent
+    public class LivingBeing : MapComponent
     {
         public Guid UniqueIdentifier;
 
@@ -43,16 +43,16 @@
         private readonly List<IEffect<LivingBeing>> _currentEffect;
 
         public LivingBeing(GameEngine game, Vector2 positionCell, string spriteName,IIntelligenceComponant ic, ISchedulable sc)
-            : base(game, positionCell,  spriteName)
+            : base(positionCell)
         {
             this.Inventory = new Inventory();
             this.UniqueIdentifier = Guid.NewGuid();
             this.VisitedColor = Color.Transparent;
             this.Statistics = new FullStatistics(new Statistics());
-            this.drawing.Z = 0.1F;
             this.ic = ic;
             this.sc = sc;
             this._currentEffect  = new List<IEffect<LivingBeing>>();
+            this.AttachDrawingComponant(game,spriteName,0.1F);
             sc.AddToSchedule(this);
         }
 
@@ -74,13 +74,13 @@
         public void GoMapDown()
         {
             BlackBoard.LogPrinter.WriteLine(this.Description + " going down.");
-            this.Game.ChangeMap(this, true);
+            BlackBoard.Game.ChangeMap(this, true);
         }
 
         public void GoMapUp()
         {
             BlackBoard.LogPrinter.WriteLine(this.Description + " going up.");
-            this.Game.ChangeMap(this, false);
+            BlackBoard.Game.ChangeMap(this, false);
         }
 
         public void AddEffect(IEffect<LivingBeing> eff)
@@ -129,7 +129,7 @@
         private void Kill()
         {
             Console.WriteLine("{0} is dead.", this.Description);
-            this.Game.Components.Remove(this);
+            this.UnregisterDrawingComponant();
             BlackBoard.CurrentMap.RemoveLivingBeing(this);
         }
     }

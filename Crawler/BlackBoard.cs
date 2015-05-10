@@ -24,5 +24,7 @@ namespace Crawler
 
         public static BasicLogPrinter LogPrinter;
 
+        public static GameEngine Game;
+
     }
 }

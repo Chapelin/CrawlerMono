@@ -6,9 +6,7 @@
 
     using Crawler.Engine;
 
-    using Microsoft.Xna.Framework;
-
-    public class ListGameAware<T>  where T: GameComponent
+    public class ListGameAware<T>  where T: MapComponent
     {
         private List<T> innerList;
 
@@ -23,14 +21,14 @@
                     {
                         foreach (var elem in this.innerList)
                         {
-                            this.Game.Components.Add(elem);
+                            elem.RegisterDrawingComponant();
                         }
                     }
                     else
                     {
                         foreach (var elem in this.innerList)
                         {
-                            this.Game.Components.Remove(elem);
+                           elem.UnregisterDrawingComponant();
                         }
                     }
 
@@ -51,14 +49,14 @@
         {
             this.innerList.Add(obj);
             if(this._isactive)
-                this.Game.Components.Add(obj);
+               obj.RegisterDrawingComponant();
         }
 
         public void Remove(T obj)
         {
             this.innerList.Remove(obj);
             if (this._isactive)
-                this.Game.Components.Remove(obj);
+                obj.UnregisterDrawingComponant();
         }
 
         public void RemoveAt(int index)
@@ -66,7 +64,7 @@
             var toRemove = this.innerList[index];
             this.innerList.RemoveAt(index);
             if (this._isactive)
-                this.Game.Components.Remove(toRemove);
+                toRemove.UnregisterDrawingComponant();
         }
 
         public void RemoveAll<T1>(Predicate<T> match)
@@ -77,7 +75,7 @@
             {
                 foreach (var el in elementToRemove)
                 {
-                    this.Game.Components.Remove(el);
+                   el.UnregisterDrawingComponant();
                 }
             }
         }

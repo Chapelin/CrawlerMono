@@ -109,7 +109,7 @@
     <Compile Include="GameObjects\Living\Traits.cs" />
     <Compile Include="UI\BasicLogPrinter.cs" />
     <Compile Include="Engine\Map.cs" />
-    <Compile Include="Engine\MapDrawableComponent.cs" />
+    <Compile Include="Engine\MapComponent.cs" />
     <Compile Include="GameObjects\Items\Potion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

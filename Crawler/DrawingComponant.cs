@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Crawler
 {
-    public class DrawingComponant
+    public class DrawingComponant : DrawableGameComponent
     {
         public Texture2D Sprite { get; set; }
 
@@ -14,7 +14,9 @@ namespace Crawler
 
         public Color ColorToUse { get; set; }
 
-        public DrawingComponant(GameEngine g, string SpriteName, float z)
+        public Vector2 position;
+
+        public DrawingComponant(GameEngine g, string SpriteName, float z) : base(g)
         {
             this.Game = g;
             this.Sprite = this.Game.Content.Load<Texture2D>(SpriteName);
@@ -22,7 +24,7 @@ namespace Crawler
             this.ColorToUse = Color.White;
         }
 
-        public void Draw(Vector2 position)
+        public override void Draw(GameTime gameTime)
         {
             if (BlackBoard.CurrentCamera.IsCellOnCamera(position))
             {

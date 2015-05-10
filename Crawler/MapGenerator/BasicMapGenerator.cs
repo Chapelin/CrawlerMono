@@ -34,8 +34,6 @@
             this.spc = new SimplePathCalculator();
         }
 
-
-
         public List<Room> GenerateRooms()
         {
             var listResult = new List<Room>();
@@ -149,7 +147,7 @@
                 for (int i = 0; i < path.Item2.Count; i++)
                 {
                     current += path.Item2[i];
-                    mapGenerate.fullBoard.RemoveAll<Cell>(x => x.positionCell == current);
+                    mapGenerate.fullBoard.RemoveAll<Cell>(x => x.PositionCell == current);
                     mapGenerate.fullBoard.Add(new Floor(mapGenerate.Game, current));
                 }
             }
@@ -161,8 +159,8 @@
         {
             var firstPoss = mapGenerate.fullBoard.Where(x => x is Floor).Take(2);
 
-            var ds = new Downstair(mapGenerate.Game, firstPoss.First().positionCell);
-            var us = new Upstair(mapGenerate.Game, firstPoss.Last().positionCell);
+            var ds = new Downstair(mapGenerate.Game, firstPoss.First().PositionCell);
+            var us = new Upstair(mapGenerate.Game, firstPoss.Last().PositionCell);
             mapGenerate.fullBoard.RemoveAll<Cell>(firstPoss.Contains);
             mapGenerate.fullBoard.Add(ds);
             mapGenerate.fullBoard.Add(us);
