@@ -3,6 +3,8 @@ using Crawler.GameObjects.Items;
 
 namespace Crawler
 {
+    using Microsoft.Xna.Framework;
+
     public class Inventory
     {
         public List<Item> Poutch;
@@ -26,7 +28,7 @@ namespace Crawler
         public Inventory()
         {
             this.Poutch = new List<Item>();
-            
+
         }
 
         #region properties
@@ -34,6 +36,10 @@ namespace Crawler
         {
             get
             {
+                if (_leftHandSlot == null)
+                {
+                    _leftHandSlot = new Fist(Vector2.Zero);
+                }
                 return _leftHandSlot;
             }
             set { _leftHandSlot = value; }
@@ -41,7 +47,14 @@ namespace Crawler
 
         public Weapon RightHandSlot
         {
-            get { return _rightHandSlot; }
+            get
+            {
+                if (_rightHandSlot == null)
+                {
+                    _rightHandSlot = new Fist(Vector2.Zero);
+                }
+                return _rightHandSlot;
+            }
             set { _rightHandSlot = value; }
         }
 

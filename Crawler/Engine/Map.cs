@@ -1,7 +1,4 @@
-﻿using Crawler.Helpers;
-using Crawler.Input;
-
-namespace Crawler.Engine
+﻿namespace Crawler.Engine
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -10,6 +7,7 @@ namespace Crawler.Engine
     using Crawler.DataStructures;
     using Crawler.GameObjects.Items;
     using Crawler.GameObjects.Living;
+    using Crawler.Helpers;
     using Crawler.UI;
 
     using Microsoft.Xna.Framework;

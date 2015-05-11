@@ -10,13 +10,13 @@
     public class Equipable : Item
     {
 
-        public Equipable(GameEngine game, Vector2 positionCell, IEquipableComponent ec, string spriteName)
-            : base(game, positionCell,  ec, new UnconsumableComponant(), new BasicUnactivable(), spriteName)
+        public Equipable( Vector2 positionCell, IEquipableComponent ec)
+            : base( positionCell,  ec, new UnconsumableComponant(), new BasicUnactivable())
         {
         }
 
-        public Equipable(GameEngine game, Vector2 positionCell, string spriteName)
-            : base(game, positionCell, new BasicEquipableItem(new BaseStatisticsNeutralModifier()), new UnconsumableComponant(), new BasicUnactivable(), spriteName)
+        public Equipable(Vector2 positionCell)
+            : base( positionCell, new BasicEquipableItem(new BaseStatisticsNeutralModifier()), new UnconsumableComponant(), new BasicUnactivable())
         {
         }
     }

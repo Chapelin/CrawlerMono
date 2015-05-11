@@ -1,15 +1,14 @@
-﻿using Crawler.GameObjects.Living;
-
-namespace Crawler.GameObjects.Items
+﻿namespace Crawler.GameObjects.Items
 {
-    using Engine;
+    using Crawler.Engine;
+    using Crawler.GameObjects.Living;
 
     using Microsoft.Xna.Framework;
 
     public class Rod : Weapon
     {
-        public Rod(GameEngine game, Vector2 positionCell)
-            : base(game, positionCell,  "sprite\\rod")
+        public Rod( Vector2 positionCell)
+            : base( positionCell)
         {
             this._description = "A beautiful rod !";
         }

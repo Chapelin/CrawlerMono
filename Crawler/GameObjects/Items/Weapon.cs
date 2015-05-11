@@ -7,7 +7,7 @@
 
     public abstract class Weapon : Equipable
     {
-        public Weapon(GameEngine game, Vector2 positionCell, string spriteName) : base(game, positionCell, spriteName)
+        public Weapon(Vector2 positionCell) : base( positionCell)
         {
         }
 

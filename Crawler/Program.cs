@@ -1,11 +1,7 @@
-﻿#region Using Statements
-
-using System;
-
-#endregion
-
-namespace Crawler
+﻿namespace Crawler
 {
+    using System;
+
     using Crawler.Engine;
 
 #if WINDOWS || LINUX

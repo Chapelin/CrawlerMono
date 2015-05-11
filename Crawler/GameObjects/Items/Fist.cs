@@ -6,7 +6,7 @@ namespace Crawler.GameObjects.Items
 {
     public class Fist : Weapon
     {
-        public Fist(GameEngine game, Vector2 positionCell, string spriteName) : base(game, positionCell, spriteName)
+        public Fist( Vector2 positionCell) : base( positionCell)
         {
         }
 

@@ -11,8 +11,8 @@
     /// </summary>
     public class Potion : Item
     {
-        public Potion(GameEngine game, Vector2 positionCell)
-            : base(game, positionCell, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable(), "sprite\\potion")
+        public Potion( Vector2 positionCell)
+            : base( positionCell, new BasicUnequipable(), new ConsumableComponant(), new BasicVoidActivable())
         {
             this._description = "A simple potion.";
         }

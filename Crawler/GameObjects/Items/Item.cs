@@ -14,14 +14,13 @@
         protected IEquipableComponent equipableComponent;
         private IConsumableComponent cc;
         private IActivableComponent ac;
-        public Item(GameEngine game, Vector2 positionCell,  IEquipableComponent ec, IConsumableComponent cc, IActivableComponent ac, string spriteName)
+        public Item( Vector2 positionCell,  IEquipableComponent ec, IConsumableComponent cc, IActivableComponent ac )
             : base(positionCell)
         {
             this.VisitedColor = new Color(125, 125, 125);
             this.equipableComponent = ec;
             this.cc = cc;
             this.ac = ac;
-            this.AttachDrawingComponant(game, spriteName,0.5F);
         }
 
         public bool CanEquip(LivingBeing lb)

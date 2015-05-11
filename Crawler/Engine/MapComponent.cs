@@ -44,7 +44,6 @@
         {
             this.drawing = new DrawingComponant(g, spriteName, z);
             this.drawing.position = _positionCell;
-            //RegisterDrawingComponant();
         }
 
         public void RemoveDrawingComponant()

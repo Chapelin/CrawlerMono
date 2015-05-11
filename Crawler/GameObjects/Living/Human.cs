@@ -3,7 +3,6 @@
     using Crawler.Components.IA.Implementations;
     using Crawler.Components.Scheduling.Implementation;
     using Crawler.Engine;
-    using Crawler.UI;
 
     using Microsoft.Xna.Framework;
 

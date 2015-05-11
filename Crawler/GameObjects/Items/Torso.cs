@@ -7,8 +7,8 @@
 
     public class Torso : Equipable
     {
-        public Torso(GameEngine game, Vector2 positionCell)
-            : base(game, positionCell, new BasicEquipableItem(new StatisticModifierFOv()), "sprite\\torso")
+        public Torso( Vector2 positionCell)
+            : base( positionCell, new BasicEquipableItem(new StatisticModifierFOv()))
         {
             this._description = "An armor.";
         }

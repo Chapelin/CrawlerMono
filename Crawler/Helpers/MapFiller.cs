@@ -32,15 +32,30 @@ namespace Crawler.Helpers
         public static void InitializeItems(Map m)
         {
             var li = new List<Item> {
-                new Potion(m.Game, new Vector2(5, 5)),
-                new Potion(m.Game, new Vector2(10, 5)),
-                new Potion(m.Game, new Vector2(7, 2)),
-                new Potion(m.Game, new Vector2(4, 11)),
-                new Potion(m.Game, new Vector2(4, 11)),
-                new Rod(m.Game, new Vector2(5, 5))};
+                new Potion( new Vector2(5, 5)),
+                new Potion( new Vector2(10, 5)),
+                new Potion( new Vector2(7, 2)),
+                new Potion( new Vector2(4, 11)),
+                new Potion( new Vector2(4, 11)),
+                new Rod( new Vector2(5, 5))};
+
+
 
             var pos = m.fullBoard.AllOf<Floor>().Select(y => y.PositionCell).Take(3);
-            li.Add(new Torso(m.Game, pos.Last()));
+            li.Add(new Torso(pos.Last()));
+
+            foreach (var item in li)
+            {
+                if (item is Potion)
+                    item.AttachDrawingComponant(m.Game, "sprite\\potion", 0.5F);
+                else
+                    if (item is Rod)
+                        item.AttachDrawingComponant(m.Game, "sprite\\rod", 0.5F);
+                    else if (item is Torso)
+                        item.AttachDrawingComponant(m.Game, "sprite\\torso", 0.5F);
+
+
+            }
 
             m.fullBoard.AddRange(li);
         }
@@ -59,13 +74,13 @@ namespace Crawler.Helpers
         /// </returns>
         public static void InitializeEnnemis(Map m)
         {
-           InitializeBat(m,new Vector2(1,1));
-          InitializeBat(m,new Vector2(4,5));
+            InitializeBat(m, new Vector2(1, 1));
+            InitializeBat(m, new Vector2(4, 5));
         }
 
         public static LivingBeing InitializeBat(Map m, Vector2 v)
         {
-            var b = new Bat(m.Game,v);
+            var b = new Bat(m.Game, v);
 
             RegisterActions(b);
 
@@ -171,7 +186,7 @@ namespace Crawler.Helpers
                                          BlackBoard.CurrentCamera.Move(new Vector2(1,0)),
                                      Bind = new[] { Keys.Right },
                                      Name = "Move camera right"
-                                 }, 
+                                 },
                                  new ActionDoable
                                  {
                                      Activity =
@@ -179,7 +194,7 @@ namespace Crawler.Helpers
                                          BlackBoard.CurrentCamera.Move(new Vector2(0,-1)),
                                      Bind = new[] { Keys.Up },
                                      Name = "Move camera up"
-                                 },  
+                                 },
                                  new ActionDoable
                                  {
                                      Activity =
@@ -214,7 +229,7 @@ namespace Crawler.Helpers
                                      Bind = new[] { Keys.D },
                                      Name = "Drop object"
                                  },
-                            
+
                              new ActionDoable
                                  {
                                      Activity = lb =>
@@ -288,7 +303,7 @@ namespace Crawler.Helpers
                                          },
                                      Bind = new[] { Keys.S, Keys.LeftShift },
                                      Name = "List effects"
-                                 }, 
+                                 },
                                  new ActionDoable
                                  {
                                      Activity = lb =>
