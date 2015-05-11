@@ -7,7 +7,7 @@
     using Crawler.Components.Scheduling;
     using Crawler.Engine;
     using Crawler.GameObjects.Effect;
-    using Crawler.GameObjects.Items;
+
     using Microsoft.Xna.Framework;
 
     public class LivingBeing : MapComponent
@@ -116,14 +116,32 @@
 
         public void Attack(LivingBeing obstacle)
         {
-            var degats = this.Inventory.LeftHandSlot.CalculateOutputDamage(this);
+            var degats = this.CalculateOutputDamage();
             BlackBoard.LogPrinter.WriteLine("{0} attack {1} : {2}",this.Description, obstacle.Description, degats);
-            obstacle.Statistics.RemovePv(degats);
-            if (obstacle.IsDead)
+            var reduc = obstacle.CalculateReduceDamage();
+            if (reduc >= degats)
             {
-                obstacle.Kill();
+                BlackBoard.LogPrinter.WriteLine("No dammage");
+            }
+            else
+            {
+                obstacle.Statistics.RemovePv(degats);
+                if (obstacle.IsDead)
+                {
+                    obstacle.Kill();
+                }
             }
 
+        }
+
+        private int CalculateOutputDamage()
+        {
+            return this.Inventory.LeftHandSlot.CalculateOutputDamage(this);
+        }
+
+        public int CalculateReduceDamage()
+        {
+            return this.Statistics.BasicStatistics.Force / 3;
         }
 
         private void Kill()
