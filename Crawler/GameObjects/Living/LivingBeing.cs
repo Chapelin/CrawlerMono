@@ -7,6 +7,7 @@
     using Crawler.Components.Scheduling;
     using Crawler.Engine;
     using Crawler.GameObjects.Effect;
+    using Crawler.GameObjects.Items;
 
     using Microsoft.Xna.Framework;
 
@@ -149,6 +150,44 @@
             Console.WriteLine("{0} is dead.", this.Description);
             this.UnregisterDrawingComponant();
             BlackBoard.CurrentMap.RemoveLivingBeing(this);
+        }
+
+        public void Equip(Weapon i, Item.EquipementType eq)
+        {
+            if (i.CanEquip(this))
+            {
+                i.Equip(this);
+                switch (eq)
+                {
+                        case Item.EquipementType.OneHand:
+                        {
+                            this.Inventory.LeftHandSlot =i;
+                            break;
+                        }
+                    default :
+                        break;
+
+                }
+            }
+        }
+
+        public void Equip(Item i, Item.EquipementType eq)
+        {
+            if (i.CanEquip(this))
+            {
+                i.Equip(this);
+                switch (eq)
+                {
+                    case Item.EquipementType.Torso :
+                        {
+                            this.Inventory.Torso = i;
+                            break;
+                        }
+                    default:
+                        break;
+
+                }
+            }
         }
     }
 }

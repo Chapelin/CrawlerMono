@@ -49,6 +49,7 @@
     <Compile Include="Components\IA\IIntelligenceComponant.cs" />
     <Compile Include="Components\IA\Implementations\BatAutoIntelligence.cs" />
     <Compile Include="Components\IA\Implementations\HumanPlayerIntelligence.cs" />
+    <Compile Include="Components\ItemRelated\Implementation\WeaponOneHandedComponant.cs" />
     <Compile Include="Components\Others\IEnterExitComponent.cs" />
     <Compile Include="Components\Others\Implementation\InactiveEnterExit.cs" />
     <Compile Include="Components\Others\Implementation\MessagingEnterExit.cs" />

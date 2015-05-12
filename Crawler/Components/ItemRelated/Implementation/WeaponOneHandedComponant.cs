@@ -1,29 +1,35 @@
-﻿namespace Crawler.Components.ItemRelated.Implementation
-{
-    using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Crawler.Components.ItemRelated.Implementation
+{
     using Crawler.GameObjects.Items;
     using Crawler.GameObjects.Living;
 
-    public class BasicEquipableItem : IEquipableComponent
+    public class WeaponOneHandedComponant : IEquipableComponent
     {
+
         private bool _isEquipped;
 
         private LivingBeing whoEquipped;
 
-        // private Item itemTracked;
-
         private IStatisticsModifierComponent statisModifier;
-        public BasicEquipableItem(IStatisticsModifierComponent modifier)
+
+
+        public WeaponOneHandedComponant(IStatisticsModifierComponent modifier)
         {
             // this.itemTracked = i;
             this.statisModifier = modifier;
-            this.typeOfItem = Item.EquipementType.Other;;
+            this.typeOfItem = Item.EquipementType.OneHand ;
         }
+
 
         public bool CanEquip(LivingBeing lb)
         {
-            return this.whoEquipped == null;
+            return true;
         }
 
         public void Equip(LivingBeing lb)
@@ -40,6 +46,7 @@
 
         public void UnEquip(LivingBeing lb)
         {
+
             this._isEquipped = false;
             this.whoEquipped = null;
             lb.Statistics.RemoveBonus(this.statisModifier.StatisticDiffToApply);

@@ -258,10 +258,7 @@ namespace Crawler.Helpers
                                          {
                                              Console.WriteLine("Trying to equipe first item");
                                              var eq = lb.Inventory.Poutch.FirstOrDefault(x => x.CanEquip(lb));
-                                             if (eq != null)
-                                             {
-                                                 eq.Equip(lb);
-                                             }
+                                             lb.Equip(eq,eq.Type);
                                          },
                                      Bind = new[] { Keys.E },
                                      Name = "Equip"

@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Crawler.GameObjects.Items;
     using Crawler.GameObjects.Living;
 
     public class BasicUnequipable : IEquipableComponent
@@ -24,6 +25,14 @@
         public bool IsEquipped()
         {
             return false;
+        }
+
+        public Item.EquipementType typeOfItem
+        {
+            get
+            {
+                return Item.EquipementType.Other;
+            }
         }
     }
 }

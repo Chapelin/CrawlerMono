@@ -1,5 +1,6 @@
 ﻿namespace Crawler.GameObjects.Items
 {
+    using System;
     using System.Linq;
 
     using Crawler.Components.Actions;
@@ -59,6 +60,27 @@
             {
                 return this.equipableComponent.IsEquipped();
             }
+        }
+
+        public EquipementType Type
+        {
+            get
+            {
+                return this.equipableComponent.typeOfItem;
+            }
+        }
+
+        [Flags]
+        public enum EquipementType
+        {
+            Necklace,
+            OneHand,
+            TwoHand,
+            Helmet,
+            Torso,
+            Foot,
+            Ring,
+            Other
         }
 
     }
