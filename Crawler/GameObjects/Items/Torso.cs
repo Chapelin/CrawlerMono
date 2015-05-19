@@ -10,6 +10,7 @@
             : base( positionCell, new BasicEquipableItem(new StatisticModifierFOv()))
         {
             this._description = "An armor.";
+            this.equipableComponent.typeOfItem =EquipementType.Torso;
         }
 
     }

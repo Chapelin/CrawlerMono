@@ -57,6 +57,6 @@ namespace Crawler.Components.ItemRelated.Implementation
             return this._isEquipped;
         }
 
-        public Item.EquipementType typeOfItem { get; private set; }
+        public Item.EquipementType typeOfItem { get; set; }
     }
 }

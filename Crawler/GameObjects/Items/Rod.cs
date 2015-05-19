@@ -10,6 +10,7 @@
             : base( positionCell)
         {
             this._description = "A beautiful rod !";
+            this.equipableComponent.typeOfItem = EquipementType.OneHand;
         }
 
         public override int CalculateOutputDamage(LivingBeing attacker)

@@ -13,7 +13,6 @@
 
         bool IsEquipped();
 
-        Item.EquipementType typeOfItem { get; }
-
+        Item.EquipementType typeOfItem { get; set; }
     }
 }

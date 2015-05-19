@@ -33,6 +33,11 @@
             {
                 return Item.EquipementType.Other;
             }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

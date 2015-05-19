@@ -11,12 +11,10 @@
 
         private LivingBeing whoEquipped;
 
-        // private Item itemTracked;
 
         private IStatisticsModifierComponent statisModifier;
         public BasicEquipableItem(IStatisticsModifierComponent modifier)
         {
-            // this.itemTracked = i;
             this.statisModifier = modifier;
             this.typeOfItem = Item.EquipementType.Other;;
         }
@@ -50,6 +48,6 @@
             return this._isEquipped;
         }
 
-        public Item.EquipementType typeOfItem { get; private set; }
+        public Item.EquipementType typeOfItem { get;  set; }
     }
 }

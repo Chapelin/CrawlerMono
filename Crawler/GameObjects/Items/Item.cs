@@ -26,7 +26,7 @@
 
         public bool CanEquip(LivingBeing lb)
         {
-            return this.equipableComponent.CanEquip(lb);
+            return this.equipableComponent.CanEquip(lb) && !this.IsEquipped;
         }
 
         public void Equip(LivingBeing lb)
@@ -73,7 +73,7 @@
         [Flags]
         public enum EquipementType
         {
-            Necklace,
+            Necklace = 0x1,
             OneHand,
             TwoHand,
             Helmet,
