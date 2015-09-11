@@ -28,7 +28,7 @@ namespace Crawler
         {
             if (BlackBoard.CurrentCamera.IsCellOnCamera(position))
             {
-                BlackBoard.CurrentSpriteBatch.Draw(this.Sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(position), depth: this.Z, color: this.ColorToUse);
+                BlackBoard.CurrentSpriteBatch.Draw(this.Sprite, BlackBoard.CurrentCamera.GetPixelPositionOriginOfCell(position), layerDepth: this.Z, color: this.ColorToUse);
             }
         }
 

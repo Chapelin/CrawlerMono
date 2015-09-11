@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
 
-namespace Crawler.Utils
+namespace Crawler.Utils.PathCalculator
 {
     public class BasicRayPathCalculator : IPathCalculator
     {

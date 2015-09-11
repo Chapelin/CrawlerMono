@@ -1,4 +1,6 @@
-﻿namespace Crawler.Utils
+﻿using Crawler.Utils.PathCalculator;
+
+namespace Crawler.Utils
 {
     using System.Collections.Generic;
 

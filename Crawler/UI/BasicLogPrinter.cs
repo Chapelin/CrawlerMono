@@ -28,7 +28,7 @@
             this.Log.Add("yeah baby");
             this.Log.Add("prout");
             this.Log.Add("Salut !");
-            this.defaultFont = game.Content.Load<SpriteFont>("defaultFont");
+            this.defaultFont = game.Content.Load<SpriteFont>("Default");
         }
 
 
